@@ -115,7 +115,17 @@ body {
 .content {
   padding: 24px;
 }
-
+/* Title for search result page */
+.resultTitle{
+  color: #000;
+font-family: Inter;
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+width: 449px;
+height: 38px;
+}
 /* MOBILE RESPONSIVE */
 @media (max-width: 600px) {
   .nav {
