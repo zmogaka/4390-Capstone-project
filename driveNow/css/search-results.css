@@ -157,7 +157,7 @@ padding: 0px;
 
 
 .card img{
-width: 100%
+width: 100%;
 height: auto;
   display: blocks;
 }
@@ -208,30 +208,33 @@ display:grid;
 }
 
 /*Making the browser switch to mobile */
-@media (max-width: 768){
-
-/*Making the grid contents stack  */
-.main{
-gird-template-columns: 1fr;
-}
+@media (max-width: 768px) {
+  .main{
+    /*Making the cards stack*/
+    grid-template-columns: 1fr;
+  }
 
   /*Placing the filters at the top*/
-  .filters{
-display:flex;
-    gap: 10px;
-    padding: 10px;
-  }
-  .filters > * {
-flex :1;
-  }
-
-  .container{
-grid-template-columns: 1fr:
-  }
-
-  .resultTitle{
-    width: 100%;
-    font-size: 22px;
-  }
-  
+.filters{
+  display: flex;
+  gap: 10px;
+  padding: 10px;
 }
+
+
+
+/*Making both filters the same size*/
+.filters > *{
+  flex: 1;
+}
+
+.container{
+  grid-template-columns: 1fr;
+}
+
+.resultTitle{
+  width: 100%;
+  font-size: 22px;
+}
+
+  }
