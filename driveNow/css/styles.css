@@ -98,18 +98,33 @@ body {
   }
 }
 
-.car-img-box {
+.car-image-box {
     width: 100%;
     height: 193px;
     justify-content: center;
+    background-color: rgba(217, 106, 54, 0.21);;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(217, 106, 54, 0.21);
+    font-size: 50px;
     overflow: hidden;
-    border-radius: hidden;
 }
 
-.car-img-box img {
+.car-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.reservation-details {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    color: rgba(34, 18, 10, 0.21);
+    font-size: 20px;
 }
 /* CONTENT */
 .content {
