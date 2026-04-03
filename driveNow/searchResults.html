@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DriveNow search results</title>
   <link rel="stylesheet" href="css/search-results.css" />
-  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class = "search-results-page">
- <header>
-    <!-- shared nav -->
-    <nav class="navbar" aria-label="Main navigation">
+<body>
+<header>
+     <nav class="navbar" aria-label="Main navigation">
       <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -26,75 +24,87 @@
       <ul class="nav-menu" id="nav-menu">
         <li><a href="Index.html">Home</a></li>
         <li><a href="booking.html">Booking</a></li>
-        <li><a href="searchResults.html" aria-current="page">Results</a></li>
-        <li><a href="car-details.html" >Car Details</a></li>
+        <li><a href="searchResults.html">Results</a></li>
+        <li><a href="car-details.html" aria-current="page">Car Details</a></li>
       </ul>
     </nav>
   </header>
+</header>
 
   <main class="main">
     <!--Spot for filers -->
     <aside class = "filters">
       <h3>Filters</h3>
-      <button>Price Range</button>
-      <button>Make and Model</button>
-    </aside>
+      
+<div class = "desktopBtns">
+      <p class = p>Price Range</p>
+      <p class = m>Make & Model</p>
+      <button class = "whitebtn">Make</button>
+      <button class = "whitebtn">Model</button>
+      <button class = "whitebtn">Year</button>
+      <button class = "orangebtn">Apply</button>
+</div>
+
+<div class = "mobileBtns">
+<button class = "mobileFilter">Filters</button>
+<button class = "mobileSort">Sort by Price</button>
+  </div>
+</aside>
+
+
     <!-- Search Results -->
     <section class = "results">
+      <div class = resultHeader>
     <h1 class = "resultTitle">Showing x cars in [location]</h1>
+    <button class ="srtbtn">Sort by ▼</button>
+</div>
+
 
       <!--Cards -->
 <div class = "container">
 <a href = "car-details.html" class = "card" id = "card1">
   <img src = "https://th.bing.com/th/id/OIP.UUwRo5Db_Ck3lCbHefk7mAHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3">
-  <h1>2020 Mustang Gt500</h1>
-  <p>$500 per day</p>
+  <h1>Future Car</h1>
+  <p>$107 per day</p>
   <span class = "details-btn">View Details</span>
 </a>
 
   <a href = "car-details.html" class = "card" id = "card1">
   <img src = "https://th.bing.com/th/id/OIP.UUwRo5Db_Ck3lCbHefk7mAHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3">
-  <h1>2020 Mustang Gt500</h1>
-  <p>$500 per day</p>
+  <h1>Future Car</h1>
+  <p>$107 per day</p>
   <span class = "details-btn">View Details</span>
 </a>
 
 <a href = "car-details.html" class = "card" id = "card1">
   <img src = "https://th.bing.com/th/id/OIP.UUwRo5Db_Ck3lCbHefk7mAHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3">
-  <h1>2020 Mustang Gt500</h1>
-  <p>$500 per day</p>
+  <h1>Future Car</h1>
+  <p>$107 per day</p>
   <span class = "details-btn">View Details</span>
 </a>
 
 <a href = "car-details.html" class = "card" id = "card1">
   <img src = "https://th.bing.com/th/id/OIP.UUwRo5Db_Ck3lCbHefk7mAHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3">
-  <h1>2020 Mustang Gt500</h1>
-  <p>$500 per day</p>
+  <h1>Future Car</h1>
+  <p>$107 per day</p>
   <span class = "details-btn">View Details</span>
 </a>
 
 <a href = "car-details.html" class = "card" id = "card1">
   <img src = "https://th.bing.com/th/id/OIP.UUwRo5Db_Ck3lCbHefk7mAHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3">
-  <h1>2020 Mustang Gt500</h1>
-  <p>$500 per day</p>
+  <h1>Future Car</h1>
+  <p>$107 per day</p>
   <span class = "details-btn">View Details</span>
 </a>
 
 <a href = "car-details.html" class = "card" id = "card1">
   <img src = "https://th.bing.com/th/id/OIP.UUwRo5Db_Ck3lCbHefk7mAHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3">
-  <h1>2020 Mustang Gt500</h1>
-  <p>$500 per day</p>
+  <h1>Future Car</h1>
+  <p>$107 per day</p>
   <span class = "details-btn">View Details</span>
 </a>
 </div>
     </section>
   </main>
-
-<!-- simple footer bar -->
-  <footer class="car-footer">
-    <p>DriveNow</p>
-  </footer>
-
-  <script src="js/main.js"></script>
 </body>
 </html>
