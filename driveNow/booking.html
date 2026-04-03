@@ -6,31 +6,37 @@
     <title>DriveNow Booking</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body class = "booking-page">
 <header>
-  <nav class="navbar">
-    <button class="hamburger" id = "hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+    <!-- shared nav -->
+    <nav class="navbar" aria-label="Main navigation">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-    <div class="logo">DriveNow</div>
+      <div class="logo">DriveNow</div>
 
-    <div class="nav-right">
-        <button class="dark-mode-toggle">Dark mode button</button>
-    </div>
+      <div class="nav-right">
+        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">Dark Mode</button>
+      </div>
 
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-    </ul>
-  </nav>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="Index.html">Home</a></li>
+        <li><a href="searchResults.html">Results</a></li>
+        <li><a href="car-details.html" >Car Details</a></li>
+        <li><a href="booking.html" aria-current="page">Booking details</a></li>
+      </ul>
+    </nav>
 </header>
 
   <main class="content">
+    <!-- main page layout-->
+     <section class="booking-layout" aria-label="Booking details">
+        <!-- car photo -->
+        <h1>Booking</h1>
+        <p>This is a simple responsive layout.</p>
     <h1>Welcome</h1>
     <p>This is a simple responsive layout.</p>
     <div class = "car-Img-box">
