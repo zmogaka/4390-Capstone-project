@@ -1,0 +1,382 @@
+/* index.css — DriveNow homepage, mobile-first */
+
+/* ── CSS Variables ── */
+body.home-page {
+    --color-header: #404142;
+    --color-accent: #D96A36;
+    --color-accent-hover: #bf5929;
+    --color-text: #111111;
+    --color-text-soft: #555555;
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-border: #cccccc;
+    --color-footer-bg: #404142;
+    --color-footer-text: #ffffff;
+    --color-nav-text: #ffffff;
+    --color-search-border: #111111;
+  
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* ── Dark mode ── */
+  body.home-page[data-theme="dark"] {
+    --color-header: #0d0d0d;
+    --color-text: #f5f5f5;
+    --color-text-soft: #d8d8d8;
+    --color-bg: #1b1b1b;
+    --color-surface: #242424;
+    --color-border: #444444;
+    --color-footer-bg: #0d0d0d;
+    --color-search-border: #f5f5f5;
+  }
+  
+  /* ── NAVBAR ── */
+  .home-page .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: var(--color-header);
+    position: relative;
+    min-height: 64px;
+  }
+  
+  .home-page .logo {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-nav-text);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  
+  /* hamburger — visible on mobile */
+  .home-page .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 6px;
+    min-width: 44px;
+    min-height: 44px;
+    order: -1; /* left side on mobile */
+  }
+  
+  .home-page .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-nav-text);
+    border-radius: 2px;
+  }
+  
+  /* dark-mode toggle button */
+  .home-page .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .home-page .dark-mode-toggle {
+    min-height: 36px;
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-nav-text);
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  
+  /* sign-in link — hide on mobile, show on desktop */
+  .home-page .sign-in-link {
+    display: none;
+    color: var(--color-nav-text);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 4px;
+    white-space: nowrap;
+  }
+  
+  /* category buttons (Cars / Trucks / SUVs) — hide on mobile */
+  .home-page .nav-categories {
+    display: none;
+    gap: 0;
+    list-style: none;
+  }
+  
+  .home-page .nav-categories li a {
+    display: block;
+    padding: 10px 20px;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-right: 2px solid rgba(0,0,0,0.15);
+    transition: background-color 0.15s ease;
+  }
+  
+  .home-page .nav-categories li:last-child a {
+    border-right: none;
+  }
+  
+  .home-page .nav-categories li a:hover {
+    background-color: var(--color-accent-hover);
+  }
+  
+  /* Mobile dropdown nav-menu */
+  .home-page .nav-menu {
+    display: none;
+    flex-direction: column;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-header);
+    padding: 10px 16px 16px;
+    z-index: 200;
+  }
+  
+  .home-page .nav-menu.open {
+    display: flex;
+  }
+  
+  .home-page .nav-menu li a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--color-nav-text);
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  
+  .home-page .nav-menu li a:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+  
+  /* ── MAIN CONTENT ── */
+  .home-page .content {
+    width: min(100%, 1280px);
+    margin: 0 auto;
+    padding: 32px 16px 48px;
+  }
+  
+  /* ── SEARCH BAR ── */
+  .search-wrap {
+    margin: 0 auto 40px;
+    max-width: 740px;
+  }
+  
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 2px solid var(--color-search-border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    background-color: var(--color-surface);
+  }
+  
+  .search-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--color-text-soft);
+  }
+  
+  .search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    color: var(--color-text-soft);
+    background: transparent;
+    font-family: inherit;
+    min-width: 0;
+  }
+  
+  .search-box input::placeholder {
+    color: var(--color-text-soft);
+  }
+  
+  /* ── FEATURED DEALS SECTION ── */
+  .featured-section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--color-text);
+  }
+  
+  /* Card grid — single column on mobile */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* Individual car card */
+  .car-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .car-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  
+  .car-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .car-card-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  
+  .car-card-body h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .car-card-body .price {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin: 0;
+  }
+  
+  .car-card-body .view-btn {
+    display: block;
+    margin-top: 10px;
+    padding: 12px 16px;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+  
+  .car-card-body .view-btn:hover {
+    background-color: var(--color-accent-hover);
+  }
+  
+  /* ── FOOTER ── */
+  .home-footer {
+    background-color: var(--color-footer-bg);
+    color: var(--color-footer-text);
+    padding: 16px 20px;
+    font-size: 1rem;
+  }
+  
+  /* ════════════════════════════════════════
+     DESKTOP  (≥ 768px)
+  ════════════════════════════════════════ */
+  @media (min-width: 768px) {
+  
+    /* Hide hamburger, show full nav */
+    .home-page .hamburger {
+      display: none;
+    }
+  
+    .home-page .nav-menu {
+      display: none !important; /* desktop never uses the dropdown */
+    }
+  
+    .home-page .navbar {
+      padding: 0 0 0 28px;
+      min-height: 72px;
+      gap: 0;
+    }
+  
+    .home-page .logo {
+      font-size: 3rem;
+      padding: 12px 0;
+    }
+  
+    /* sign-in visible on desktop */
+    .home-page .sign-in-link {
+      display: inline-block;
+      margin-right: 24px;
+    }
+  
+    /* category nav tiles visible on desktop — pushed to the right */
+    .home-page .nav-categories {
+      display: flex;
+      margin-left: auto;
+      align-self: stretch;
+    }
+  
+    .home-page .nav-categories li {
+      display: flex;
+    }
+  
+    .home-page .nav-categories li a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 28px;
+      font-size: 1rem;
+    }
+  
+    /* dark mode toggle sits alongside sign-in */
+    .home-page .nav-right {
+      padding-right: 8px;
+    }
+  
+    /* ── Search bar wider on desktop ── */
+    .search-wrap {
+      max-width: 860px;
+      margin-bottom: 48px;
+    }
+  
+    .search-box {
+      padding: 22px 28px;
+    }
+  
+    /* ── 4-column card grid on desktop ── */
+    .cards-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+  
+    .featured-section h2 {
+      font-size: 2rem;
+      margin-bottom: 32px;
+    }
+  }
+  
+  /* ════════════════════════════════════════
+     WIDE DESKTOP  (≥ 1100px)
+  ════════════════════════════════════════ */
+  @media (min-width: 1100px) {
+    .home-page .logo {
+      font-size: 3.5rem;
+    }
+  
+    .home-page .content {
+      padding: 40px 40px 64px;
+    }
+  }
