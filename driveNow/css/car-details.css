@@ -399,7 +399,7 @@ body.car-details-page[data-theme="dark"] .car-footer {
   .price-box,
   .primary-button,
   .secondary-button {
-    border-radius: 0;
+    border-radius: 8px;
   }
 
   .primary-button {
