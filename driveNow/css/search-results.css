@@ -1,1 +1,191 @@
+/* BASIC RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/* BASE STYLES */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+/* SHARED NAVIGATION */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: #404142;
+  position: relative;
+}
+
+.logo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+.dark-mode-toggle {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* hamburger button */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 6px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+/* Mobile dropdown menu */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #404142;
+  padding: 10px 16px 16px;
+  z-index: 100;
+}
+
+.nav-menu.open {
+  display: flex;
+}
+
+.nav-menu li a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+/* CONTENT */
+.content {
+  padding: 24px;
+}
+
+/* Desktop menu */
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    width: auto;
+    padding: 0;
+    gap: 24px;
+  }
+}
+
+.resultTitle{
+color: #000;
+font-family: Inter;
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+width: 449px;
+height: 38px;
+}
+
+/*View Details Button */
+.details-btn{
+display:block;
+margin-top: 10px;
+padding: 10px 15px;
+color: #FFF9F9;
+font-weight: 700;
+font-size: 18px;
+text-align: center;
+background: #D96A36;
+width: 311px;
+height: 56px;
+}
+
+.card{
+display: flex;
+flex-direction:column;
+  width: 100%;
+  max-width: none;
+  border: 1px solid #000;
+padding: 0px;
+}
+
+.container{
+display: grid;
+  grid-template-columns:repeat(3,1fr);
+  gap: 0;
+  padding: 0;
+  align-items: start;
+}
+
+.card img{
+width: 100%
+height: auto;
+  display: blocks;
+}
+
+.main{
+display: grid;
+grid-template-columns: 250px 1fr;
+gap: 20px;
+  padding: 20px;
+}
+
+.filters{
+background: rgba(217, 106, 54, 0.21);
+  padding: 15px;
+}
+
+.results{
+display:flex;
+  flex-direction: column;
+}
+
+.container{
+display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 15px;
+}
