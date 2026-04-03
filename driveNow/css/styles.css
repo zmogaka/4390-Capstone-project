@@ -20,7 +20,7 @@ button {
   font: inherit;
 }
 
-/* SHARED NAVIGATION */
+/* SHARED NAVIGATION  */
 .navbar {
   display: flex;
   align-items: center;
@@ -29,15 +29,19 @@ button {
   background-color: #404142;
   position: relative;
 }
+.nav-menu li a[aria-current="page"] {
+  background-color: rgba(255, 255, 255, 0.12);
+}   
 
 .logo {
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
+  
 }
 
 .nav-right {
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .dark-mode-toggle {
@@ -116,5 +120,9 @@ button {
     width: auto;
     padding: 0;
     gap: 24px;
+  }
+
+  .logo{
+    font-size: 4.25rem;
   }
 }
