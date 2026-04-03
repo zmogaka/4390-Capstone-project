@@ -27,12 +27,17 @@ body.booking-page[data-theme="dark"] {
   --color-nav-text: #ffffff;
 }
 
+
+
 /* main page spacing */
 .booking-page .content {
   width: min(100%, 1200px);
   margin: 0 auto;
   padding: 12px 8px 24px;
 }
+
+
+
 .car-image-box{
   width: 100%;
 }
@@ -201,12 +206,20 @@ body.booking-page[data-theme="dark"] {
 
 /*desktop - two column layout */
 @media (min-width: 768px){
-    .booking-layout{
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 48px;
-    }
-    .booking-left {
+
+  .booking-page{
+    min-height: 100vh;
+  }
+  .booking-page .content {
+    padding: 38px 44px 28px;  
+  }
+
+  .booking-layout{
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+  .booking-left {
     flex: 1;
   }
 
@@ -222,6 +235,7 @@ body.booking-page[data-theme="dark"] {
   .form-group {
     flex: 1;
   }
+
 }
 
 

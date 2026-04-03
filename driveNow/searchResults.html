@@ -5,30 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DriveNow search results</title>
   <link rel="stylesheet" href="css/search-results.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-<header>
-  <nav class="navbar">
-    <button class="hamburger" id = "hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+<body class = "search-results-page">
+ <header>
+    <!-- shared nav -->
+    <nav class="navbar" aria-label="Main navigation">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-    <div class="logo">DriveNow</div>
+      <div class="logo">DriveNow</div>
 
-    <div class="nav-right">
-        <button class="dark-mode-toggle">Dark mode button</button>
-    </div>
+      <div class="nav-right">
+        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">Dark Mode</button>
+      </div>
 
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-    </ul>
-  </nav>
-</header>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="Index.html">Home</a></li>
+        <li><a href="booking.html">Booking</a></li>
+        <li><a href="searchResults.html" aria-current="page">Results</a></li>
+        <li><a href="car-details.html" >Car Details</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main class="main">
     <!--Spot for filers -->
@@ -87,5 +89,12 @@
 </div>
     </section>
   </main>
+
+<!-- simple footer bar -->
+  <footer class="car-footer">
+    <p>DriveNow</p>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
