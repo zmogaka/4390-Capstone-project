@@ -31,7 +31,7 @@ body.home-page {
   }
   
   /* ══════════════════════════════════════
-     NAVBAR — mirrors booking.html exactly
+     NAVBAR
   ══════════════════════════════════════ */
   .home-page .navbar {
     display: flex;
@@ -43,7 +43,7 @@ body.home-page {
   }
 
 
-  .home-page .logo {
+  /* .home-page .logo {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -54,7 +54,7 @@ body.home-page {
     height: 52px;
     width: auto;
     display: block;
-  }
+  } */
   
   /* hamburger — visible on mobile only */
   .home-page .hamburger {
