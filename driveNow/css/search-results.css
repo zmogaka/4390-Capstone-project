@@ -35,7 +35,13 @@ button {
   font-weight: 700;
   color: #ffffff;
 }
+.card h1{
+  font-family: Inter;
+}
 
+.card p{
+  font-family: Inter;
+}
 .nav-right {
   margin-left: auto;
 }
@@ -157,7 +163,7 @@ margin-top: 10px;
 padding: 10px 15px;
 color: #FFF9F9;
 font-weight: 700;
-font-size: 30px;
+font-size: 20px;
 text-align: center;
 background: #D96A36;
 width: 100%;
