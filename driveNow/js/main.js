@@ -106,6 +106,7 @@ if (darkModeToggle) {
 }
 
 renderCarDetailsPage();
+renderBookingPage();
 
 function updateThemeButton() {
   // changes the button text to match the next theme option
@@ -152,4 +153,36 @@ function renderCarDetailsPage() {
     specItem.textContent = spec;
     specList.appendChild(specItem);
   });
+
+  const rentNowBtn = document.getElementById('rent-now-btn');
+  if (rentNowBtn) {
+    const carId = requestedCarId || fallbackCarId;
+    rentNowBtn.href = `booking.html?car=${carId}`;
+  }
+}
+
+function renderBookingPage() {
+  if (!document.body.classList.contains('booking-page')) {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const requestedCarId = params.get('car');
+  const fallbackCarId = 'ford-explorer';
+  const selectedCar = CAR_DATA[requestedCarId] || CAR_DATA[fallbackCarId];
+
+  const carName = document.getElementById('booking-car-name');
+  const insurance = document.getElementById('booking-insurance');
+  const total = document.getElementById('booking-total');
+  const carImage = document.getElementById('booking-car-image');
+
+  if (carName) carName.textContent = selectedCar.name;
+  if (insurance) insurance.textContent = selectedCar.insuranceRate;
+  if (total) total.textContent = selectedCar.totalRate;
+  if (carImage) {
+    carImage.src = selectedCar.image;
+    carImage.alt = selectedCar.imageAlt;
+  }
+
+  document.title = `DriveNow Booking - ${selectedCar.name}`;
 }
