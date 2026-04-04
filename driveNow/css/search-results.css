@@ -1,4 +1,30 @@
 /* BASIC RESET */
+/*light mode*/
+body{
+     
+    --color-header: #404142;
+    --color-accent: 404142;
+    --color-text: #000000;
+    --color-text-soft: #555555;
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-border: #cccccc;
+    --color-search-border: #f5f5f5;
+    --color-card-bg:#ffffff;
+} 
+/*Dark Mode*/
+body[data-theme="dark"]{
+--color-header: #0d0d0d;
+--color-text: #f5f5f5;
+--color-text-soft: #d8d8d8;
+--color-bg: #1b1b1b;
+--color-surface: #242424;
+--color-border: #444444;
+--color-card-bg:#333333;
+background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +35,11 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.5;
+  --nav-toggle-min-height: 34px;
+  --nav-toggle-padding: 6px 10px;
+  --nav-toggle-font-size: 0.7rem;
+  --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
+  --nav-toggle-background: rgba(255, 255, 255, 0.12);
 }
 
 img {
@@ -41,11 +72,12 @@ button {
 }
 
 .dark-mode-toggle {
-  min-height: 44px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  min-height: var(--nav-toggle-min-height, 34px);
+  padding: var(--nav-toggle-padding, 6px 10px);
+  font-size: var(--nav-toggle-font-size, 0.7rem);
+  border: var(--nav-toggle-border, 1px solid rgba(255, 255, 255, 0.6));
   border-radius: 999px;
-  background: transparent;
+  background: var(--nav-toggle-background, rgba(255, 255, 255, 0.12));
   color: #ffffff;
   cursor: pointer;
 }
@@ -122,12 +154,42 @@ button {
   .logo {
     font-size: 4.25rem;
   }
+
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 18px 24px 16px;
+    min-height: 108px;
+  }
+  
+  .nav-right {
+    position: absolute;
+    top: 14px;
+    right: 24px;
+    margin-left: 0;
+    z-index: 2;
+  }
+  
+  .logo {
+    font-size: 4.25rem;
+  }
+  
+  .nav-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding-right: 86px;
+    margin-top: 6px;
+    background-color: transparent;
+    border-top: 0;
+  }
 }
 
 /*Label for the search results area*/
 .resultTitle{
-color: #000;
-font-family: Inter;
+color: var(--color-text);font-family: Inter;
 font-size: 30px;
 font-style: normal;
 font-weight: 400;
@@ -184,6 +246,9 @@ margin-bottom: 20px;
     flex-direction: column;
     gap: 4px;
     flex: 1;
+
+     background-color: var(--color-card-bg);
+    color: var(--color-text);
   }
 
 .card-body h3 {
@@ -340,4 +405,4 @@ background-color: #D96A36;
   margin-bottom: 10px;
 }
 
-  }
+}

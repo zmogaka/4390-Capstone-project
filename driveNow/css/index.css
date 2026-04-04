@@ -12,6 +12,11 @@ body.home-page {
     --color-border: #cccccc;
     --color-nav-text: #ffffff;
     --color-search-border: #111111;
+    --nav-toggle-min-height: 34px;
+    --nav-toggle-padding: 6px 10px;
+    --nav-toggle-font-size: 0.7rem;
+    --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
+    --nav-toggle-background: rgba(255, 255, 255, 0.12);
   
     background-color: var(--color-bg);
     color: var(--color-text);
@@ -316,6 +321,32 @@ body.home-page {
       font-size: 2rem;
       margin-bottom: 32px;
     }
+
+    .home-page .navbar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        padding: 18px 24px 16px;
+        min-height: 108px;
+      }
+      
+      .home-page .nav-right {
+        position: absolute;
+        top: 14px;
+        right: 24px;
+        margin-left: 0;
+        z-index: 2;
+      }
+      
+      .home-page .nav-menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        padding-right: 86px;
+        margin-top: 6px;
+        background-color: transparent;
+      }
   }
   
   /* ════════════════════════════════════════

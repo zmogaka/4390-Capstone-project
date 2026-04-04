@@ -11,6 +11,11 @@ body.booking-page {
   --color-surface-soft: #f3ddd2;
   --color-border: #a6a6a6;
   --color-nav-text: #ffffff;
+  --nav-toggle-min-height: 34px;
+  --nav-toggle-padding: 6px 10px;
+  --nav-toggle-font-size: 0.7rem;
+  --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
+  --nav-toggle-background: rgba(255, 255, 255, 0.12);
   background-color: var(--color-bg);
   color: var(--color-text);
 }
@@ -234,6 +239,32 @@ body.booking-page[data-theme="dark"] {
 
   .form-group {
     flex: 1;
+  }
+
+  .booking-page .navbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 18px 24px 16px;
+    min-height: 108px;
+  }
+  
+  .booking-page .nav-right {
+    position: absolute;
+    top: 14px;
+    right: 24px;
+    margin-left: 0;
+    z-index: 2;
+  }
+  
+  .booking-page .nav-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding-right: 86px;
+    margin-top: 6px;
+    background-color: transparent;
   }
 
 }
