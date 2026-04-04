@@ -35,13 +35,7 @@ button {
   font-weight: 700;
   color: #ffffff;
 }
-.card h1{
-  font-family: Inter;
-}
 
-.card p{
-  font-family: Inter;
-}
 .nav-right {
   margin-left: auto;
 }
@@ -127,6 +121,7 @@ button {
   }
 }
 
+/*Label for the search results area*/
 .resultTitle{
 color: #000;
 font-family: Inter;
@@ -138,6 +133,7 @@ width: 449px;
 height: 38px;
 }
 
+/*Title of the search results*/
 .resultHeader{
 display: flex;
 justify-content: space-between;
@@ -145,6 +141,7 @@ align-items: center;
 margin-bottom: 20px;
 }
 
+/*Styling the sort button*/
 .srtbtn{
   padding: 8px 12px;
   font-size: 12px;
@@ -156,39 +153,65 @@ margin-bottom: 20px;
 
 
 
-/*View Details Button */
-.details-btn{
-display:block;
-margin-top: 10px;
-padding: 10px 15px;
-color: #FFF9F9;
-font-weight: 700;
-font-size: 20px;
-text-align: center;
-background: #D96A36;
-width: 100%;
-height: 56px;
-}
+/*Styling the search result cards*/
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-decoration: none;
+    color: #000;
+    transition: box-shadow 0.2s ease;
+  }
 
-/*Styling the car listings*/
-.card{
-display: flex;
-flex-direction:column;
-  width: 100%;
-  max-width: none;
-  border: 1px solid #000;
-padding: 0px;
-}
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  
+  .card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .card-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
 
+.card-body h3 {
+    font-size: 18;
+    font-weight: 400;
+    margin: 0;
+  }
 
+ .card-body .price {
+    font-size: 18;
+    color: var(--color-text);
+    margin: 0;
+  }
 
-.card img{
-width: 90%;
-height: auto;
-  display: blocks;
-  margin: 10px auto;
-}
+  .card-body .details-btn {
+    display: block;
+    margin-top: 10px;
+    padding: 12px 16px;
+    background-color: #D96A36;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+    margin-top: auto;
+  }
 
+/*Making the filters and cards one grid*/
 .main{
 display: grid;
 grid-template-columns: 250px 1fr;
@@ -215,11 +238,12 @@ display: block;
   height: 56px;
 }
 
+/*Styling the filter buttons*/
 .whitebtn{
   display: block;
   margin: 5px;
   padding: 10px 15px;
-  color: 929292;
+  color: #929292;
   font-weight: 700;
   font-size: 10px;
   text-align: center;
@@ -234,10 +258,7 @@ padding-top: 8px;
 border-top: 2px solid black;
 font-weight: 700;
 }
-/*Push all filter buttons down the screen*/
-/*.filters .whitebtn:first-of-type{
-  margin-top: 250px;
-}*/
+
 /*Styling the filters title*/
 .h3{
   border-bottom: 2px solid black;
@@ -290,13 +311,7 @@ display:grid;
   display:none;
 }
 
-/*.filters{
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  width: 100%;
- flex-direction: column;
-}*/
+
 
 
 
@@ -307,16 +322,11 @@ font-weight: 600;
 font-size: 14px;
 flex: 1;
 border: none;
-background-color: D96A36;
+background-color: #D96A36;
 }
 
 
-
-/*
-.filters > *{
-  flex: 1;
-}
-*/
+/*Making the mobile version a single column*/
 .container{
   grid-template-columns: 1fr;
 }
