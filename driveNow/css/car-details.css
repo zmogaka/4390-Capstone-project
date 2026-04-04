@@ -15,8 +15,8 @@ body.car-details-page {
   --nav-border-top: 4px solid var(--color-header);
   --nav-logo-flex: 1;
   --nav-logo-align: center;
-  --nav-logo-size: 0.95rem;
-  --nav-logo-weight: 400;
+  /* --nav-logo-size: 0.95rem;
+  --nav-logo-weight: 400; */
   --nav-right-margin-left: 0;
   --nav-toggle-min-height: 34px;
   --nav-toggle-padding: 6px 10px;
@@ -315,8 +315,6 @@ body.car-details-page[data-theme="dark"] .car-footer {
     --nav-logo-flex: 0 0 auto;
     --nav-logo-align: left;
     --nav-logo-size: 4rem;
-    --nav-logo-weight: 400;
-    --nav-logo-letter-spacing: -0.04em;
     font-size: 4rem;
   }
 

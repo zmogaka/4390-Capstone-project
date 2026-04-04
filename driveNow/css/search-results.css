@@ -119,6 +119,9 @@ button {
     padding: 0;
     gap: 24px;
   }
+  .logo {
+    font-size: 4.25rem;
+  }
 }
 
 /*Label for the search results area*/
@@ -288,7 +291,7 @@ display:grid;
 
 /*Making the browser switch to mobile */
 @media (max-width: 768px) {
-  /*Hiding dest]ktop buttons for mobile*/
+  /*Hiding destktop buttons for mobile*/
   .desktopBtns{
     display: none;
   }
