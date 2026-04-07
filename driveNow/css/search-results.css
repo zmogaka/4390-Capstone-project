@@ -1,5 +1,6 @@
 /* BASIC RESET */
 /*light mode*/
+/*Making variable for the colors*/
 body{
      
     --color-header: #404142;
@@ -12,6 +13,7 @@ body{
     --color-search-border: #f5f5f5;
     --color-card-bg:#ffffff;
 } 
+/*When the body has <body data-theme="dark"> the  page turns dark*/
 /*Dark Mode*/
 body[data-theme="dark"]{
 --color-header: #0d0d0d;
@@ -25,6 +27,7 @@ background-color: var(--color-bg);
   color: var(--color-text);
 }
 
+/*Removes default browser spacing, and makes sizing consistent*/
 * {
   margin: 0;
   padding: 0;
@@ -33,8 +36,10 @@ background-color: var(--color-bg);
 
 /* BASE STYLES */
 body {
+     /*Default spacing for the entire page*/
   font-family: Arial, sans-serif;
   line-height: 1.5;
+
   --nav-toggle-min-height: 34px;
   --nav-toggle-padding: 6px 10px;
   --nav-toggle-font-size: 0.7rem;
@@ -42,16 +47,24 @@ body {
   --nav-toggle-background: rgba(255, 255, 255, 0.12);
 }
 
+
+/*Prevents images from overflowing
+Removes weird inline spacing
+*/
 img {
   display: block;
   max-width: 100%;
 }
 
+/*Makes buttons use same font as text*/
 button {
   font: inherit;
 }
 
-/* SHARED NAVIGATION */
+/* SHARED NAVIGATION Creates a flex container
+Aligns items horizontally
+Spaces them out
+*/
 .navbar {
   display: flex;
   align-items: center;
@@ -67,6 +80,7 @@ button {
   color: #ffffff;
 }
 
+/*Pushes items to the right side*/
 .nav-right {
   margin-left: auto;
 }
@@ -82,7 +96,9 @@ button {
   cursor: pointer;
 }
 
-/* hamburger button */
+/* hamburger button 
+Creates the 3-line menu icon
+*/
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -94,7 +110,7 @@ button {
   min-width: 44px;
   min-height: 44px;
 }
-
+/*Each span = one line*/
 .hamburger span {
   display: block;
   width: 25px;
@@ -102,11 +118,15 @@ button {
   background-color: #ffffff;
   border-radius: 2px;
 }
+
+/*Mobile buttons are hidden until needed*/
 .mobileBtns{
   display: none;
 }
+
 /* Mobile dropdown menu */
 .nav-menu {
+     /*Hidden by default*/
   display: none;
   flex-direction: column;
   list-style: none;
@@ -119,9 +139,11 @@ button {
   z-index: 100;
 }
 
+/*JavaScript adds .open → menu appears*/
 .nav-menu.open {
   display: flex;
 }
+
 
 .nav-menu li a {
   display: block;
@@ -132,17 +154,21 @@ button {
   border-radius: 10px;
 }
 
-/* CONTENT */
+/* CONTENT 
+/*Adds spacing around page content
+*/*/
 .content {
   padding: 24px;
 }
 
-/* Desktop menu */
+/* Desktop */
 @media (min-width: 768px) {
+     /*Hides mobile menu button*/
   .hamburger {
     display: none;
   }
-
+     
+/*Turns dropdown into horizontal menu*/
   .nav-menu {
     display: flex;
     flex-direction: row;
@@ -220,6 +246,7 @@ margin-bottom: 20px;
 
 /*Styling the search result cards*/
 .card {
+     /*Each result is a card layout*/
     display: flex;
     flex-direction: column;
     border: 1px solid #ccc;
@@ -232,14 +259,15 @@ margin-bottom: 20px;
 .card:hover {
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   }
-  
+
+/*Forces consistent image shape*/
   .card img {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     display: block;
   }
-  
+  /*Stacks text vertically*/
   .card-body {
     padding: 12px 14px 14px;
     display: flex;
@@ -276,13 +304,14 @@ margin-bottom: 20px;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.15s ease;
+       /*Pushes button to bottom of card*/
     margin-top: auto;
   }
 
 /*Making the filters and cards one grid*/
 .main{
 display: grid;
-grid-template-columns: 250px 1fr;
+grid-template-columns: 250px 1fr;/*filters*/
 gap: 20px;
   padding: 20px;
 }
@@ -347,7 +376,8 @@ display:flex;
   flex-direction: column;
 }
 
-/*Making a table with the cards*/
+/*Making a table with the cards
+3 cards per row*/
 .container{
 display:grid;
   grid-template-columns: repeat(3,1fr);
@@ -360,12 +390,15 @@ display:grid;
   .desktopBtns{
     display: none;
   }
+     /*Show mobile buttons*/
   .mobileBtns{
     display: flex;
     gap: 10px;
     margin: 10px 0;
     width: 100%;
   }
+
+     /*Stack layout vertically*/
   .main{
    display: flex;
   gap: 20px;
