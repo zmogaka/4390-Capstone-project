@@ -267,15 +267,6 @@ body.home-page {
     background-color: var(--color-accent-hover);
   }
   
-  /* ── FOOTER — matches booking page ── */
-  .car-footer {
-    margin-top: 24px;
-    padding: 12px 8px;
-    border-top: 1px solid var(--color-border);
-    background-color: #d9d9d9;
-    color: #111111;
-    font-size: 1rem;
-  }
   
   /* ════════════════════════════════════════
      DESKTOP  (≥ 768px)
