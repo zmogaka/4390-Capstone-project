@@ -20,8 +20,6 @@ body.home-page {
   
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
   }
   
   /* ── Dark mode ── */
@@ -35,115 +33,6 @@ body.home-page {
     --color-search-border: #f5f5f5;
   }
   
-  /* ══════════════════════════════════════
-     NAVBAR
-  ══════════════════════════════════════ */
-  .home-page .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background-color: var(--color-header);
-    position: relative;
-  }
-
-
-  /* .home-page .logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-   
-  .home-page .logo-img {
-    height: 52px;
-    width: auto;
-    display: block;
-  } */
-  
-  /* hamburger — visible on mobile only */
-  .home-page .hamburger {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px 6px;
-    min-width: 44px;
-    min-height: 44px;
-  }
-  
-  .home-page .hamburger span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--color-nav-text);
-    border-radius: 2px;
-  }
-  
-  /* nav-right: holds the dark-mode toggle */
-  .home-page .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: 0;
-  }
-  
-
-  
-  /* dark-mode toggle — identical to booking page */
-  .home-page .dark-mode-toggle {
-    min-height: 44px;
-    padding: 10px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--color-nav-text);
-    cursor: pointer;
-    font-size: 1rem;
-    white-space: nowrap;
-  }
-  
-  /* nav-categories tiles — removed from nav, keep hidden */
-  .home-page .nav-categories {
-    display: none;
-  }
-  
-  /* Mobile dropdown */
-  .home-page .nav-menu {
-    display: none;
-    flex-direction: column;
-    list-style: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: var(--color-header);
-    padding: 10px 16px 16px;
-    z-index: 200;
-  }
-  
-  .home-page .nav-menu.open {
-    display: flex;
-  }
-  
-  .home-page .nav-menu li a {
-    display: block;
-    padding: 12px 16px;
-    text-decoration: none;
-    color: var(--color-nav-text);
-    font-size: 1rem;
-    border-radius: 10px;
-  }
-  
-  .home-page .nav-menu li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .home-page .nav-menu li a[aria-current="page"] {
-    background-color: rgba(255, 255, 255, 0.12);
-  }
   
   /* ── MAIN CONTENT ── */
   .home-page .content {
@@ -273,22 +162,6 @@ body.home-page {
   ════════════════════════════════════════ */
   @media (min-width: 768px) {
   
-    /* hide hamburger on desktop */
-    .home-page .hamburger {
-      display: none;
-    }
-  
-    /* show nav links inline — same behaviour as booking page */
-    .home-page .nav-menu {
-      display: flex !important;
-      flex-direction: row;
-      position: static;
-      width: auto;
-      padding: 0;
-      gap: 24px;
-      background-color: transparent;
-    }
-  
     /* search bar wider on desktop */
     .search-wrap {
       max-width: 860px;
@@ -310,31 +183,6 @@ body.home-page {
       margin-bottom: 32px;
     }
 
-    .home-page .navbar {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        padding: 18px 24px 16px;
-        min-height: 108px;
-      }
-      
-      .home-page .nav-right {
-        position: absolute;
-        top: 14px;
-        right: 24px;
-        margin-left: 0;
-        z-index: 2;
-      }
-      
-      .home-page .nav-menu {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 100%;
-        padding-right: 86px;
-        margin-top: 6px;
-        background-color: transparent;
-      }
   }
   
   /* ════════════════════════════════════════

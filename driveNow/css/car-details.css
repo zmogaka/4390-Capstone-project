@@ -11,22 +11,12 @@ body.car-details-page {
   --color-surface-soft: #f3ddd2;
   --color-border: #a6a6a6;
   --color-nav-text: #ffffff;
-  --nav-padding: 10px 12px;
-  --nav-border-top: 4px solid var(--color-header);
-  --nav-logo-flex: 1;
-  --nav-logo-align: center;
-  /* --nav-logo-size: 0.95rem;
-  --nav-logo-weight: 400; */
   --nav-right-margin-left: 0;
   --nav-toggle-min-height: 34px;
   --nav-toggle-padding: 6px 10px;
   --nav-toggle-font-size: 0.7rem;
   --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
   --nav-toggle-background: rgba(255, 255, 255, 0.12);
-  --nav-hamburger-padding: 8px 4px;
-  --nav-hamburger-bar-width: 28px;
-  --nav-hamburger-bar-height: 4px;
-  --nav-menu-border-top: 1px solid rgba(255, 255, 255, 0.2);
   background-color: var(--color-bg);
   color: var(--color-text);
 }
@@ -287,57 +277,6 @@ body.car-details-page[data-theme="dark"] {
     gap: 12px;
   }
 
-  .car-details-page .navbar {
-    /* taller desktop header */
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    padding: 18px 24px 16px;
-    min-height: 108px;
-  }
-
-  .car-details-page .logo {
-    /* bigger logo on desktop */
-    --nav-logo-flex: 0 0 auto;
-    --nav-logo-align: left;
-    --nav-logo-size: 4rem;
-    font-size: 4rem;
-  }
-
-  .car-details-page .nav-right {
-    /* pins the dark mode button to the top right */
-    position: absolute;
-    top: 14px;
-    right: 24px;
-    margin-left: 0;
-    z-index: 2;
-  }
-
-  .car-details-page .dark-mode-toggle {
-    /* slightly bigger toggle on desktop */
-    --nav-toggle-min-height: 40px;
-    --nav-toggle-font-size: 0.75rem;
-    --nav-toggle-padding: 8px 12px;
-  }
-
-  .car-details-page .nav-menu {
-    /* keeps the nav links inside the full header bar */
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    padding-right: 86px;
-    margin-top: 6px;
-    background-color: transparent;
-    border-top: 0;
-  }
-
-  .car-details-page .nav-menu li a {
-    /* a little more click area for desktop links */
-    display: inline-block;
-    padding: 10px 12px;
-  }
-
   .car-details-page .content {
     /* desktop content width aimed at the 1280 mockup */
     width: min(100%, 1280px);
@@ -374,21 +313,6 @@ body.car-details-page[data-theme="dark"] {
 }
 
 @media (min-width: 1100px) {
-  .car-details-page .navbar {
-    /* a little extra room on wider desktop screens */
-    padding: 18px 28px 16px;
-  }
-
-  .car-details-page .nav-right {
-    /* keeps the toggle lined up with the wider header */
-    right: 28px;
-  }
-
-  .car-details-page .nav-menu {
-    /* gives the links more room on larger screens */
-    padding-right: 92px;
-  }
-
   .car-details-page .content {
     /* slightly wider spacing on large desktop */
     padding: 38px 44px 28px;
@@ -398,12 +322,6 @@ body.car-details-page[data-theme="dark"] {
     /* opens up the two columns a bit more */
     grid-template-columns: minmax(0, 1.5fr) minmax(340px, 390px);
     gap: 56px;
-  }
-
-  .car-details-page .logo {
-    /* nudges the logo larger on wider screens */
-    --nav-logo-size: 4.25rem;
-    font-size: 4.25rem;
   }
 
   .details-card {
