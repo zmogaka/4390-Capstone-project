@@ -240,31 +240,4 @@ body.booking-page[data-theme="dark"] {
   .form-group {
     flex: 1;
   }
-
-  .booking-page .navbar {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    padding: 18px 24px 16px;
-    min-height: 108px;
-  }
-  
-  .booking-page .nav-right {
-    position: absolute;
-    top: 14px;
-    right: 24px;
-    margin-left: 0;
-    z-index: 2;
-  }
-  
-  .booking-page .nav-menu {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    padding-right: 86px;
-    margin-top: 6px;
-    background-color: transparent;
-  }
-
 }
