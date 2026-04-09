@@ -159,7 +159,7 @@ body.booking-page[data-theme="dark"] {
   font-weight: 600;
   color: var(--color-text);
 }
-
+/* input fields with focus effect */
 .form-group input {
   padding: 10px 12px;
   border: 1px solid var(--color-border);
@@ -168,12 +168,14 @@ body.booking-page[data-theme="dark"] {
   width: 100%;
   min-height: 44px;
   background-color: var(--color-surface);
-  color: var(--color-text)
+  color: var(--color-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
+/* Focus state for inputs */
 .form-group input:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(217, 106, 54, 0.15);
 }
 
 .btn-confirm {
@@ -188,6 +190,7 @@ body.booking-page[data-theme="dark"] {
   cursor: pointer;
   margin-top: 16px;
   min-height: 44px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-confirm:hover {

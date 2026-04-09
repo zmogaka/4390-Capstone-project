@@ -46,7 +46,7 @@ body.home-page {
     margin: 0 auto 40px;
     max-width: 740px;
   }
-  
+  /* Search box with focus effect */
   .search-box {
     display: flex;
     align-items: center;
@@ -55,7 +55,14 @@ body.home-page {
     border-radius: 4px;
     padding: 18px 20px;
     background-color: var(--color-surface);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
+/* Focus state for search box with subtle shadow */
+  .search-box:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(217, 106, 54, 0.15);
+  }
+  
   
   .search-icon {
     width: 28px;
@@ -95,7 +102,7 @@ body.home-page {
     gap: 16px;
   }
   
-  /* Individual car card */
+  /* Individual car card with hover effect */
   .car-card {
     display: flex;
     flex-direction: column;
@@ -136,7 +143,7 @@ body.home-page {
     color: var(--color-text);
     margin: 0;
   }
-  
+  /* View details button on card with hover effect */
   .car-card-body .view-btn {
     display: block;
     margin-top: 10px;
@@ -149,7 +156,7 @@ body.home-page {
     border: none;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
   
   .car-card-body .view-btn:hover {
@@ -183,13 +190,4 @@ body.home-page {
       margin-bottom: 32px;
     }
 
-  }
-  
-  /* ════════════════════════════════════════
-     WIDE DESKTOP  (≥ 1100px)
-  ════════════════════════════════════════ */
-  @media (min-width: 1100px) {
-    .home-page .content {
-      padding: 40px 40px 64px;
-    }
   }
