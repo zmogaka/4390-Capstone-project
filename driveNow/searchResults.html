@@ -60,8 +60,13 @@
       </div>
       <!--Buttons for the mobile version-->
       <div class="mobileBtns">
-        <button class="mobileFilter" data-loading-text="Loading...">Filters</button>
-        <button class="mobileSort" data-loading-text="Loading...">Sort by Price</button>
+        <button class="mobileFilter" id= "mobileFilterBtn">Filters</button>
+        <button class="mobileSort" id = "mobileSortBtn">Sort by Price</button>
+      </div>
+      <div id="mobileFilterMenu" class="mobileFilterMenu">
+        <p class="filter-label">Make & Model</p>
+        <input type="text" id="mobileMakeFilter" class="whitebtn" placeholder="Filter by Make">
+        <input type="text" id="mobileModelFilter" class="whitebtn" placeholder="Filter by Model">
       </div>
     </aside>
 
