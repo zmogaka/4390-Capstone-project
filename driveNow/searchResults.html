@@ -75,7 +75,16 @@
     <section class="results">
       <div class='resultHeader'>
         <h1 class="resultTitle">Showing x cars in [location]</h1>
-        <button class="srtbtn" data-loading-text="Loading...">Sort by ▼</button>
+        
+       <div class="sort-container">
+  <button class="srtbtn" id="sortToggle">Sort by ▼</button>
+
+  <div class="sort-dropdown" id="sortDropdown">
+    <div class="sort-option" data-sort="price">Price (Low → High)</div>
+    <div class="sort-option" data-sort="make">Make (A → Z)</div>
+  </div>
+</div>
+      </div>
       </div>
 
 
