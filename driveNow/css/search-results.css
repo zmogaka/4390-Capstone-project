@@ -404,3 +404,28 @@ button {
   background-color: var(--color-accent-hover);
   color: white;
 }
+
+/* hidden filter dropdown for mobile view */
+.mobileFilterMenu {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(217, 106, 54, 0.1);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+/* when visible */
+.mobileFilterMenu.active {
+  display: flex;
+}
+/* reuse mobile buttons styling */
+#mobileFilterBtn,
+#mobileSortBtn {
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 12px;
+  background-color: #D96A36;
+}
