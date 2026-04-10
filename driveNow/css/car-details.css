@@ -11,6 +11,12 @@ body.car-details-page {
   --color-surface-soft: #f3ddd2;
   --color-border: #a6a6a6;
   --color-nav-text: #ffffff;
+  --nav-right-margin-left: 0;
+  --nav-toggle-min-height: 34px;
+  --nav-toggle-padding: 6px 10px;
+  --nav-toggle-font-size: 0.7rem;
+  --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
+  --nav-toggle-background: rgba(255, 255, 255, 0.12);
   background-color: var(--color-bg);
   color: var(--color-text);
 }
@@ -25,57 +31,6 @@ body.car-details-page[data-theme="dark"] {
   --color-surface-soft: #4a4a4a;
   --color-border: #a7a7a7;
   --color-nav-text: #ffffff;
-}
-
-/* shared nav gets page-specific color overrides here */
-.car-details-page .navbar {
-  padding: 10px 12px;
-  background-color: var(--color-header);
-  border-top: 4px solid var(--color-header);
-}
-
-.car-details-page .logo {
-  flex: 1;
-  text-align: center;
-  font-size: 0.95rem;
-  font-weight: 400;
-  color: var(--color-nav-text);
-}
-
-.car-details-page .nav-right {
-  margin-left: 0;
-}
-
-.car-details-page .dark-mode-toggle {
-  min-height: 34px;
-  padding: 6px 10px;
-  font-size: 0.7rem;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.12);
-  color: var(--color-nav-text);
-}
-
-.car-details-page .hamburger {
-  padding: 8px 4px;
-}
-
-.car-details-page .hamburger span {
-  width: 28px;
-  height: 4px;
-}
-
-.car-details-page .nav-menu {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: var(--color-header);
-}
-
-.car-details-page .nav-menu li a {
-  color: var(--color-nav-text);
-}
-
-.car-details-page .nav-menu li a[aria-current="page"] {
-  background-color: rgba(255, 255, 255, 0.12);
 }
 
 /* main page spacing */
@@ -192,6 +147,7 @@ body.car-details-page[data-theme="dark"] {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 700;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .primary-button {
@@ -209,37 +165,122 @@ body.car-details-page[data-theme="dark"] {
   border-color: var(--color-border);
 }
 
+.secondary-button:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
+
+
 @media (min-width: 768px) {
+  .car-details-page {
+    /* helps the desktop page fill the screen height better */
+    min-height: 100vh;
+  }
+
   .car-details-layout {
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-    gap: 32px;
+    /* desktop layout with the image on the left and card on the right */
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 380px);
+    gap: 48px;
     align-items: start;
   }
 
+  .car-hero {
+    /* keeps the title area tucked right under the image */
+    gap: 0;
+    align-content: start;
+  }
+
+  .car-image-wrap {
+    /* darker border matches the desktop mockup better */
+    background-color: transparent;
+    border: 1px solid #333333;
+  }
+
+  .car-image {
+    /* slightly different image shape on desktop */
+    aspect-ratio: 16 / 10.8;
+  }
+
+  .car-title-block {
+    /* spacing below the image for the text block */
+    padding: 12px 0 0;
+  }
+
   .car-title-block h1 {
-    font-size: 2.5rem;
+    font-size: 2.45rem;
+    line-height: 1.1;
   }
 
   .details-card {
-    padding: 24px;
+    /* desktop card gets a fixed-looking panel size */
+    width: 100%;
+    justify-self: center;
+    padding: 20px 20px 16px;
+    background-color: var(--color-surface);
+    border: 1px solid #333333;
   }
 
-  .car-details-page .navbar {
-    padding: 12px 18px;
+  body.car-details-page[data-theme="dark"] .details-card {
+    /* lighter gray panel in dark mode like the Figma */
+    background-color: #5b5b5b;
   }
 
-  .car-details-page .logo {
-    flex: 0 0 auto;
-    text-align: left;
-    font-weight: 700;
+  .details-card h2 {
+    /* centered heading on desktop */
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 400;
   }
 
-  .car-details-page .nav-right {
-    margin-left: auto;
+  .spec-list {
+    /* gives the specs area a little more height */
+    min-height: 156px;
+    margin-bottom: 18px;
+    font-size: 0.96rem;
+  }
+
+  .price-box {
+    /* inner box for the pricing section */
+    width: 100%;
+    padding: 16px 16px 18px;
+    margin-bottom: 12px;
+    background-color: #ffffff;
+    border: 1px solid #666666;
+  }
+
+  body.car-details-page[data-theme="dark"] .price-box {
+    /* slightly lighter box inside the dark card */
+    background-color: #8a8a8a;
+  }
+
+  .price-box h3 {
+    /* keeps the price title centered like the mockup */
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 14px;
+  }
+
+  .price-row {
+    /* desktop rows are a little tighter */
+    gap: 16px;
+    padding: 3px 0;
+    font-size: 0.95rem;
+  }
+
+  .action-buttons {
+    /* keeps the buttons centered under the price box */
+    justify-items: center;
+    gap: 12px;
   }
 
   .car-details-page .content {
-    padding: 32px 24px 56px;
+    /* desktop content width aimed at the 1280 mockup */
+    width: min(100%, 1280px);
+    padding: 36px 40px 24px;
   }
 
   .car-image-wrap,
@@ -248,5 +289,60 @@ body.car-details-page[data-theme="dark"] {
   .primary-button,
   .secondary-button {
     border-radius: 8px;
+  }
+
+  .primary-button {
+    /* desktop main button is smaller than mobile */
+    width: min(100%, 180px);
+    min-height: 36px;
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+
+  .secondary-button {
+    /* save button matches the smaller desktop style */
+    width: min(100%, 150px);
+    min-height: 28px;
+    padding: 4px 12px;
+    background-color: #efefef;
+    border-color: #8d8d8d;
+    color: #7a7a7a;
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .car-details-page .content {
+    /* slightly wider spacing on large desktop */
+    padding: 38px 44px 28px;
+  }
+
+  .car-details-layout {
+    /* opens up the two columns a bit more */
+    grid-template-columns: minmax(0, 1.5fr) minmax(340px, 390px);
+    gap: 56px;
+  }
+
+  .details-card {
+    /* card fills its column on wider layouts */
+    width: 100%;
+  }
+
+  .car-title-block h1 {
+    /* slightly larger title on wide desktop */
+    font-size: 2.6rem;
+  }
+
+  .car-label {
+    /* keeps the small label readable on desktop */
+    font-size: 0.9rem;
+  }
+
+  .car-subtitle {
+    /* shows the supporting text on desktop too */
+    display: block;
+    max-width: 30ch;
+    font-size: 1rem;
   }
 }

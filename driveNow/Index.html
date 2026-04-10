@@ -3,38 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DriveNow Home page</title>
+  <title>DriveNow — Find Your Ride</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/index.css" />
 </head>
-<body>
-<header>
-  <nav class="navbar">
-    <button class="hamburger" id = "hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+<body class="home-page">
 
-    <div class="logo">DriveNow</div>
+  <!-- ── HEADER / NAV ── -->
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
 
-    <div class="nav-right">
-        <button class="dark-mode-toggle">Dark mode button</button>
+      <!-- hamburger: mobile only -->
+      <button class="hamburger" id="hamburger"
+              aria-label="Open navigation menu"
+              aria-expanded="false"
+              aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <!-- Logo -->
+      <div class="logo">DriveNow</div>
+      <!-- <a href="Index.html" class="logo">
+        <img src="images/fbd05711-7cd3-4212-a575-e31c91cb1850-removebg-preview.png" alt="DriveNow Car Rental Company" class="logo-img" />
+      </a> -->
+
+      <!-- Dark-mode toggle -->
+      <div class="nav-right">
+        <button class="dark-mode-toggle" type="button"
+                aria-label="Toggle light and dark mode">Dark Mode</button>
+      </div>
+
+      <!-- Single nav list — mobile dropdown + desktop inline row -->
+      <ul class="nav-menu" id="nav-menu" role="menu">
+        <li><a href="Index.html" aria-current="page">Home</a></li>
+        <li><a href="searchResults.html" >Results</a></li>
+        <li><a href="car-details.html">Car Details</a></li>
+        <li><a href="booking.html">Booking</a></li>
+      </ul>
+
+    </nav>
+  </header>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="content">
+
+    <!-- Search bar -->
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          id="location-search"
+          placeholder="Enter Location...."
+          aria-label="Enter pickup location"
+        />
+      </div>
     </div>
 
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-    </ul>
-  </nav>
-</header>
+    <!-- Featured Deals -->
+    <section class="featured-section" aria-label="Featured deals">
+      <h2>Featured Deals</h2>
 
-  <main class="content">
-    <h1>Welcome</h1>
-    <p>This is a simple responsive layout.</p>
-    
+      <div class="cards-grid">
+
+        <!-- Card 1 — Toyota Supra -->
+        <a href="car-details.html?car=toyota-supra" class="car-card">
+          <img src="images/3acf2c99f99354d7e898cce7eb17a19293761b6e.png" alt="Toyota Supra" />
+          <div class="car-card-body">
+            <h3>Toyota Supra</h3>
+            <p class="price">$45/day</p>
+            <span class="view-btn">View Details</span>
+          </div>
+        </a>
+
+        <!-- Card 2 — Toyota Camry -->
+        <a href="car-details.html?car=toyota-camry" class="car-card">
+          <img src="images/bf67752caa2bc43080dd3bb3404a6be46a2e1ee6.png" alt="Toyota Camry" />
+          <div class="car-card-body">
+            <h3>Toyota Camry</h3>
+            <p class="price">$65/day</p>
+            <span class="view-btn">View Details</span>
+          </div>
+        </a>
+
+        <!-- Card 3 — Tesla Model 3 -->
+        <a href="car-details.html?car=tesla-model-3" class="car-card">
+          <img src="images/949071b429e9a21ffe97f024915ea145618aae77.png" alt="Tesla Model 3" />
+          <div class="car-card-body">
+            <h3>Tesla Model 3</h3>
+            <p class="price">$75/day</p>
+            <span class="view-btn">View Details</span>
+          </div>
+        </a>
+
+        <!-- Card 4 — Ford Explorer -->
+        <a href="car-details.html?car=ford-explorer" class="car-card">
+          <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Ford Explorer" />
+          <div class="car-card-body">
+            <h3>Ford Explorer</h3>
+            <p class="price">$55/day</p>
+            <span class="view-btn">View Details</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
 
   </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="car-footer">
+    <p>DriveNow</p>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>

@@ -25,9 +25,9 @@
 
       <ul class="nav-menu" id="nav-menu">
         <li><a href="Index.html">Home</a></li>
-        <li><a href="search.html">Search</a></li>
         <li><a href="searchResults.html">Results</a></li>
         <li><a href="car-details.html" aria-current="page">Car Details</a></li>
+        <li><a href="booking.html">Booking</a></li>
       </ul>
     </nav>
   </header>
@@ -38,12 +38,12 @@
       <!-- car photo and name -->
       <div class="car-hero">
         <div class="car-image-wrap">
-          <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Future car shown from the front at an angle" class="car-image" />
+          <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Car shown from the front at an angle" class="car-image" id="car-image" />
         </div>
         <div class="car-title-block">
-          <p class="car-label">Available now</p>
-          <h1>Future Car</h1>
-          <p class="car-subtitle">Good for city driving and weekend trips.</p>
+          <p class="car-label" id="car-label">Available now</p>
+          <h1 id="car-name">Future car</h1>
+          <p class="car-subtitle" id="car-subtitle">Good for city driving and weekend trips.</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@
         <h2>Car Specs</h2>
 
         <!-- basic details -->
-        <ul class="spec-list">
+        <ul class="spec-list" id="spec-list">
           <li>5 seats</li>
           <li>Automatic transmission</li>
           <li>Electric range: 320 miles</li>
@@ -65,28 +65,35 @@
 
           <div class="price-row">
             <span>Base rate</span>
-            <span>$89/day</span>
+            <span id="base-rate">$89/day</span>
           </div>
 
           <div class="price-row">
             <span>Insurance</span>
-            <span>$18/day</span>
+            <span id="insurance-rate">$18/day</span>
           </div>
 
           <div class="price-row total-row">
             <span>Total</span>
-            <span>$107/day</span>
+            <span id="total-rate">$107/day</span>
           </div>
         </section>
 
         <!-- buttons -->
         <div class="action-buttons">
-          <button class="primary-button" type="button">Rent Now</button>
+          <a href ="booking.html" id="rent-now-btn">
+          <button class="primary-button" type="button" >Rent Now</button>
+          </a>
           <button class="secondary-button" type="button">Save for Later</button>
         </div>
       </article>
     </section>
   </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="car-footer">
+    <p>DriveNow</p>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>

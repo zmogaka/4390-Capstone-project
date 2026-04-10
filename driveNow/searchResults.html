@@ -1,40 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DriveNow Home page</title>
+  <title>DriveNow search results</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/search-results.css" />
 </head>
-<body>
-<header>
-  <nav class="navbar">
-    <button class="hamburger" id = "hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
 
-    <div class="logo">DriveNow</div>
+<body class ="search-results-page">
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
+        aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-    <div class="nav-right">
-        <button class="dark-mode-toggle">Dark mode button</button>
-    </div>
+      <!-- Logo -->
+      <div class="logo">DriveNow</div>
 
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-    </ul>
-  </nav>
-</header>
+      <div class="nav-right">
+        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">Dark Mode</button>
+      </div>
 
-  <main class="content">
-    <h1 class = "resultTitle">Showing x cars in [location]</h1>
-    <p></p>
-    
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="Index.html">Home</a></li>
+        <li><a href="searchResults.html" aria-current="page">Results</a></li>
+        <li><a href="car-details.html">Car Details</a></li>
+        <li><a href="booking.html">Booking</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main class="main">
+    <!--Spot for filers -->
+    <aside class="filters">
+      <h3>Filters</h3>
+
+      <!--Buttons for the desktop version-->
+      <div class="desktopBtns">
+        <p class=p>Price Range</p>
+        <p class=m>Make & Model</p>
+        <button class="whitebtn">Make</button>
+        <button class="whitebtn">Model</button>
+        <button class="whitebtn">Year</button>
+        <button class="orangebtn">Apply</button>
+      </div>
+
+      <!--Buttons for the mobile version-->
+      <div class="mobileBtns">
+        <button class="mobileFilter">Filters</button>
+        <button class="mobileSort">Sort by Price</button>
+      </div>
+    </aside>
+
+
+    <!-- Search Results -->
+    <section class="results">
+      <div class='resultHeader'>
+        <h1 class="resultTitle">Showing x cars in [location]</h1>
+        <button class="srtbtn">Sort by ▼</button>
+      </div>
+
+
+      <!-- Car Cards -->
+
+      <div class="container">
+        <a href="car-details.html?car=toyota-supra" class="card" id="card1">
+          <img src="images/3acf2c99f99354d7e898cce7eb17a19293761b6e.png" alt="Toyota Supra" />
+          <div class="card-body">
+            <h3>Toyota Supra</h3>
+            <p class="price">$45/day</p>
+            <span class="details-btn">View Details</span>
+          </div>
+        </a>
+
+        <a href="car-details.html?car=toyota-camry" class="card" id="card1">
+          <img src="images/bf67752caa2bc43080dd3bb3404a6be46a2e1ee6.png" alt="Toyota Camry" />
+          <div class="card-body">
+            <h3>Toyota Camry</h3>
+            <p class="price">$65/day</p>
+            <span class="details-btn">View Details</span>
+          </div>
+        </a>
+
+        <a href="car-details.html?car=tesla-model-3" class="card" id="card1">
+          <img src="images/949071b429e9a21ffe97f024915ea145618aae77.png" alt="Tesla Model 3" />
+          <div class="card-body">
+            <h3>Tesla Model 3</h3>
+            <p class="price">$75/day</p>
+            <span class="details-btn">View Details</span>
+          </div>
+        </a>
+
+        <a href="car-details.html?car=ford-explorer" class="card" id="card1">
+          <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Ford Explorer" />
+          <div class="card-body">
+            <h3>Ford Explorer</h3>
+            <p class="price">$55/day</p>
+            <span class="details-btn">View Details</span>
+          </div>
+        </a>
+
+        <a href="car-details.html?car=toyota-supra" class="card" id="card1">
+          <img src="images/3acf2c99f99354d7e898cce7eb17a19293761b6e.png" alt="Toyota Supra" />
+          <div class="card-body">
+            <h3>Toyota Supra</h3>
+            <p class="price">$45/day</p>
+            <span class="details-btn">View Details</span>
+          </div>
+        </a>
+
+        <a href="car-details.html?car=toyota-supra" class="card" id="card1">
+          <img src="images/3acf2c99f99354d7e898cce7eb17a19293761b6e.png" alt="Toyota Supra" />
+          <div class="card-body">
+            <h3>Toyota Supra</h3>
+            <p class="price">$45/day</p>
+            <span class="details-btn">View Details</span>
+          </div>
+        </a>
+      </div>
+    </section>
   </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="car-footer">
+    <p>DriveNow</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+
 </body>
+
 </html>

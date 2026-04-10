@@ -5,39 +5,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DriveNow Booking</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/booking.css" />
 </head>
-<body>
+<body class = "booking-page">
 <header>
-  <nav class="navbar">
-    <button class="hamburger" id = "hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+    <!-- shared nav -->
+    <nav class="navbar" aria-label="Main navigation">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-    <div class="logo">DriveNow</div>
+      <div class="logo">DriveNow</div>
 
-    <div class="nav-right">
-        <button class="dark-mode-toggle">Dark mode button</button>
-    </div>
+      <div class="nav-right">
+        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">Dark Mode</button>
+      </div>
 
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-    </ul>
-  </nav>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="Index.html">Home</a></li>
+        <li><a href="searchResults.html">Results</a></li>
+        <li><a href="car-details.html" >Car Details</a></li>
+        <li><a href="booking.html" aria-current="page">Booking</a></li>
+      </ul>
+    </nav>
 </header>
 
   <main class="content">
-    <h1>Welcome</h1>
-    <p>This is a simple responsive layout.</p>
-    <div class = "car-Img-box">
-        <img src="assets/images/car1.jpg" alt="Car name">
+    <!-- main page layout -->
+    <section class="booking-layout" aria-label="booking details">
+    
+    <div class = "booking-right">
+    <!--car-image-box -->
+    <div class = "car-image-box">
+        <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Future car shown from the front at an angle" class="car-image" 
+            alt="car shown from the front at an angle"
+            class = "car-image"
+            id="booking-car-image" />
+    </div>
+    <!-- reservation info card-->
+    <article class="details-card">
+        <h2>Reservation Summary</h2>
+
+        <hr class ="divider">
+
+        <div class = "reservation-row">
+            <span class = "label">Car:</span>
+            <span class = "value" id="booking-car-name">Ford Explorer</span>
+        </div>
+
+        <div class = "reservation-dates">
+            <div class = "date-col">
+            <span class = "label">Pick-up Date:</span>
+            <span class = "value">June 15, 2024, 10:00 AM</span>
+            </div>
+            <div class = "date-col">
+                <span class = "label">Drop-off Date:</span>
+                <span class = "value">June 20, 2024, 4:00 PM</span>
+            </div>
+        </div>
+
+        <hr class ="divider">
+
+        <div class="reservation-row">
+            <span class = "label">Insurance:</span>
+            <span class = "value" id="booking-insurance">$11/day</span>
+        </div>
+
+        <div class = "reservation-row total-row">
+            <span class = "label">Total Price:</span>
+            <span class="total-value" id="booking-total">$535.00</span>
+        </div>
+        </article>
     </div>
 
+    <div class="booking-left">
+    <h1 class="page-title"> Complete Your Booking</h1>
+    <hr class="title-divider">
+
+    <!-- input fields -->
+    <form class ="booking-form">
+        <div class ="form-row">
+        <div class ="form-group">
+            <label for="name">Name*</label>
+            <input type="text" id="name" name="name" required />
+        </div>
+        </div>
+
+            <div class ="form-row">
+        <div class ="form-group">
+            <label for="email">Email*</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class ="form-group">
+            <label for="phone">Phone Number*</label>
+            <input type="tel" id="phone" name="phone" required />
+        </div>
+            </div>
+            <div class ="form-row">
+        <div class ="form-group">
+            <label for="license">Driver's License Info*</label>
+            <input type="text" id="license" name="license" required />
+        </div>
+            </div>
+        <div class ="form-group">
+            <label for="payment">Payment Info*</label>
+            <input type="text" id="payment" name="payment" required />
+        </div>
+        <!-- confirm button -->
+        <button type="submit" class = "btn-confirm">Confirm Booking</button>
+    </form>  
+    </div>
+    </section>
   </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="car-footer">
+    <p>DriveNow</p>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
 
