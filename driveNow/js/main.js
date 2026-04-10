@@ -429,3 +429,54 @@ function setupBookingFormLoading() {
     }, CONTENT_LOAD_DELAY);
   });
 }
+
+//Grab elements by the Id
+const sortToggle = document.getElementById("sortToggle");
+const sortDropdown = document.getElementById("sortDropdown");
+const container = document.querySelector(".container");
+
+// Toggle dropdown
+sortToggle.addEventListener("click", () => {
+  sortDropdown.classList.toggle("active");
+});
+
+// Close dropdown if clicking outside
+document.addEventListener("click", (e) => // What we click
+{
+  if (!e.target.closest(".sort-container")) //If you clicked outside the dropdown area
+  {
+    sortDropdown.classList.remove("active"); //closes the dropdown
+  }
+});
+
+// Sort by(Search Results Page)
+document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
+  option.addEventListener("click", () => { // When you click Price or Make, everything inside here runs.
+    const sortType = option.dataset.sort; // This tells your code which sorting logic to use(Price or make)
+    const cards = Array.from(document.querySelectorAll(".card"));//Converts all cards into an array
+
+    let sortedCards;
+
+    if (sortType === "price") {
+      sortedCards = cards.sort((a, b) => {
+        const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
+        const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
+        return priceA - priceB;
+      });
+    }
+
+    if (sortType === "make") {
+      sortedCards = cards.sort((a, b) => {
+        const nameA = a.querySelector("h3").textContent.toLowerCase();
+        const nameB = b.querySelector("h3").textContent.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+    }
+
+    // Re-append sorted cards
+    container.innerHTML = "";
+    sortedCards.forEach(card => container.appendChild(card));
+
+    sortDropdown.classList.remove("active");
+  });
+});
