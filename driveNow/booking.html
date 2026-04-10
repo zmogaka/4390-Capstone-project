@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="css/booking.css" />
 </head>
 <body class = "booking-page">
+  <div class="page-loader" id="page-loader" role="status" aria-live="polite">
+    <div class="page-loader-panel">
+      <div class="ring-spinner" aria-hidden="true"></div>
+      <h2>Finding Your Perfect Car...</h2>
+      <p>This will only take a moment</p>
+    </div>
+  </div>
 <header>
     <!-- shared nav -->
     <nav class="navbar" aria-label="Main navigation">
@@ -115,7 +122,7 @@
             <input type="text" id="payment" name="payment" required />
         </div>
         <!-- confirm button -->
-        <button type="submit" class = "btn-confirm">Confirm Booking</button>
+        <button type="submit" class = "btn-confirm" data-loading-text="Loading...">Confirm Booking</button>
     </form>  
     </div>
     </section>

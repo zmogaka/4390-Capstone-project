@@ -10,6 +10,13 @@
 </head>
 
 <body class ="search-results-page">
+  <div class="page-loader" id="page-loader" role="status" aria-live="polite">
+    <div class="page-loader-panel">
+      <div class="ring-spinner" aria-hidden="true"></div>
+      <h2>Finding Your Perfect Car...</h2>
+      <p>This will only take a moment</p>
+    </div>
+  </div>
   <header>
     <nav class="navbar" aria-label="Main navigation">
       <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
@@ -44,16 +51,16 @@
       <div class="desktopBtns">
         <p class=p>Price Range</p>
         <p class=m>Make & Model</p>
-        <button class="whitebtn">Make</button>
-        <button class="whitebtn">Model</button>
-        <button class="whitebtn">Year</button>
-        <button class="orangebtn">Apply</button>
+        <button class="whitebtn" data-loading-text="Loading...">Make</button>
+        <button class="whitebtn" data-loading-text="Loading...">Model</button>
+        <button class="whitebtn" data-loading-text="Loading...">Year</button>
+        <button class="orangebtn" data-loading-text="Loading...">Apply</button>
       </div>
 
       <!--Buttons for the mobile version-->
       <div class="mobileBtns">
-        <button class="mobileFilter">Filters</button>
-        <button class="mobileSort">Sort by Price</button>
+        <button class="mobileFilter" data-loading-text="Loading...">Filters</button>
+        <button class="mobileSort" data-loading-text="Loading...">Sort by Price</button>
       </div>
     </aside>
 
@@ -62,11 +69,16 @@
     <section class="results">
       <div class='resultHeader'>
         <h1 class="resultTitle">Showing x cars in [location]</h1>
-        <button class="srtbtn">Sort by ▼</button>
+        <button class="srtbtn" data-loading-text="Loading...">Sort by ▼</button>
       </div>
 
 
       <!-- Car Cards -->
+
+      <div class="results-loading-inline" id="search-results-loading" aria-live="polite" hidden>
+        <div class="ring-spinner results-spinner" aria-hidden="true"></div>
+        <p>Loading results...</p>
+      </div>
 
       <div class="container">
         <a href="car-details.html?car=toyota-supra" class="card" id="card1">

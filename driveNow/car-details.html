@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="css/car-details.css" />
 </head>
 <body class="car-details-page">
+  <div class="page-loader" id="page-loader" role="status" aria-live="polite">
+    <div class="page-loader-panel">
+      <div class="ring-spinner" aria-hidden="true"></div>
+      <h2>Finding Your Perfect Car...</h2>
+      <p>This will only take a moment</p>
+    </div>
+  </div>
   <header>
     <!-- shared nav -->
     <nav class="navbar" aria-label="Main navigation">
@@ -82,9 +89,9 @@
         <!-- buttons -->
         <div class="action-buttons">
           <a href ="booking.html" id="rent-now-btn">
-          <button class="primary-button" type="button" >Rent Now</button>
+          <button class="primary-button" type="button" data-loading-text="Loading...">Rent Now</button>
           </a>
-          <button class="secondary-button" type="button">Save for Later</button>
+          <button class="secondary-button" type="button" data-loading-text="Loading...">Save for Later</button>
         </div>
       </article>
     </section>

@@ -1,6 +1,9 @@
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 const darkModeToggle = document.querySelector('.dark-mode-toggle');
+const PAGE_LOAD_DELAY = 1200;
+const CONTENT_LOAD_DELAY = 800;
+const BUTTON_DELAY = 650;
 const CAR_DATA = {
   'toyota-supra': {
     name: 'Toyota Supra',
@@ -107,6 +110,11 @@ if (darkModeToggle) {
 
 renderCarDetailsPage();
 renderBookingPage();
+setupInitialPageLoader();
+setupHomePageLoading();
+setupSearchResultsLoading();
+setupInteractiveLoadingButtons();
+setupBookingFormLoading();
 
 function updateThemeButton() {
   // changes the button text to match the next theme option
@@ -185,4 +193,230 @@ function renderBookingPage() {
   }
 
   document.title = `DriveNow Booking - ${selectedCar.name}`;
+}
+
+function showLoading(container, loadingClass) {
+  if (!container || !loadingClass) {
+    return;
+  }
+
+  container.classList.remove('is-initial-loading', 'is-results-loading');
+  container.classList.add(loadingClass);
+}
+
+function hideLoading(container, loadingClass) {
+  if (!container || !loadingClass) {
+    return;
+  }
+
+  container.classList.remove(loadingClass);
+}
+
+function setButtonLoadingState(button, isLoading) {
+  if (!button) {
+    return;
+  }
+
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.textContent.trim();
+  }
+
+  const loadingText = button.dataset.loadingText || 'Loading...';
+
+  if (isLoading) {
+    button.textContent = loadingText;
+    button.classList.add('button-loading');
+
+    if (button.tagName === 'BUTTON') {
+      button.disabled = true;
+    }
+
+    return;
+  }
+
+  button.textContent = button.dataset.originalText;
+  button.classList.remove('button-loading');
+
+  if (button.tagName === 'BUTTON') {
+    button.disabled = false;
+  }
+}
+
+function setupInitialPageLoader() {
+  const pageLoader = document.getElementById('page-loader');
+
+  if (!pageLoader) {
+    return;
+  }
+
+  const skipPageLoader = sessionStorage.getItem('skipPageLoader') === 'true';
+
+  if (skipPageLoader) {
+    sessionStorage.removeItem('skipPageLoader');
+    pageLoader.classList.add('is-hidden');
+    return;
+  }
+
+  window.setTimeout(() => {
+    pageLoader.classList.add('is-hidden');
+  }, PAGE_LOAD_DELAY);
+}
+
+function setupHomePageLoading() {
+  if (!document.body.classList.contains('home-page')) {
+    return;
+  }
+
+  const featuredSection = document.querySelector('.featured-section');
+  const searchInput = document.getElementById('location-search');
+  const cards = Array.from(document.querySelectorAll('#featured-cards .car-card'));
+  const emptyState = document.getElementById('results-empty');
+  let searchTimerId;
+
+  if (!featuredSection || !searchInput || cards.length === 0 || !emptyState) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    hideLoading(featuredSection, 'is-initial-loading');
+  }, PAGE_LOAD_DELAY);
+
+  const runSearchLoading = () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    showLoading(featuredSection, 'is-results-loading');
+
+    window.setTimeout(() => {
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cardSearchText = card.dataset.search || '';
+        const shouldShow = !searchTerm || cardSearchText.includes(searchTerm);
+        card.hidden = !shouldShow;
+
+        if (shouldShow) {
+          visibleCount += 1;
+        }
+      });
+
+      emptyState.hidden = visibleCount !== 0;
+      hideLoading(featuredSection, 'is-results-loading');
+    }, CONTENT_LOAD_DELAY);
+  };
+
+  searchInput.addEventListener('input', () => {
+    window.clearTimeout(searchTimerId);
+    searchTimerId = window.setTimeout(runSearchLoading, 250);
+  });
+}
+
+function setupSearchResultsLoading() {
+  if (!document.body.classList.contains('search-results-page')) {
+    return;
+  }
+
+  const resultsSection = document.querySelector('.results');
+  const resultsLoader = document.getElementById('search-results-loading');
+  const triggerButtons = document.querySelectorAll('.orangebtn, .whitebtn, .mobileFilter, .mobileSort, .srtbtn');
+
+  if (!resultsSection || !resultsLoader || triggerButtons.length === 0) {
+    return;
+  }
+
+  triggerButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (resultsSection.classList.contains('is-loading')) {
+        return;
+      }
+
+      resultsSection.classList.add('is-loading');
+      resultsLoader.hidden = false;
+      setButtonLoadingState(button, true);
+
+      window.setTimeout(() => {
+        resultsSection.classList.remove('is-loading');
+        resultsLoader.hidden = true;
+        setButtonLoadingState(button, false);
+      }, CONTENT_LOAD_DELAY);
+    });
+  });
+}
+
+function setupInteractiveLoadingButtons() {
+  const listingCards = document.querySelectorAll('.car-card, .card');
+  const detailButtons = document.querySelectorAll('.primary-button, .secondary-button');
+
+  listingCards.forEach((card) => {
+    const loadingTarget = card.querySelector('.view-btn, .details-btn');
+
+    if (!loadingTarget) {
+      return;
+    }
+
+    loadingTarget.dataset.loadingText = 'Loading...';
+
+    card.addEventListener('click', (event) => {
+      if (card.classList.contains('is-loading')) {
+        event.preventDefault();
+        return;
+      }
+
+      event.preventDefault();
+      card.classList.add('is-loading');
+      setButtonLoadingState(loadingTarget, true);
+      sessionStorage.setItem('skipPageLoader', 'true');
+
+      window.setTimeout(() => {
+        window.location.href = card.href;
+      }, BUTTON_DELAY);
+    });
+  });
+
+  detailButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      if (button.classList.contains('button-loading')) {
+        event.preventDefault();
+        return;
+      }
+
+      const parentLink = button.closest('a[href]');
+      setButtonLoadingState(button, true);
+
+      if (parentLink) {
+        event.preventDefault();
+        sessionStorage.setItem('skipPageLoader', 'true');
+
+        window.setTimeout(() => {
+          window.location.href = parentLink.href;
+        }, BUTTON_DELAY);
+        return;
+      }
+
+      window.setTimeout(() => {
+        setButtonLoadingState(button, false);
+      }, CONTENT_LOAD_DELAY);
+    });
+  });
+}
+
+function setupBookingFormLoading() {
+  const bookingForm = document.querySelector('.booking-form');
+  const submitButton = bookingForm ? bookingForm.querySelector('.btn-confirm') : null;
+
+  if (!bookingForm || !submitButton) {
+    return;
+  }
+
+  submitButton.dataset.loadingText = 'Loading...';
+
+  bookingForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    setButtonLoadingState(submitButton, true);
+
+    window.setTimeout(() => {
+      setButtonLoadingState(submitButton, false);
+      bookingForm.reset();
+      window.alert('Booking submitted successfully.');
+    }, CONTENT_LOAD_DELAY);
+  });
 }
