@@ -97,13 +97,14 @@ button {
 }
 
 /*Styling the sort button*/
+
 .srtbtn {
   padding: 8px 12px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
-  color: black;
-
-
+  color: white;
+  width: 160px;
+  background-color: #D96A36;
 }
 
 
