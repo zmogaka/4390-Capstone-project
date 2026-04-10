@@ -47,6 +47,7 @@ button:disabled,
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
+html[data-theme="dark"] .page-loader,
 body[data-theme="dark"] .page-loader {
   background: rgba(27, 27, 27, 0.95);
 }
@@ -73,6 +74,8 @@ body[data-theme="dark"] .page-loader {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
 }
 
+html[data-theme="dark"] .page-loader-panel,
+html[data-theme="dark"] .results-loading-card,
 body[data-theme="dark"] .page-loader-panel,
 body[data-theme="dark"] .results-loading-card {
   background: #242424;

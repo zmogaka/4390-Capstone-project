@@ -23,6 +23,7 @@ body.home-page {
   }
   
   /* ── Dark mode ── */
+  html[data-theme="dark"] body.home-page,
   body.home-page[data-theme="dark"] {
     --color-header: #0d0d0d;
     --color-text: #f5f5f5;
