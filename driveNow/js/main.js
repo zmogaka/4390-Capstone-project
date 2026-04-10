@@ -326,7 +326,7 @@ function setupSearchResultsLoading() {
 
   const resultsSection = document.querySelector('.results');
   const resultsLoader = document.getElementById('search-results-loading');
-  const triggerButtons = document.querySelectorAll('.orangebtn, .whitebtn, .mobileFilter, .mobileSort, .srtbtn');
+  const triggerButtons = document.querySelectorAll('.orangebtn, .whitebtn');
 
   if (!resultsSection || !resultsLoader || triggerButtons.length === 0) {
     return;
@@ -449,100 +449,32 @@ document.addEventListener("click", (e) => // What we click
   }
 });
 
-// Sort by(Search Results Page)
-document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
-  option.addEventListener("click", () => { // When you click Price or Make, everything inside here runs.
-    const sortType = option.dataset.sort; // This tells your code which sorting logic to use(Price or make)
-    const cards = Array.from(document.querySelectorAll(".card"));//Converts all cards into an array
 
-    let sortedCards;
 
-    if (sortType === "price") {
-      sortedCards = cards.sort((a, b) => {
-        const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
-        const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
-        return priceA - priceB;
-      });
-    }
 
-    if (sortType === "make") {
-      sortedCards = cards.sort((a, b) => {
-        const nameA = a.querySelector("h3").textContent.toLowerCase();
-        const nameB = b.querySelector("h3").textContent.toLowerCase();
-        return nameA.localeCompare(nameB);
-      });
-    }
-
-    // Re-append sorted cards
-    container.innerHTML = "";
-    sortedCards.forEach(card => container.appendChild(card));
-
-    sortDropdown.classList.remove("active");
-  });
-});
+//Filters
 const makeInput = document.getElementById('makeFilter');
-  const modelInput = document.getElementById('modelFilter');
+const modelInput = document.getElementById('modelFilter');
 
-  // Add event listeners to both inputs
-  makeInput.addEventListener('input', filterCars);
-  modelInput.addEventListener('input', filterCars);
-
-  function filterCars() {
-    const makeQuery = makeInput.value.toLowerCase();
-    const modelQuery = modelInput.value.toLowerCase();
-
-    // Select all car cards
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach(card => {
-      const titleElement = card.querySelector('h3');
-      const title = titleElement ? titleElement.textContent.toLowerCase() : '';
-
-      // Show card if it matches both make and model filters
-      if (
-        title.includes(makeQuery) &&
-        title.includes(modelQuery)
-      ) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
+const mobileMakeInput = document.getElementById('mobileMakeFilter');
+const mobileModelInput = document.getElementById('mobileModelFilter');
 
 
-// Sort by(Search Results Page)
-/*document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
-  option.addEventListener("click", () => { // When you click Price or Make, everything inside here runs.
-    const sortType = option.dataset.sort; // This tells your code which sorting logic to use(Price or make)
-    const cards = Array.from(document.querySelectorAll(".card"));//Converts all cards into an array
+ function filterCars() {
+  const makeQuery = (makeInput?.value || mobileMakeInput?.value || '').toLowerCase();
+  const modelQuery = (modelInput?.value || mobileModelInput?.value || '').toLowerCase();
 
-    let sortedCards;
+  document.querySelectorAll('.card').forEach(card => {
+    const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
 
-    if (sortType === "price") {
-      sortedCards = cards.sort((a, b) => {
-        const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
-        const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
-        return priceA - priceB;
-      });
-    }
+    const match =
+      title.includes(makeQuery) &&
+      title.includes(modelQuery);
 
-    if (sortType === "make") {
-      sortedCards = cards.sort((a, b) => {
-        const nameA = a.querySelector("h3").textContent.toLowerCase();
-        const nameB = b.querySelector("h3").textContent.toLowerCase();
-        return nameA.localeCompare(nameB);
-      });
-    }
-
-    // Re-append sorted cards
-    container.innerHTML = "";
-    sortedCards.forEach(card => container.appendChild(card));
-
-    sortDropdown.classList.remove("active");
+    card.style.display = match ? '' : 'none';
   });
-});
-*/
+}
+
 // desktop inputs
 makeInput?.addEventListener('input', filterCars);
 modelInput?.addEventListener('input', filterCars);
@@ -593,6 +525,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/*
+// Sort by(Search Results Page)
+document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
+  option.addEventListener("click", () => { // When you click Price or Make, everything inside here runs.
+    const sortType = option.dataset.sort; // This tells your code which sorting logic to use(Price or make)
+    const cards = Array.from(document.querySelectorAll(".card"));//Converts all cards into an array
+
+    let sortedCards;
+
+    if (sortType === "price") {
+      sortedCards = cards.sort((a, b) => {
+        const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
+        const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
+        return priceA - priceB;
+      });
+    }
+
+    if (sortType === "make") {
+      sortedCards = cards.sort((a, b) => {
+        const nameA = a.querySelector("h3").textContent.toLowerCase();
+        const nameB = b.querySelector("h3").textContent.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+    }
+
+    // Re-append sorted cards
+    container.innerHTML = "";
+    sortedCards.forEach(card => container.appendChild(card));
+
+    sortDropdown.classList.remove("active");
+  });
+});
+*/
+  
+
+//Mobile 
+  
+// --- Mobile Filter & Sort Integration ---
+
 const mobileFilterBtn = document.getElementById('mobileFilterBtn');
 const mobileFilterMenu = document.getElementById('mobileFilterMenu');
 const mobileSortBtn = document.getElementById('mobileSortBtn');
@@ -623,3 +595,6 @@ if (mobileSortBtn) {
     sortedCards.forEach(card => container.appendChild(card));
   });
 }
+
+// --- Extend stopLoading to work with mobile controls ---
+
