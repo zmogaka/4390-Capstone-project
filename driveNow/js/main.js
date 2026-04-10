@@ -484,34 +484,55 @@ mobileMakeInput?.addEventListener('input', filterCars);
 mobileModelInput?.addEventListener('input', filterCars);
 
 function sortCards(type) {
+  //Container with all the cards
   const container = document.querySelector(".container");
+
+  //Convert the list of cards into a array
   const cards = Array.from(container.querySelectorAll(".card"));
 
+  //Creating a copy of the array
   let sortedCards = [...cards];
 
+  //Sorting from high to low
   if (type === "price") {
     sortedCards.sort((a, b) => {
+
+      //Getting the price of the first card
       const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
+
+      //Getting the price of the second card
       const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
       return priceA - priceB;
     });
   }
 
+  //Sort by make
   if (type === "make") {
     sortedCards.sort((a, b) => {
+
+      //Get each cars name convert to lower case
       const nameA = a.querySelector("h3").textContent.toLowerCase();
       const nameB = b.querySelector("h3").textContent.toLowerCase();
+
+      //Return the comparison
       return nameA.localeCompare(nameB);
     });
   }
-
+//Clear cards from the container
   container.innerHTML = "";
+
+  //Add sorted cards back into the container in new order
   sortedCards.forEach(card => container.appendChild(card));
 }
 
+//Add click listeners to all sort dropdown options
 document.querySelectorAll(".sort-option").forEach(option => {
   option.addEventListener("click", () => {
+
+    // // Sort cards based on clicked option's data-sort value
     sortCards(option.dataset.sort);
+
+    //// Close the sort dropdown after selection
     sortDropdown.classList.remove("active");
   });
 });
@@ -526,72 +547,56 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/*
-// Sort by(Search Results Page)
-document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
-  option.addEventListener("click", () => { // When you click Price or Make, everything inside here runs.
-    const sortType = option.dataset.sort; // This tells your code which sorting logic to use(Price or make)
-    const cards = Array.from(document.querySelectorAll(".card"));//Converts all cards into an array
 
-    let sortedCards;
-
-    if (sortType === "price") {
-      sortedCards = cards.sort((a, b) => {
-        const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
-        const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
-        return priceA - priceB;
-      });
-    }
-
-    if (sortType === "make") {
-      sortedCards = cards.sort((a, b) => {
-        const nameA = a.querySelector("h3").textContent.toLowerCase();
-        const nameB = b.querySelector("h3").textContent.toLowerCase();
-        return nameA.localeCompare(nameB);
-      });
-    }
-
-    // Re-append sorted cards
-    container.innerHTML = "";
-    sortedCards.forEach(card => container.appendChild(card));
-
-    sortDropdown.classList.remove("active");
-  });
-});
-*/
   
 
 //Mobile 
   
 // --- Mobile Filter & Sort Integration ---
-
+//references to mobile UI elements (filter button, filter menu, sort button)
 const mobileFilterBtn = document.getElementById('mobileFilterBtn');
 const mobileFilterMenu = document.getElementById('mobileFilterMenu');
 const mobileSortBtn = document.getElementById('mobileSortBtn');
 
-// Toggle the mobile filter dropdown
+//Checking that both buttons exists.
 if (mobileFilterBtn && mobileFilterMenu) {
+
+  //toggle the mobile filter dropdown menu
   mobileFilterBtn.addEventListener('click', () => {
+
+    //Toggle the "active" class to show/hide the filter menu
     mobileFilterMenu.classList.toggle('active');
    // stopLoading();
   });
 }
 
 // Mobile "Sort by Price"
+//Checks if the sort button is on the screen
 if (mobileSortBtn) {
+  //Listener to trigger sorting on mobile
   mobileSortBtn.addEventListener('click', () => {
-    stopLoading(); // ensure loading spinner disappears
-
+    //Stops loading before updating UI
+    stopLoading(); 
+//Convert the cards into an array
     const cards = Array.from(document.querySelectorAll('.card'));
+    //Get the container that holds the cards
     const container = document.querySelector('.container');
-
+//Sort the cards from low to high
     const sortedCards = cards.sort((a, b) => {
+      
+      //Grab the price from the first card
       const priceA = parseInt(a.querySelector('.price').textContent.replace(/\D/g, ''), 10);
+
+      //Grab the price of the second card
       const priceB = parseInt(b.querySelector('.price').textContent.replace(/\D/g, ''), 10);
+
+      //Return the comparison
       return priceA - priceB;
     });
-
+//Clear the cards from the container
     container.innerHTML = '';
+
+    //Add sorted cards back into the container
     sortedCards.forEach(card => container.appendChild(card));
   });
 }
