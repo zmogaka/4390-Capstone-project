@@ -512,7 +512,7 @@ const makeInput = document.getElementById('makeFilter');
 
 
 // Sort by(Search Results Page)
-document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
+/*document.querySelectorAll(".sort-option").forEach(option => { //gets all sort options (Price, Make) and loops through them
   option.addEventListener("click", () => { // When you click Price or Make, everything inside here runs.
     const sortType = option.dataset.sort; // This tells your code which sorting logic to use(Price or make)
     const cards = Array.from(document.querySelectorAll(".card"));//Converts all cards into an array
@@ -542,3 +542,84 @@ document.querySelectorAll(".sort-option").forEach(option => { //gets all sort op
     sortDropdown.classList.remove("active");
   });
 });
+*/
+// desktop inputs
+makeInput?.addEventListener('input', filterCars);
+modelInput?.addEventListener('input', filterCars);
+
+// mobile inputs
+mobileMakeInput?.addEventListener('input', filterCars);
+mobileModelInput?.addEventListener('input', filterCars);
+
+function sortCards(type) {
+  const container = document.querySelector(".container");
+  const cards = Array.from(container.querySelectorAll(".card"));
+
+  let sortedCards = [...cards];
+
+  if (type === "price") {
+    sortedCards.sort((a, b) => {
+      const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
+      const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
+      return priceA - priceB;
+    });
+  }
+
+  if (type === "make") {
+    sortedCards.sort((a, b) => {
+      const nameA = a.querySelector("h3").textContent.toLowerCase();
+      const nameB = b.querySelector("h3").textContent.toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
+  }
+
+  container.innerHTML = "";
+  sortedCards.forEach(card => container.appendChild(card));
+}
+
+document.querySelectorAll(".sort-option").forEach(option => {
+  option.addEventListener("click", () => {
+    sortCards(option.dataset.sort);
+    sortDropdown.classList.remove("active");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const mobileSortBtn = document.getElementById('mobileSortBtn');
+
+  if (mobileSortBtn) {
+    mobileSortBtn.addEventListener('click', () => {
+      sortCards("price");
+    });
+  }
+});
+const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+const mobileFilterMenu = document.getElementById('mobileFilterMenu');
+const mobileSortBtn = document.getElementById('mobileSortBtn');
+
+// Toggle the mobile filter dropdown
+if (mobileFilterBtn && mobileFilterMenu) {
+  mobileFilterBtn.addEventListener('click', () => {
+    mobileFilterMenu.classList.toggle('active');
+   // stopLoading();
+  });
+}
+
+// Mobile "Sort by Price"
+if (mobileSortBtn) {
+  mobileSortBtn.addEventListener('click', () => {
+    stopLoading(); // ensure loading spinner disappears
+
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const container = document.querySelector('.container');
+
+    const sortedCards = cards.sort((a, b) => {
+      const priceA = parseInt(a.querySelector('.price').textContent.replace(/\D/g, ''), 10);
+      const priceB = parseInt(b.querySelector('.price').textContent.replace(/\D/g, ''), 10);
+      return priceA - priceB;
+    });
+
+    container.innerHTML = '';
+    sortedCards.forEach(card => container.appendChild(card));
+  });
+}
