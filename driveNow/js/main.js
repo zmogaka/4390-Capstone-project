@@ -92,17 +92,17 @@ if (darkModeToggle) {
   const savedTheme = localStorage.getItem('theme');
 
   if (savedTheme) {
-    document.body.setAttribute('data-theme', savedTheme);
+    applyTheme(savedTheme);
   }
 
   updateThemeButton();
 
   // switches between light and dark mode
   darkModeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const currentTheme = getCurrentTheme();
     const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    document.body.setAttribute('data-theme', nextTheme);
+    applyTheme(nextTheme);
     localStorage.setItem('theme', nextTheme);
     updateThemeButton();
   });
@@ -117,9 +117,18 @@ setupInteractiveLoadingButtons();
 setupBookingFormLoading();
 
 function updateThemeButton() {
-  // changes the button text to match the next theme option
-  const isDarkMode = document.body.getAttribute('data-theme') === 'dark';
-  darkModeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+  // keeps the button text matched with the active theme
+  const isDarkMode = getCurrentTheme() === 'dark';
+  darkModeToggle.textContent = isDarkMode ? 'Dark Mode' : 'Light Mode';
+}
+
+function getCurrentTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.body.setAttribute('data-theme', theme);
 }
 
 function renderCarDetailsPage() {
