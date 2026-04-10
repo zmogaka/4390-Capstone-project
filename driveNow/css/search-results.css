@@ -248,7 +248,14 @@ button {
 .h3 {
   border-bottom: 2px solid black;
 }
-
+#makeFilter{
+  color:#0d0d0d;
+  font-size: 15px;
+}
+#modelFilter{
+  color:#0d0d0d;
+  font-size: 15px;
+}
 .filters h3 {
   text-align: center;
   padding-bottom: 0px;
