@@ -101,6 +101,33 @@ body.home-page {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
+  #initial-loading,
+  #results-loading {
+    display: none;
+  }
+
+  .featured-section.is-initial-loading #initial-loading {
+    display: grid;
+  }
+
+  .featured-section.is-results-loading #results-loading {
+    display: grid;
+  }
+
+  .featured-section.is-initial-loading #featured-cards,
+  .featured-section.is-results-loading #featured-cards,
+  .featured-section.is-initial-loading #results-empty,
+  .featured-section.is-results-loading #results-empty {
+    display: none;
+  }
+
+  .results-empty {
+    margin-top: 24px;
+    text-align: center;
+    color: var(--color-text-soft);
+    font-size: 1rem;
+  }
   
   /* Individual car card with hover effect */
   .car-card {
@@ -115,6 +142,11 @@ body.home-page {
   
   .car-card:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .car-card.is-loading {
+    pointer-events: none;
+    opacity: 0.85;
   }
   
   .car-card img {
@@ -146,7 +178,7 @@ body.home-page {
   /* View details button on card with hover effect */
   .car-card-body .view-btn {
     display: block;
-    margin-top: 10px;
+    margin-top: auto;
     padding: 12px 16px;
     background-color: var(--color-accent);
     color: #ffffff;
