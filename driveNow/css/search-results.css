@@ -239,6 +239,11 @@ button {
   font-weight: 700;
 }
 
+.filter{
+  background: rgba(217, 106, 54, 0.21);
+  padding: 15px;
+  text-align: center;
+}
 /*Styling the filters title*/
 .h3 {
   border-bottom: 2px solid black;
@@ -246,13 +251,19 @@ button {
 
 .filters h3 {
   text-align: center;
-  padding-bottom: 8px;
-  border-bottom: 2px solid black;
-  margin-bottom: 15px;
+  padding-bottom: 0px;
+  border-bottom:none;
+  margin-bottom: 10px;
   font-weight: 700;
+  border-bottom: 2px solid black;
+}
+.filters .filter-label {
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
 .filters p {
+  text-align: center;
   font-weight: 700;
 }
 
