@@ -224,3 +224,54 @@ body.home-page {
     }
 
   }
+
+/* ── CITY AUTOCOMPLETE DROPDOWN ── */
+.autocomplete-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+ 
+.autocomplete-wrap input {
+  width: 100%;
+}
+ 
+.city-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: -52px; /* align with the left edge of the search-box including icon+gap */
+  right: -20px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+}
+ 
+.city-dropdown[hidden] {
+  display: none;
+}
+ 
+.city-dropdown li {
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+ 
+.city-dropdown li:hover,
+.city-dropdown li.active {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+ 
+html[data-theme="dark"] .city-dropdown,
+body[data-theme="dark"] .city-dropdown {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
+}

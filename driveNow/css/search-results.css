@@ -84,8 +84,8 @@ button {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 449px;
-  height: 38px;
+  white-space: nowrap;   /* keeps it on one line */
+  min-width: 0;
 }
 
 /*Title of the search results*/
@@ -375,9 +375,8 @@ button {
   }
 
   .resultTitle {
-    width: 100%;
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 18px;
+  white-space: normal;
   }
 
 }
