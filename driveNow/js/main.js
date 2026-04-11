@@ -120,8 +120,8 @@ setupSearchResultsHeader();
  
 function updateThemeButton() {
   // keeps the button text matched with the active theme
-  const isDarkMode = getCurrentTheme() === 'dark';
-  darkModeToggle.textContent = isDarkMode ? 'Dark Mode' : 'Light Mode';
+  // const isDarkMode = getCurrentTheme() === 'dark';
+  // darkModeToggle.textContent = isDarkMode ? 'Dark Mode' : 'Light Mode';
 }
 
 function getCurrentTheme() {
@@ -445,11 +445,9 @@ if (sortToggle) {
 }
 
 // Close dropdown if clicking outside
-document.addEventListener("click", (e) => // What we click
-{
-  if (!e.target.closest(".sort-container")) //If you clicked outside the dropdown area
-  {
-    sortDropdown.classList.remove("active"); //closes the dropdown
+document.addEventListener("click", (e) => {
+  if (sortDropdown && !e.target.closest(".sort-container")) {
+    sortDropdown.classList.remove("active");
   }
 });
 
@@ -660,8 +658,6 @@ function setupCitySearch() {
   const searchInput = document.getElementById('location-search');
   if (!searchInput) return;
  
-  // Build the autocomplete dropdown container
-  const searchBox = searchInput.closest('.search-box') || searchInput.parentElement;
   const wrapper = searchInput.parentElement;
  
   // Wrap input in a relative-position div for dropdown positioning
@@ -670,13 +666,47 @@ function setupCitySearch() {
   wrapper.insertBefore(autocompleteWrap, searchInput);
   autocompleteWrap.appendChild(searchInput);
  
+  // Dropdown list
   const dropdown = document.createElement('ul');
   dropdown.className = 'city-dropdown';
   dropdown.setAttribute('role', 'listbox');
   dropdown.setAttribute('aria-label', 'City suggestions');
+  dropdown.hidden = true;
   autocompleteWrap.appendChild(dropdown);
  
+  // Toast message box shown on invalid submit attempt
+  let toastTimer = null;
+  const toast = document.createElement('div');
+  toast.className = 'city-toast';
+  toast.setAttribute('role', 'alert');
+  toast.setAttribute('aria-live', 'assertive');
+  toast.textContent = 'Please select a valid city from the suggestions.';
+  document.body.appendChild(toast);
+ 
   let activeIndex = -1;
+  let validCitySelected = false; // tracks whether current input value is a known city
+ 
+  function isValidCity(value) {
+    return US_CITIES.some(c => c.toLowerCase() === value.trim().toLowerCase());
+  }
+ 
+  function clearError() {
+    searchInput.classList.remove('input-error');
+  }
+ 
+  function showError() {
+    searchInput.classList.add('input-error');
+    // Shake animation — remove and re-add class so it re-triggers
+    searchInput.classList.remove('input-shake');
+    void searchInput.offsetWidth; // force reflow
+    searchInput.classList.add('input-shake');
+    // Show toast and auto-dismiss after 3 seconds
+    toast.classList.add('city-toast--visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('city-toast--visible');
+    }, 3000);
+  }
  
   function renderSuggestions(matches) {
     dropdown.innerHTML = '';
@@ -687,14 +717,14 @@ function setupCitySearch() {
       return;
     }
  
-    matches.slice(0, 6).forEach((city, i) => {
+    matches.slice(0, 6).forEach((city) => {
       const li = document.createElement('li');
       li.textContent = city;
       li.setAttribute('role', 'option');
       li.dataset.city = city;
  
       li.addEventListener('mousedown', (e) => {
-        e.preventDefault(); // don't blur the input
+        e.preventDefault(); // prevent blur before click registers
         selectCity(city);
       });
  
@@ -706,20 +736,46 @@ function setupCitySearch() {
  
   function selectCity(city) {
     searchInput.value = city;
+    validCitySelected = true;
     dropdown.hidden = true;
     activeIndex = -1;
-    // Save to sessionStorage and navigate
+    clearError();
     sessionStorage.setItem('searchLocation', city);
     sessionStorage.setItem('skipPageLoader', 'true');
     window.location.href = 'searchResults.html';
   }
  
+  function tryNavigate() {
+    const value = searchInput.value.trim();
+    if (!value) {
+      showError();
+      return;
+    }
+    if (isValidCity(value)) {
+      selectCity(
+        US_CITIES.find(c => c.toLowerCase() === value.toLowerCase())
+      );
+    } else {
+      showError();
+    }
+  }
+ 
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.trim().toLowerCase();
+    validCitySelected = false; // user is typing again, reset validity
+    clearError();
+ 
+    if (query.length === 0) {
+      sessionStorage.removeItem('searchLocation');
+      dropdown.hidden = true;
+      return;
+    }
+ 
     if (query.length < 2) {
       dropdown.hidden = true;
       return;
     }
+ 
     const matches = US_CITIES.filter(c => c.toLowerCase().includes(query));
     renderSuggestions(matches);
   });
@@ -727,13 +783,14 @@ function setupCitySearch() {
   // Keyboard navigation
   searchInput.addEventListener('keydown', (e) => {
     const items = dropdown.querySelectorAll('li');
-    if (!items.length) return;
  
     if (e.key === 'ArrowDown') {
+      if (!items.length) return;
       e.preventDefault();
       activeIndex = Math.min(activeIndex + 1, items.length - 1);
       items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
     } else if (e.key === 'ArrowUp') {
+      if (!items.length) return;
       e.preventDefault();
       activeIndex = Math.max(activeIndex - 1, 0);
       items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
@@ -741,11 +798,8 @@ function setupCitySearch() {
       e.preventDefault();
       if (activeIndex >= 0 && items[activeIndex]) {
         selectCity(items[activeIndex].dataset.city);
-      } else if (searchInput.value.trim()) {
-        // Free-type entry — save as-is and go
-        sessionStorage.setItem('searchLocation', searchInput.value.trim());
-        sessionStorage.setItem('skipPageLoader', 'true');
-        window.location.href = 'searchResults.html';
+      } else {
+        tryNavigate();
       }
     } else if (e.key === 'Escape') {
       dropdown.hidden = true;
