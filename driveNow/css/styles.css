@@ -207,6 +207,15 @@ body[data-theme="dark"] .results-loading-card {
   font-weight: var(--nav-logo-weight, 700);
   letter-spacing: var(--nav-logo-letter-spacing, normal);
   color: var(--color-nav-text, #ffffff);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .nav-right {
@@ -215,6 +224,7 @@ body[data-theme="dark"] .results-loading-card {
 
 .dark-mode-toggle {
   min-height: var(--nav-toggle-min-height, 44px);
+  min-width: var(--nav-toggle-min-height, 44px);
   padding: var(--nav-toggle-padding, 10px 14px);
   font-size: var(--nav-toggle-font-size, 1rem);
   border: var(--nav-toggle-border, 1px solid rgba(255, 255, 255, 0.4));
@@ -222,6 +232,32 @@ body[data-theme="dark"] .results-loading-card {
   background: var(--nav-toggle-background, transparent);
   color: var(--color-nav-text, #ffffff);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Show sun icon in light mode, moon in dark mode */
+.dark-mode-toggle .icon-sun {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.dark-mode-toggle .icon-moon {
+  display: none;
+  width: 20px;
+  height: 20px;
+}
+
+html[data-theme="dark"] .dark-mode-toggle .icon-sun,
+body[data-theme="dark"] .dark-mode-toggle .icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .dark-mode-toggle .icon-moon,
+body[data-theme="dark"] .dark-mode-toggle .icon-moon {
+  display: block;
 }
 
 .hamburger {
@@ -350,6 +386,10 @@ body[data-theme="dark"] .results-loading-card {
 
   .logo {
     font-size: var(--nav-logo-desktop-size, 2.5rem);
+  }
+
+  .logo-img {
+    height: 65px;
   }
 
 }
