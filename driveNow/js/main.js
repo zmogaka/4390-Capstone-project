@@ -115,7 +115,9 @@ setupHomePageLoading();
 setupSearchResultsLoading();
 setupInteractiveLoadingButtons();
 setupBookingFormLoading();
-
+setupCitySearch();
+setupSearchResultsHeader();
+ 
 function updateThemeButton() {
   // keeps the button text matched with the active theme
   const isDarkMode = getCurrentTheme() === 'dark';
@@ -436,9 +438,11 @@ const sortDropdown = document.getElementById("sortDropdown");
 const container = document.querySelector(".container");
 
 // Toggle dropdown
-sortToggle.addEventListener("click", () => {
-  sortDropdown.classList.toggle("active");
-});
+if (sortToggle) {
+  sortToggle.addEventListener("click", () => {
+    sortDropdown.classList.toggle("active");
+  });
+}
 
 // Close dropdown if clicking outside
 document.addEventListener("click", (e) => // What we click
@@ -603,3 +607,171 @@ if (mobileSortBtn) {
 
 // --- Extend stopLoading to work with mobile controls ---
 
+
+// ── CITY SEARCH AUTOCOMPLETE (Index.html) ──────────────────────────────────
+ 
+// A broad list of US cities in "City, ST" format
+const US_CITIES = [
+  "New York, NY","Los Angeles, CA","Chicago, IL","Houston, TX","Phoenix, AZ",
+  "Philadelphia, PA","San Antonio, TX","San Diego, CA","Dallas, TX","San Jose, CA",
+  "Austin, TX","Jacksonville, FL","Fort Worth, TX","Columbus, OH","Charlotte, NC",
+  "Indianapolis, IN","San Francisco, CA","Seattle, WA","Denver, CO","Nashville, TN",
+  "Oklahoma City, OK","El Paso, TX","Washington, DC","Las Vegas, NV","Louisville, KY",
+  "Memphis, TN","Portland, OR","Baltimore, MD","Milwaukee, WI","Albuquerque, NM",
+  "Tucson, AZ","Fresno, CA","Sacramento, CA","Mesa, AZ","Kansas City, MO",
+  "Atlanta, GA","Omaha, NE","Colorado Springs, CO","Raleigh, NC","Long Beach, CA",
+  "Virginia Beach, VA","Minneapolis, MN","Tampa, FL","New Orleans, LA","Arlington, TX",
+  "Bakersfield, CA","Honolulu, HI","Anaheim, CA","Aurora, CO","Santa Ana, CA",
+  "Corpus Christi, TX","Riverside, CA","Lexington, KY","St. Louis, MO","Pittsburgh, PA",
+  "Stockton, CA","Anchorage, AK","Cincinnati, OH","St. Paul, MN","Greensboro, NC",
+  "Toledo, OH","Newark, NJ","Plano, TX","Henderson, NV","Orlando, FL",
+  "Jersey City, NJ","Chandler, AZ","St. Petersburg, FL","Laredo, TX","Norfolk, VA",
+  "Madison, WI","Durham, NC","Lubbock, TX","Winston-Salem, NC","Garland, TX",
+  "Glendale, AZ","Hialeah, FL","Reno, NV","Baton Rouge, LA","Irvine, CA",
+  "Chesapeake, VA","Irving, TX","Scottsdale, AZ","North Las Vegas, NV","Fremont, CA",
+  "Gilbert, AZ","San Bernardino, CA","Birmingham, AL","Boise, ID","Rochester, NY",
+  "Richmond, VA","Spokane, WA","Des Moines, IA","Montgomery, AL","Modesto, CA",
+  "Fayetteville, NC","Tacoma, WA","Shreveport, LA","Fontana, CA","Moreno Valley, CA",
+  "Glendale, CA","Akron, OH","Huntington Beach, CA","Little Rock, AR","Columbus, GA",
+  "Augusta, GA","Grand Rapids, MI","Oxnard, CA","Tallahassee, FL","Salt Lake City, UT",
+  "Huntsville, AL","Worcester, MA","Knoxville, TN","Providence, RI","Brownsville, TX",
+  "Santa Clarita, CA","Garden Grove, CA","Oceanside, CA","Fort Lauderdale, FL","Chattanooga, TN",
+  "Tempe, AZ","Cape Coral, FL","Eugene, OR","Rancho Cucamonga, CA","Peoria, AZ",
+  "Ontario, CA","Springfield, MO","Elk Grove, CA","Salem, OR","Cary, NC",
+  "Hayward, CA","Fort Collins, CO","Lancaster, CA","Salinas, CA","Springfield, IL",
+  "Palmdale, CA","Sunnyvale, CA","Pomona, CA","Escondido, CA","Kansas City, KS",
+  "Surprise, AZ","Rockford, IL","Torrance, CA","Paterson, NJ","Bridgeport, CT",
+  "Alexandria, VA","Hollywood, FL","Macon, GA","Mesquite, TX","Syracuse, NY",
+  "Savannah, GA","Pasadena, TX","McAllen, TX","Dayton, OH","Lakewood, CO",
+  "Sunnyvale, CA","Clarksville, TN","Killeen, TX","Warren, MI","Hampton, VA",
+  "Columbia, SC","Fullerton, CA","West Valley City, UT","Visalia, CA","Sterling Heights, MI",
+  "Coral Springs, FL","New Haven, CT","Olathe, KS","Bellevue, WA","Hartford, CT",
+  "Athens, GA","Roseville, CA","Elizabeth, NJ","Gainesville, FL","Stamford, CT",
+  "Concord, CA","Thousand Oaks, CA","Waco, TX","Topeka, KS","Simi Valley, CA",
+  "Cedar Rapids, IA","Victorville, CA","Carrollton, TX","Midland, TX","Murfreesboro, TN",
+  "Miramar, FL","Columbia, MO","Independence, MO","Peoria, IL","El Monte, CA",
+  "Lansing, MI","Palm Bay, FL","Pompano Beach, FL","Clovis, CA","Denton, TX",
+  "Provo, UT","Torrance, CA","Fargo, ND","Roseville, CA","Tallahassee, FL",
+  "Ann Arbor, MI","Flint, MI","Rialto, CA","Birmingham, AL","Pueblo, CO",
+  "South Fulton, GA","Marietta, GA","Alpharetta, GA","Decatur, GA","Sandy Springs, GA"
+];
+ 
+function setupCitySearch() {
+  const searchInput = document.getElementById('location-search');
+  if (!searchInput) return;
+ 
+  // Build the autocomplete dropdown container
+  const searchBox = searchInput.closest('.search-box') || searchInput.parentElement;
+  const wrapper = searchInput.parentElement;
+ 
+  // Wrap input in a relative-position div for dropdown positioning
+  const autocompleteWrap = document.createElement('div');
+  autocompleteWrap.className = 'autocomplete-wrap';
+  wrapper.insertBefore(autocompleteWrap, searchInput);
+  autocompleteWrap.appendChild(searchInput);
+ 
+  const dropdown = document.createElement('ul');
+  dropdown.className = 'city-dropdown';
+  dropdown.setAttribute('role', 'listbox');
+  dropdown.setAttribute('aria-label', 'City suggestions');
+  autocompleteWrap.appendChild(dropdown);
+ 
+  let activeIndex = -1;
+ 
+  function renderSuggestions(matches) {
+    dropdown.innerHTML = '';
+    activeIndex = -1;
+ 
+    if (!matches.length) {
+      dropdown.hidden = true;
+      return;
+    }
+ 
+    matches.slice(0, 6).forEach((city, i) => {
+      const li = document.createElement('li');
+      li.textContent = city;
+      li.setAttribute('role', 'option');
+      li.dataset.city = city;
+ 
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // don't blur the input
+        selectCity(city);
+      });
+ 
+      dropdown.appendChild(li);
+    });
+ 
+    dropdown.hidden = false;
+  }
+ 
+  function selectCity(city) {
+    searchInput.value = city;
+    dropdown.hidden = true;
+    activeIndex = -1;
+    // Save to sessionStorage and navigate
+    sessionStorage.setItem('searchLocation', city);
+    sessionStorage.setItem('skipPageLoader', 'true');
+    window.location.href = 'searchResults.html';
+  }
+ 
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (query.length < 2) {
+      dropdown.hidden = true;
+      return;
+    }
+    const matches = US_CITIES.filter(c => c.toLowerCase().includes(query));
+    renderSuggestions(matches);
+  });
+ 
+  // Keyboard navigation
+  searchInput.addEventListener('keydown', (e) => {
+    const items = dropdown.querySelectorAll('li');
+    if (!items.length) return;
+ 
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, 0);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIndex >= 0 && items[activeIndex]) {
+        selectCity(items[activeIndex].dataset.city);
+      } else if (searchInput.value.trim()) {
+        // Free-type entry — save as-is and go
+        sessionStorage.setItem('searchLocation', searchInput.value.trim());
+        sessionStorage.setItem('skipPageLoader', 'true');
+        window.location.href = 'searchResults.html';
+      }
+    } else if (e.key === 'Escape') {
+      dropdown.hidden = true;
+    }
+  });
+ 
+  // Hide dropdown when focus leaves
+  searchInput.addEventListener('blur', () => {
+    setTimeout(() => { dropdown.hidden = true; }, 150);
+  });
+}
+ 
+// ── SEARCH RESULTS HEADER (searchResults.html) ────────────────────────────
+ 
+function setupSearchResultsHeader() {
+  const titleEl = document.querySelector('.resultTitle');
+  if (!titleEl) return;
+ 
+  const location = sessionStorage.getItem('searchLocation');
+  const cards = document.querySelectorAll('.container .card');
+  const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+  const count = visibleCards.length;
+ 
+  if (location) {
+    titleEl.textContent = `Showing ${count} car${count !== 1 ? 's' : ''} near ${location}`;
+  } else {
+    titleEl.textContent = `Showing ${count} car${count !== 1 ? 's' : ''}`;
+  }
+}
