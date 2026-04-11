@@ -5,6 +5,37 @@
   box-sizing: border-box;
 }
 
+/* SMOOTH THEME TRANSITION */
+html {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+ 
+body,
+.navbar,
+.nav-menu,
+.page-loader,
+.page-loader-panel,
+.car-card,
+.card,
+.details-card,
+.price-box,
+.car-image-wrap,
+.search-box,
+.city-dropdown,
+.car-footer,
+.filters,
+.sort-dropdown,
+.results-loading-card,
+.loading-card {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
 /* BASE STYLES */
 body {
   font-family: Arial, sans-serif;
