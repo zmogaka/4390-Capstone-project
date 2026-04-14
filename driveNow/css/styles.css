@@ -341,14 +341,14 @@ body[data-theme="dark"] .dark-mode-toggle .icon-moon {
 .nav-menu li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-
+/* shared content styles with fade-in animation */
 .content,
 .main {
   padding: 24px;
   animation: fadeIn 0.4s ease;
 }
 
-
+/* page fade-in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
