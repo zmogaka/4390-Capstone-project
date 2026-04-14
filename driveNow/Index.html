@@ -4,10 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DriveNow — Find Your Ride</title>
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  </script>
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/index.css" />
 </head>
 <body class="home-page">
+  <div class="page-loader" id="page-loader" role="status" aria-live="polite">
+    <div class="page-loader-panel">
+      <div class="ring-spinner" aria-hidden="true"></div>
+      <h2>Finding Your Perfect Car...</h2>
+      <p>This will only take a moment</p>
+    </div>
+  </div>
 
   <!-- ── HEADER / NAV ── -->
   <header>
@@ -24,15 +37,16 @@
       </button>
 
       <!-- Logo -->
-      <div class="logo">DriveNow</div>
-      <!-- <a href="Index.html" class="logo">
-        <img src="images/fbd05711-7cd3-4212-a575-e31c91cb1850-removebg-preview.png" alt="DriveNow Car Rental Company" class="logo-img" />
-      </a> -->
+      <a href="Index.html" class="logo">
+        <img src="images/logo.png" alt="DriveNow" class="logo-img" />
+      </a>
 
       <!-- Dark-mode toggle -->
       <div class="nav-right">
-        <button class="dark-mode-toggle" type="button"
-                aria-label="Toggle light and dark mode">Dark Mode</button>
+        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </div>
 
       <!-- Single nav list — mobile dropdown + desktop inline row -->
@@ -70,13 +84,54 @@
     </div>
 
     <!-- Featured Deals -->
-    <section class="featured-section" aria-label="Featured deals">
+    <section class="featured-section is-initial-loading" aria-label="Featured deals">
       <h2>Featured Deals</h2>
 
-      <div class="cards-grid">
+      <div class="cards-loading-grid" id="initial-loading" aria-hidden="true">
+        <article class="loading-card">
+          <div class="loading-image"></div>
+          <div class="loading-card-body">
+            <div class="loading-line loading-line-title"></div>
+            <div class="loading-line loading-line-price"></div>
+            <div class="loading-line loading-line-button"></div>
+          </div>
+        </article>
+        <article class="loading-card">
+          <div class="loading-image"></div>
+          <div class="loading-card-body">
+            <div class="loading-line loading-line-title"></div>
+            <div class="loading-line loading-line-price"></div>
+            <div class="loading-line loading-line-button"></div>
+          </div>
+        </article>
+        <article class="loading-card">
+          <div class="loading-image"></div>
+          <div class="loading-card-body">
+            <div class="loading-line loading-line-title"></div>
+            <div class="loading-line loading-line-price"></div>
+            <div class="loading-line loading-line-button"></div>
+          </div>
+        </article>
+        <article class="loading-card">
+          <div class="loading-image"></div>
+          <div class="loading-card-body">
+            <div class="loading-line loading-line-title"></div>
+            <div class="loading-line loading-line-price"></div>
+            <div class="loading-line loading-line-button"></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="results-loading-card" id="results-loading" aria-live="polite" hidden>
+        <div class="ring-spinner" aria-hidden="true"></div>
+        <h3>Finding Your Perfect Car...</h3>
+        <p>This will only take a moment</p>
+      </div>
+
+      <div class="cards-grid" id="featured-cards">
 
         <!-- Card 1 — Toyota Supra -->
-        <a href="car-details.html?car=toyota-supra" class="car-card">
+        <a href="car-details.html?car=toyota-supra" class="car-card" data-search="toyota supra sport coupe">
           <img src="images/3acf2c99f99354d7e898cce7eb17a19293761b6e.png" alt="Toyota Supra" />
           <div class="car-card-body">
             <h3>Toyota Supra</h3>
@@ -86,7 +141,7 @@
         </a>
 
         <!-- Card 2 — Toyota Camry -->
-        <a href="car-details.html?car=toyota-camry" class="car-card">
+        <a href="car-details.html?car=toyota-camry" class="car-card" data-search="toyota camry comfort sedan">
           <img src="images/bf67752caa2bc43080dd3bb3404a6be46a2e1ee6.png" alt="Toyota Camry" />
           <div class="car-card-body">
             <h3>Toyota Camry</h3>
@@ -96,7 +151,7 @@
         </a>
 
         <!-- Card 3 — Tesla Model 3 -->
-        <a href="car-details.html?car=tesla-model-3" class="car-card">
+        <a href="car-details.html?car=tesla-model-3" class="car-card" data-search="tesla model 3 electric sedan">
           <img src="images/949071b429e9a21ffe97f024915ea145618aae77.png" alt="Tesla Model 3" />
           <div class="car-card-body">
             <h3>Tesla Model 3</h3>
@@ -106,7 +161,7 @@
         </a>
 
         <!-- Card 4 — Ford Explorer -->
-        <a href="car-details.html?car=ford-explorer" class="car-card">
+        <a href="car-details.html?car=ford-explorer" class="car-card" data-search="ford explorer family suv">
           <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Ford Explorer" />
           <div class="car-card-body">
             <h3>Ford Explorer</h3>
@@ -116,6 +171,8 @@
         </a>
 
       </div>
+
+      <p class="results-empty" id="results-empty" hidden>No cars matched your search.</p>
     </section>
 
   </main>

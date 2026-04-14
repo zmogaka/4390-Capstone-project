@@ -22,6 +22,7 @@ body.car-details-page {
 }
 
 /* dark mode colors for just this page */
+html[data-theme="dark"] body.car-details-page,
 body.car-details-page[data-theme="dark"] {
   --color-header: #0d0d0d;
   --color-text: #f5f5f5;
@@ -222,6 +223,7 @@ body.car-details-page[data-theme="dark"] {
     border: 1px solid #333333;
   }
 
+  html[data-theme="dark"] body.car-details-page .details-card,
   body.car-details-page[data-theme="dark"] .details-card {
     /* lighter gray panel in dark mode like the Figma */
     background-color: #5b5b5b;
@@ -251,6 +253,7 @@ body.car-details-page[data-theme="dark"] {
     border: 1px solid #666666;
   }
 
+  html[data-theme="dark"] body.car-details-page .price-box,
   body.car-details-page[data-theme="dark"] .price-box {
     /* slightly lighter box inside the dark card */
     background-color: #8a8a8a;

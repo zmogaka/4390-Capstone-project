@@ -5,11 +5,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DriveNow search results</title>
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  </script>
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/search-results.css" />
 </head>
 
 <body class ="search-results-page">
+  <div class="page-loader" id="page-loader" role="status" aria-live="polite">
+    <div class="page-loader-panel">
+      <div class="ring-spinner" aria-hidden="true"></div>
+      <h2>Finding Your Perfect Car...</h2>
+      <p>This will only take a moment</p>
+    </div>
+  </div>
   <header>
     <nav class="navbar" aria-label="Main navigation">
       <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
@@ -20,10 +33,15 @@
       </button>
 
       <!-- Logo -->
-      <div class="logo">DriveNow</div>
-
+      <a href="Index.html" class="logo">
+        <img src="images/logo.png" alt="DriveNow" class="logo-img" />
+      </a>
+      <!-- Dark-mode toggle -->
       <div class="nav-right">
-        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">Dark Mode</button>
+        <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </div>
 
       <ul class="nav-menu" id="nav-menu">
@@ -39,21 +57,21 @@
     <!--Spot for filers -->
     <aside class="filters">
       <h3>Filters</h3>
-
       <!--Buttons for the desktop version-->
       <div class="desktopBtns">
-        <p class=p>Price Range</p>
-        <p class=m>Make & Model</p>
-        <button class="whitebtn">Make</button>
-        <button class="whitebtn">Model</button>
-        <button class="whitebtn">Year</button>
-        <button class="orangebtn">Apply</button>
+        <p class="filter-label">Make & Model</p>
+      <input type="text" id = "makeFilter" class="whitebtn" placeholder="Filter by Make">
+      <input type="text" id ="modelFilter" class="whitebtn" placeholder="Filter by Model">
       </div>
-
       <!--Buttons for the mobile version-->
       <div class="mobileBtns">
-        <button class="mobileFilter">Filters</button>
-        <button class="mobileSort">Sort by Price</button>
+        <button class="mobileFilter" id= "mobileFilterBtn">Filters</button>
+        <button class="mobileSort" id = "mobileSortBtn">Sort by Price</button>
+      </div>
+      <div id="mobileFilterMenu" class="mobileFilterMenu">
+        <p class="filter-label">Make & Model</p>
+        <input type="text" id="mobileMakeFilter" class="whitebtn" placeholder="Filter by Make">
+        <input type="text" id="mobileModelFilter" class="whitebtn" placeholder="Filter by Model">
       </div>
     </aside>
 
@@ -62,11 +80,25 @@
     <section class="results">
       <div class='resultHeader'>
         <h1 class="resultTitle">Showing x cars in [location]</h1>
-        <button class="srtbtn">Sort by ▼</button>
+        
+       <div class="sort-container">
+  <button class="srtbtn" id="sortToggle">Sort by ▼</button>
+
+  <div class="sort-dropdown" id="sortDropdown">
+    <div class="sort-option" data-sort="price">Price (Low → High)</div>
+    <div class="sort-option" data-sort="make">Make (A → Z)</div>
+  </div>
+</div>
+      </div>
       </div>
 
 
       <!-- Car Cards -->
+
+      <div class="results-loading-inline" id="search-results-loading" aria-live="polite" hidden>
+        <div class="ring-spinner results-spinner" aria-hidden="true"></div>
+        <p>Loading results...</p>
+      </div>
 
       <div class="container">
         <a href="car-details.html?car=toyota-supra" class="card" id="card1">

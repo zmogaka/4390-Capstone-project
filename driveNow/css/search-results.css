@@ -18,6 +18,7 @@ body {
 
 /*When the body has <body data-theme="dark"> the  page turns dark*/
 /*Dark Mode*/
+html[data-theme="dark"] body,
 body[data-theme="dark"] {
   --color-header: #0d0d0d;
   --color-text: #f5f5f5;
@@ -83,8 +84,8 @@ button {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 449px;
-  height: 38px;
+  white-space: nowrap;   /* keeps it on one line */
+  min-width: 0;
 }
 
 /*Title of the search results*/
@@ -96,13 +97,14 @@ button {
 }
 
 /*Styling the sort button*/
+
 .srtbtn {
   padding: 8px 12px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
-  color: black;
-
-
+  color: white;
+  width: 160px;
+  background-color: #D96A36;
 }
 
 
@@ -205,6 +207,10 @@ button {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
+.orangebtn:hover {
+  background-color: var(--color-accent-hover);
+}
+
 /*Styling the filter buttons*/
 .whitebtn {
   display: block;
@@ -220,6 +226,12 @@ button {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
+.whitebtn:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
 .m {
   margin-top: 250px;
   text-align: center;
@@ -228,26 +240,78 @@ button {
   font-weight: 700;
 }
 
+.filter{
+  background: rgba(217, 106, 54, 0.21);
+  padding: 15px;
+  text-align: center;
+}
 /*Styling the filters title*/
 .h3 {
   border-bottom: 2px solid black;
 }
-
+#makeFilter{
+  color:#0d0d0d;
+  font-size: 15px;
+}
+#modelFilter{
+  color:#0d0d0d;
+  font-size: 15px;
+}
 .filters h3 {
   text-align: center;
-  padding-bottom: 8px;
-  border-bottom: 2px solid black;
-  margin-bottom: 15px;
+  padding-bottom: 0px;
+  border-bottom:none;
+  margin-bottom: 10px;
   font-weight: 700;
+  border-bottom: 2px solid black;
+}
+.filters .filter-label {
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
 .filters p {
+  text-align: center;
   font-weight: 700;
 }
 
 .results {
   display: flex;
   flex-direction: column;
+}
+
+.results-loading-inline {
+  display: none;
+  min-height: 180px;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 20px 12px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--color-text-soft);
+}
+
+.results.is-loading .results-loading-inline {
+  display: grid;
+}
+
+.results-loading-inline[hidden] {
+  display: none !important;
+}
+
+.results-spinner {
+  width: 72px;
+  height: 72px;
+}
+
+.results.is-loading .container {
+  display: none;
+}
+
+.card.is-loading {
+  pointer-events: none;
+  opacity: 0.85;
 }
 
 /*Making a table with the cards
@@ -311,9 +375,64 @@ button {
   }
 
   .resultTitle {
-    width: 100%;
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 18px;
+  white-space: normal;
   }
 
+}
+
+.sort-container {
+  position: relative;
+}
+
+.sort-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 1000;
+}
+
+.sort-dropdown.active {
+  display: flex;
+}
+
+.sort-option {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.sort-option:hover {
+  background-color: var(--color-accent-hover);
+  color: white;
+}
+
+/* hidden filter dropdown for mobile view */
+.mobileFilterMenu {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(217, 106, 54, 0.1);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+/* when visible */
+.mobileFilterMenu.active {
+  display: flex;
+}
+/* reuse mobile buttons styling */
+#mobileFilterBtn,
+#mobileSortBtn {
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 12px;
+  background-color: #D96A36;
 }

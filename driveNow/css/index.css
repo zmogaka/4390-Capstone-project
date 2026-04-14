@@ -23,6 +23,7 @@ body.home-page {
   }
   
   /* ── Dark mode ── */
+  html[data-theme="dark"] body.home-page,
   body.home-page[data-theme="dark"] {
     --color-header: #0d0d0d;
     --color-text: #f5f5f5;
@@ -101,6 +102,33 @@ body.home-page {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
+  #initial-loading,
+  #results-loading {
+    display: none;
+  }
+
+  .featured-section.is-initial-loading #initial-loading {
+    display: grid;
+  }
+
+  .featured-section.is-results-loading #results-loading {
+    display: grid;
+  }
+
+  .featured-section.is-initial-loading #featured-cards,
+  .featured-section.is-results-loading #featured-cards,
+  .featured-section.is-initial-loading #results-empty,
+  .featured-section.is-results-loading #results-empty {
+    display: none;
+  }
+
+  .results-empty {
+    margin-top: 24px;
+    text-align: center;
+    color: var(--color-text-soft);
+    font-size: 1rem;
+  }
   
   /* Individual car card with hover effect */
   .car-card {
@@ -115,6 +143,11 @@ body.home-page {
   
   .car-card:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .car-card.is-loading {
+    pointer-events: none;
+    opacity: 0.85;
   }
   
   .car-card img {
@@ -146,7 +179,7 @@ body.home-page {
   /* View details button on card with hover effect */
   .car-card-body .view-btn {
     display: block;
-    margin-top: 10px;
+    margin-top: auto;
     padding: 12px 16px;
     background-color: var(--color-accent);
     color: #ffffff;
@@ -191,3 +224,102 @@ body.home-page {
     }
 
   }
+
+/* ── CITY AUTOCOMPLETE DROPDOWN ── */
+.autocomplete-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+ 
+.autocomplete-wrap input {
+  width: 100%;
+}
+ 
+.city-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: -52px; /* align with the left edge of the search-box including icon+gap */
+  right: -20px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+}
+ 
+.city-dropdown[hidden] {
+  display: none;
+}
+ 
+.city-dropdown li {
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+ 
+.city-dropdown li:hover,
+.city-dropdown li.active {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+ 
+html[data-theme="dark"] .city-dropdown,
+body[data-theme="dark"] .city-dropdown {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
+}
+
+/* ── CITY SEARCH VALIDATION ── */
+ 
+/* Toast message box — fixed to bottom of screen */
+.city-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: #c0392b;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+  white-space: nowrap;
+}
+ 
+.city-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+ 
+/* Red border on invalid input */
+.search-box:has(.input-error) {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+}
+ 
+/* Shake animation on invalid submit attempt */
+@keyframes inputShake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+ 
+.input-shake {
+  animation: inputShake 0.35s ease;
+}

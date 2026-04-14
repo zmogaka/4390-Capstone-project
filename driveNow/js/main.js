@@ -1,6 +1,9 @@
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 const darkModeToggle = document.querySelector('.dark-mode-toggle');
+const PAGE_LOAD_DELAY = 1200;
+const CONTENT_LOAD_DELAY = 800;
+const BUTTON_DELAY = 650;
 const CAR_DATA = {
   'toyota-supra': {
     name: 'Toyota Supra',
@@ -89,17 +92,17 @@ if (darkModeToggle) {
   const savedTheme = localStorage.getItem('theme');
 
   if (savedTheme) {
-    document.body.setAttribute('data-theme', savedTheme);
+    applyTheme(savedTheme);
   }
 
   updateThemeButton();
 
   // switches between light and dark mode
   darkModeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const currentTheme = getCurrentTheme();
     const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    document.body.setAttribute('data-theme', nextTheme);
+    applyTheme(nextTheme);
     localStorage.setItem('theme', nextTheme);
     updateThemeButton();
   });
@@ -107,11 +110,27 @@ if (darkModeToggle) {
 
 renderCarDetailsPage();
 renderBookingPage();
-
+setupInitialPageLoader();
+setupHomePageLoading();
+setupSearchResultsLoading();
+setupInteractiveLoadingButtons();
+setupBookingFormLoading();
+setupCitySearch();
+setupSearchResultsHeader();
+ 
 function updateThemeButton() {
-  // changes the button text to match the next theme option
-  const isDarkMode = document.body.getAttribute('data-theme') === 'dark';
-  darkModeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+  // keeps the button text matched with the active theme
+  // const isDarkMode = getCurrentTheme() === 'dark';
+  // darkModeToggle.textContent = isDarkMode ? 'Dark Mode' : 'Light Mode';
+}
+
+function getCurrentTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.body.setAttribute('data-theme', theme);
 }
 
 function renderCarDetailsPage() {
@@ -185,4 +204,628 @@ function renderBookingPage() {
   }
 
   document.title = `DriveNow Booking - ${selectedCar.name}`;
+}
+
+function showLoading(container, loadingClass) {
+  if (!container || !loadingClass) {
+    return;
+  }
+
+  container.classList.remove('is-initial-loading', 'is-results-loading');
+  container.classList.add(loadingClass);
+}
+
+function hideLoading(container, loadingClass) {
+  if (!container || !loadingClass) {
+    return;
+  }
+
+  container.classList.remove(loadingClass);
+}
+
+function setButtonLoadingState(button, isLoading) {
+  if (!button) {
+    return;
+  }
+
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.textContent.trim();
+  }
+
+  const loadingText = button.dataset.loadingText || 'Loading...';
+
+  if (isLoading) {
+    button.textContent = loadingText;
+    button.classList.add('button-loading');
+
+    if (button.tagName === 'BUTTON') {
+      button.disabled = true;
+    }
+
+    return;
+  }
+
+  button.textContent = button.dataset.originalText;
+  button.classList.remove('button-loading');
+
+  if (button.tagName === 'BUTTON') {
+    button.disabled = false;
+  }
+}
+
+function setupInitialPageLoader() {
+  const pageLoader = document.getElementById('page-loader');
+
+  if (!pageLoader) {
+    return;
+  }
+
+  const skipPageLoader = sessionStorage.getItem('skipPageLoader') === 'true';
+
+  if (skipPageLoader) {
+    sessionStorage.removeItem('skipPageLoader');
+    pageLoader.classList.add('is-hidden');
+    return;
+  }
+
+  window.setTimeout(() => {
+    pageLoader.classList.add('is-hidden');
+  }, PAGE_LOAD_DELAY);
+}
+
+function setupHomePageLoading() {
+  if (!document.body.classList.contains('home-page')) {
+    return;
+  }
+
+  const featuredSection = document.querySelector('.featured-section');
+  const searchInput = document.getElementById('location-search');
+  const cards = Array.from(document.querySelectorAll('#featured-cards .car-card'));
+  const emptyState = document.getElementById('results-empty');
+  let searchTimerId;
+
+  if (!featuredSection || !searchInput || cards.length === 0 || !emptyState) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    hideLoading(featuredSection, 'is-initial-loading');
+  }, PAGE_LOAD_DELAY);
+
+  const runSearchLoading = () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    showLoading(featuredSection, 'is-results-loading');
+
+    window.setTimeout(() => {
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cardSearchText = card.dataset.search || '';
+        const shouldShow = !searchTerm || cardSearchText.includes(searchTerm);
+        card.hidden = !shouldShow;
+
+        if (shouldShow) {
+          visibleCount += 1;
+        }
+      });
+
+      emptyState.hidden = visibleCount !== 0;
+      hideLoading(featuredSection, 'is-results-loading');
+    }, CONTENT_LOAD_DELAY);
+  };
+
+  searchInput.addEventListener('input', () => {
+    window.clearTimeout(searchTimerId);
+    searchTimerId = window.setTimeout(runSearchLoading, 250);
+  });
+}
+
+function setupSearchResultsLoading() {
+  if (!document.body.classList.contains('search-results-page')) {
+    return;
+  }
+
+  const resultsSection = document.querySelector('.results');
+  const resultsLoader = document.getElementById('search-results-loading');
+  const triggerButtons = document.querySelectorAll('.orangebtn, .whitebtn');
+
+  if (!resultsSection || !resultsLoader || triggerButtons.length === 0) {
+    return;
+  }
+
+  triggerButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (resultsSection.classList.contains('is-loading')) {
+        return;
+      }
+
+      resultsSection.classList.add('is-loading');
+      resultsLoader.hidden = false;
+      setButtonLoadingState(button, true);
+
+      window.setTimeout(() => {
+        resultsSection.classList.remove('is-loading');
+        resultsLoader.hidden = true;
+        setButtonLoadingState(button, false);
+      }, CONTENT_LOAD_DELAY);
+    });
+  });
+}
+
+function setupInteractiveLoadingButtons() {
+  const listingCards = document.querySelectorAll('.car-card, .card');
+  const detailButtons = document.querySelectorAll('.primary-button, .secondary-button');
+
+  listingCards.forEach((card) => {
+    const loadingTarget = card.querySelector('.view-btn, .details-btn');
+
+    if (!loadingTarget) {
+      return;
+    }
+
+    loadingTarget.dataset.loadingText = 'Loading...';
+
+    card.addEventListener('click', (event) => {
+      if (card.classList.contains('is-loading')) {
+        event.preventDefault();
+        return;
+      }
+
+      event.preventDefault();
+      card.classList.add('is-loading');
+      setButtonLoadingState(loadingTarget, true);
+      sessionStorage.setItem('skipPageLoader', 'true');
+
+      window.setTimeout(() => {
+        window.location.href = card.href;
+      }, BUTTON_DELAY);
+    });
+  });
+
+  detailButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      if (button.classList.contains('button-loading')) {
+        event.preventDefault();
+        return;
+      }
+
+      const parentLink = button.closest('a[href]');
+      setButtonLoadingState(button, true);
+
+      if (parentLink) {
+        event.preventDefault();
+        sessionStorage.setItem('skipPageLoader', 'true');
+
+        window.setTimeout(() => {
+          window.location.href = parentLink.href;
+        }, BUTTON_DELAY);
+        return;
+      }
+
+      window.setTimeout(() => {
+        setButtonLoadingState(button, false);
+      }, CONTENT_LOAD_DELAY);
+    });
+  });
+}
+
+function setupBookingFormLoading() {
+  const bookingForm = document.querySelector('.booking-form');
+  const submitButton = bookingForm ? bookingForm.querySelector('.btn-confirm') : null;
+
+  if (!bookingForm || !submitButton) {
+    return;
+  }
+
+  submitButton.dataset.loadingText = 'Loading...';
+
+  bookingForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    setButtonLoadingState(submitButton, true);
+
+    window.setTimeout(() => {
+      setButtonLoadingState(submitButton, false);
+      bookingForm.reset();
+      window.alert('Booking submitted successfully.');
+    }, CONTENT_LOAD_DELAY);
+  });
+}
+
+//Grab elements by the Id
+const sortToggle = document.getElementById("sortToggle");
+const sortDropdown = document.getElementById("sortDropdown");
+const container = document.querySelector(".container");
+
+// Toggle dropdown
+if (sortToggle) {
+  sortToggle.addEventListener("click", () => {
+    sortDropdown.classList.toggle("active");
+  });
+}
+
+// Close dropdown if clicking outside
+document.addEventListener("click", (e) => {
+  if (sortDropdown && !e.target.closest(".sort-container")) {
+    sortDropdown.classList.remove("active");
+  }
+});
+
+
+
+
+//Filters
+const makeInput = document.getElementById('makeFilter');
+const modelInput = document.getElementById('modelFilter');
+
+const mobileMakeInput = document.getElementById('mobileMakeFilter');
+const mobileModelInput = document.getElementById('mobileModelFilter');
+
+
+ function filterCars() {
+  const makeQuery = (makeInput?.value || mobileMakeInput?.value || '').toLowerCase();
+  const modelQuery = (modelInput?.value || mobileModelInput?.value || '').toLowerCase();
+
+  document.querySelectorAll('.card').forEach(card => {
+    const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+
+    const match =
+      title.includes(makeQuery) &&
+      title.includes(modelQuery);
+
+    card.style.display = match ? '' : 'none';
+  });
+}
+
+// desktop inputs
+makeInput?.addEventListener('input', filterCars);
+modelInput?.addEventListener('input', filterCars);
+
+// mobile inputs
+mobileMakeInput?.addEventListener('input', filterCars);
+mobileModelInput?.addEventListener('input', filterCars);
+
+function sortCards(type) {
+  //Container with all the cards
+  const container = document.querySelector(".container");
+
+  //Convert the list of cards into a array
+  const cards = Array.from(container.querySelectorAll(".card"));
+
+  //Creating a copy of the array
+  let sortedCards = [...cards];
+
+  //Sorting from high to low
+  if (type === "price") {
+    sortedCards.sort((a, b) => {
+
+      //Getting the price of the first card
+      const priceA = parseInt(a.querySelector(".price").textContent.replace(/\D/g, ""));
+
+      //Getting the price of the second card
+      const priceB = parseInt(b.querySelector(".price").textContent.replace(/\D/g, ""));
+      return priceA - priceB;
+    });
+  }
+
+  //Sort by make
+  if (type === "make") {
+    sortedCards.sort((a, b) => {
+
+      //Get each cars name convert to lower case
+      const nameA = a.querySelector("h3").textContent.toLowerCase();
+      const nameB = b.querySelector("h3").textContent.toLowerCase();
+
+      //Return the comparison
+      return nameA.localeCompare(nameB);
+    });
+  }
+//Clear cards from the container
+  container.innerHTML = "";
+
+  //Add sorted cards back into the container in new order
+  sortedCards.forEach(card => container.appendChild(card));
+}
+
+//Add click listeners to all sort dropdown options
+document.querySelectorAll(".sort-option").forEach(option => {
+  option.addEventListener("click", () => {
+
+    // // Sort cards based on clicked option's data-sort value
+    sortCards(option.dataset.sort);
+
+    //// Close the sort dropdown after selection
+    sortDropdown.classList.remove("active");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const mobileSortBtn = document.getElementById('mobileSortBtn');
+
+  if (mobileSortBtn) {
+    mobileSortBtn.addEventListener('click', () => {
+      sortCards("price");
+    });
+  }
+});
+
+
+  
+
+//Mobile 
+  
+// --- Mobile Filter & Sort Integration ---
+//references to mobile UI elements (filter button, filter menu, sort button)
+const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+const mobileFilterMenu = document.getElementById('mobileFilterMenu');
+const mobileSortBtn = document.getElementById('mobileSortBtn');
+
+//Checking that both buttons exists.
+if (mobileFilterBtn && mobileFilterMenu) {
+
+  //toggle the mobile filter dropdown menu
+  mobileFilterBtn.addEventListener('click', () => {
+
+    //Toggle the "active" class to show/hide the filter menu
+    mobileFilterMenu.classList.toggle('active');
+   // stopLoading();
+  });
+}
+
+// Mobile "Sort by Price"
+//Checks if the sort button is on the screen
+if (mobileSortBtn) {
+  //Listener to trigger sorting on mobile
+  mobileSortBtn.addEventListener('click', () => {
+    //Stops loading before updating UI
+    stopLoading(); 
+//Convert the cards into an array
+    const cards = Array.from(document.querySelectorAll('.card'));
+    //Get the container that holds the cards
+    const container = document.querySelector('.container');
+//Sort the cards from low to high
+    const sortedCards = cards.sort((a, b) => {
+      
+      //Grab the price from the first card
+      const priceA = parseInt(a.querySelector('.price').textContent.replace(/\D/g, ''), 10);
+
+      //Grab the price of the second card
+      const priceB = parseInt(b.querySelector('.price').textContent.replace(/\D/g, ''), 10);
+
+      //Return the comparison
+      return priceA - priceB;
+    });
+//Clear the cards from the container
+    container.innerHTML = '';
+
+    //Add sorted cards back into the container
+    sortedCards.forEach(card => container.appendChild(card));
+  });
+}
+
+// --- Extend stopLoading to work with mobile controls ---
+
+
+// ── CITY SEARCH AUTOCOMPLETE (Index.html) ──────────────────────────────────
+ 
+// A broad list of US cities in "City, ST" format
+const US_CITIES = [
+  "New York, NY","Los Angeles, CA","Chicago, IL","Houston, TX","Phoenix, AZ",
+  "Philadelphia, PA","San Antonio, TX","San Diego, CA","Dallas, TX","San Jose, CA",
+  "Austin, TX","Jacksonville, FL","Fort Worth, TX","Columbus, OH","Charlotte, NC",
+  "Indianapolis, IN","San Francisco, CA","Seattle, WA","Denver, CO","Nashville, TN",
+  "Oklahoma City, OK","El Paso, TX","Washington, DC","Las Vegas, NV","Louisville, KY",
+  "Memphis, TN","Portland, OR","Baltimore, MD","Milwaukee, WI","Albuquerque, NM",
+  "Tucson, AZ","Fresno, CA","Sacramento, CA","Mesa, AZ","Kansas City, MO",
+  "Atlanta, GA","Omaha, NE","Colorado Springs, CO","Raleigh, NC","Long Beach, CA",
+  "Virginia Beach, VA","Minneapolis, MN","Tampa, FL","New Orleans, LA","Arlington, TX",
+  "Bakersfield, CA","Honolulu, HI","Anaheim, CA","Aurora, CO","Santa Ana, CA",
+  "Corpus Christi, TX","Riverside, CA","Lexington, KY","St. Louis, MO","Pittsburgh, PA",
+  "Stockton, CA","Anchorage, AK","Cincinnati, OH","St. Paul, MN","Greensboro, NC",
+  "Toledo, OH","Newark, NJ","Plano, TX","Henderson, NV","Orlando, FL",
+  "Jersey City, NJ","Chandler, AZ","St. Petersburg, FL","Laredo, TX","Norfolk, VA",
+  "Madison, WI","Durham, NC","Lubbock, TX","Winston-Salem, NC","Garland, TX",
+  "Glendale, AZ","Hialeah, FL","Reno, NV","Baton Rouge, LA","Irvine, CA",
+  "Chesapeake, VA","Irving, TX","Scottsdale, AZ","North Las Vegas, NV","Fremont, CA",
+  "Gilbert, AZ","San Bernardino, CA","Birmingham, AL","Boise, ID","Rochester, NY",
+  "Richmond, VA","Spokane, WA","Des Moines, IA","Montgomery, AL","Modesto, CA",
+  "Fayetteville, NC","Tacoma, WA","Shreveport, LA","Fontana, CA","Moreno Valley, CA",
+  "Glendale, CA","Akron, OH","Huntington Beach, CA","Little Rock, AR","Columbus, GA",
+  "Augusta, GA","Grand Rapids, MI","Oxnard, CA","Tallahassee, FL","Salt Lake City, UT",
+  "Huntsville, AL","Worcester, MA","Knoxville, TN","Providence, RI","Brownsville, TX",
+  "Santa Clarita, CA","Garden Grove, CA","Oceanside, CA","Fort Lauderdale, FL","Chattanooga, TN",
+  "Tempe, AZ","Cape Coral, FL","Eugene, OR","Rancho Cucamonga, CA","Peoria, AZ",
+  "Ontario, CA","Springfield, MO","Elk Grove, CA","Salem, OR","Cary, NC",
+  "Hayward, CA","Fort Collins, CO","Lancaster, CA","Salinas, CA","Springfield, IL",
+  "Palmdale, CA","Sunnyvale, CA","Pomona, CA","Escondido, CA","Kansas City, KS",
+  "Surprise, AZ","Rockford, IL","Torrance, CA","Paterson, NJ","Bridgeport, CT",
+  "Alexandria, VA","Hollywood, FL","Macon, GA","Mesquite, TX","Syracuse, NY",
+  "Savannah, GA","Pasadena, TX","McAllen, TX","Dayton, OH","Lakewood, CO",
+  "Sunnyvale, CA","Clarksville, TN","Killeen, TX","Warren, MI","Hampton, VA",
+  "Columbia, SC","Fullerton, CA","West Valley City, UT","Visalia, CA","Sterling Heights, MI",
+  "Coral Springs, FL","New Haven, CT","Olathe, KS","Bellevue, WA","Hartford, CT",
+  "Athens, GA","Roseville, CA","Elizabeth, NJ","Gainesville, FL","Stamford, CT",
+  "Concord, CA","Thousand Oaks, CA","Waco, TX","Topeka, KS","Simi Valley, CA",
+  "Cedar Rapids, IA","Victorville, CA","Carrollton, TX","Midland, TX","Murfreesboro, TN",
+  "Miramar, FL","Columbia, MO","Independence, MO","Peoria, IL","El Monte, CA",
+  "Lansing, MI","Palm Bay, FL","Pompano Beach, FL","Clovis, CA","Denton, TX",
+  "Provo, UT","Torrance, CA","Fargo, ND","Roseville, CA","Tallahassee, FL",
+  "Ann Arbor, MI","Flint, MI","Rialto, CA","Birmingham, AL","Pueblo, CO",
+  "South Fulton, GA","Marietta, GA","Alpharetta, GA","Decatur, GA","Sandy Springs, GA"
+];
+ 
+function setupCitySearch() {
+  const searchInput = document.getElementById('location-search');
+  if (!searchInput) return;
+ 
+  const wrapper = searchInput.parentElement;
+ 
+  // Wrap input in a relative-position div for dropdown positioning
+  const autocompleteWrap = document.createElement('div');
+  autocompleteWrap.className = 'autocomplete-wrap';
+  wrapper.insertBefore(autocompleteWrap, searchInput);
+  autocompleteWrap.appendChild(searchInput);
+ 
+  // Dropdown list
+  const dropdown = document.createElement('ul');
+  dropdown.className = 'city-dropdown';
+  dropdown.setAttribute('role', 'listbox');
+  dropdown.setAttribute('aria-label', 'City suggestions');
+  dropdown.hidden = true;
+  autocompleteWrap.appendChild(dropdown);
+ 
+  // Toast message box shown on invalid submit attempt
+  let toastTimer = null;
+  const toast = document.createElement('div');
+  toast.className = 'city-toast';
+  toast.setAttribute('role', 'alert');
+  toast.setAttribute('aria-live', 'assertive');
+  toast.textContent = 'Please select a valid city from the suggestions.';
+  document.body.appendChild(toast);
+ 
+  let activeIndex = -1;
+  let validCitySelected = false; // tracks whether current input value is a known city
+ 
+  function isValidCity(value) {
+    return US_CITIES.some(c => c.toLowerCase() === value.trim().toLowerCase());
+  }
+ 
+  function clearError() {
+    searchInput.classList.remove('input-error');
+  }
+ 
+  function showError() {
+    searchInput.classList.add('input-error');
+    // Shake animation — remove and re-add class so it re-triggers
+    searchInput.classList.remove('input-shake');
+    void searchInput.offsetWidth; // force reflow
+    searchInput.classList.add('input-shake');
+    // Show toast and auto-dismiss after 3 seconds
+    toast.classList.add('city-toast--visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('city-toast--visible');
+    }, 3000);
+  }
+ 
+  function renderSuggestions(matches) {
+    dropdown.innerHTML = '';
+    activeIndex = -1;
+ 
+    if (!matches.length) {
+      dropdown.hidden = true;
+      return;
+    }
+ 
+    matches.slice(0, 6).forEach((city) => {
+      const li = document.createElement('li');
+      li.textContent = city;
+      li.setAttribute('role', 'option');
+      li.dataset.city = city;
+ 
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // prevent blur before click registers
+        selectCity(city);
+      });
+ 
+      dropdown.appendChild(li);
+    });
+ 
+    dropdown.hidden = false;
+  }
+ 
+  function selectCity(city) {
+    searchInput.value = city;
+    validCitySelected = true;
+    dropdown.hidden = true;
+    activeIndex = -1;
+    clearError();
+    sessionStorage.setItem('searchLocation', city);
+    sessionStorage.setItem('skipPageLoader', 'true');
+    window.location.href = 'searchResults.html';
+  }
+ 
+  function tryNavigate() {
+    const value = searchInput.value.trim();
+    if (!value) {
+      showError();
+      return;
+    }
+    if (isValidCity(value)) {
+      selectCity(
+        US_CITIES.find(c => c.toLowerCase() === value.toLowerCase())
+      );
+    } else {
+      showError();
+    }
+  }
+ 
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    validCitySelected = false; // user is typing again, reset validity
+    clearError();
+ 
+    if (query.length === 0) {
+      sessionStorage.removeItem('searchLocation');
+      dropdown.hidden = true;
+      return;
+    }
+ 
+    if (query.length < 2) {
+      dropdown.hidden = true;
+      return;
+    }
+ 
+    const matches = US_CITIES.filter(c => c.toLowerCase().includes(query));
+    renderSuggestions(matches);
+  });
+ 
+  // Keyboard navigation
+  searchInput.addEventListener('keydown', (e) => {
+    const items = dropdown.querySelectorAll('li');
+ 
+    if (e.key === 'ArrowDown') {
+      if (!items.length) return;
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+    } else if (e.key === 'ArrowUp') {
+      if (!items.length) return;
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, 0);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIndex >= 0 && items[activeIndex]) {
+        selectCity(items[activeIndex].dataset.city);
+      } else {
+        tryNavigate();
+      }
+    } else if (e.key === 'Escape') {
+      dropdown.hidden = true;
+    }
+  });
+ 
+  // Hide dropdown when focus leaves
+  searchInput.addEventListener('blur', () => {
+    setTimeout(() => { dropdown.hidden = true; }, 150);
+  });
+}
+ 
+// ── SEARCH RESULTS HEADER (searchResults.html) ────────────────────────────
+ 
+function setupSearchResultsHeader() {
+  const titleEl = document.querySelector('.resultTitle');
+  if (!titleEl) return;
+ 
+  const location = sessionStorage.getItem('searchLocation');
+  const cards = document.querySelectorAll('.container .card');
+  const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+  const count = visibleCards.length;
+ 
+  if (location) {
+    titleEl.textContent = `Showing ${count} car${count !== 1 ? 's' : ''} near ${location}`;
+  } else {
+    titleEl.textContent = `Showing ${count} car${count !== 1 ? 's' : ''}`;
+  }
 }
