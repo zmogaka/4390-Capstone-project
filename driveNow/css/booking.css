@@ -211,8 +211,28 @@ body.booking-page[data-theme="dark"] {
     flex-direction: column;
     gap: 16px;
 }
+/* input validation states, red for error and green for valid */
+.form-group input.input-invalid{
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+}
 
+.form-group input.input-valid{
+  border-color:  #27ae60;
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.15);
+}
 
+/* Inline error message for invalid inputs */
+.field-error {
+  font-size: 0.82rem;
+  color: var(--color-accent);
+  margin-top: 4px;
+  display: block;
+}
+
+.field-error[hidden] {
+  display: none;
+}
 /*desktop - two column layout */
 @media (min-width: 768px){
 

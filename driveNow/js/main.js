@@ -409,7 +409,7 @@ function setupInteractiveLoadingButtons() {
     });
   });
 }
-
+/*validation, error messages, confirmation for booking form submission*/
 function setupBookingFormLoading() {
   const bookingForm = document.querySelector('.booking-form');
   const submitButton = bookingForm ? bookingForm.querySelector('.btn-confirm') : null;
@@ -418,19 +418,179 @@ function setupBookingFormLoading() {
     return;
   }
 
-  submitButton.dataset.loadingText = 'Loading...';
+  //grab all inputs and their error spans
+  const nameInput = bookingForm.querySelector('#name');
+  const emailInput = bookingForm.querySelector('#email');
+  const phoneInput = bookingForm.querySelector('#phone');
+  const licenseInput = bookingForm.querySelector('#license');
+  const paymentInput = bookingForm.querySelector('#payment');
 
-  bookingForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    setButtonLoadingState(submitButton, true);
+  const nameError = bookingForm.querySelector('#name-error');
+  const emailError = bookingForm.querySelector('#email-error');
+  const phoneError = bookingForm.querySelector('#phone-error');
+  const licenseError = bookingForm.querySelector('#license-error');
+  const paymentError = bookingForm.querySelector('#payment-error');
 
-    window.setTimeout(() => {
-      setButtonLoadingState(submitButton, false);
-      bookingForm.reset();
-      window.alert('Booking submitted successfully.');
-    }, CONTENT_LOAD_DELAY);
-  });
-}
+ // ── helpers ───────────────────────────────────
+  function showError(input, errorEl, message) {
+    input.classList.remove('input-valid');
+    input.classList.add('input-invalid');
+    errorEl.textContent = message;
+    errorEl.hidden = false;
+  }
+
+  function showValid(input, errorEl) {
+    input.classList.remove('input-invalid');
+    input.classList.add('input-valid');
+    errorEl.textContent = '';
+    errorEl.hidden = true;
+  }
+
+  // -─ validators for each input ────────────────────────────────────
+  function validateName() {
+    const value = nameInput.value.trim();
+    if(!value) {
+      showError(nameInput, nameError, 'Name is required.');
+      return false;
+    }
+    if(value.length < 2) {
+      showError(nameInput, nameError, 'Name must be at least 2 characters long.');
+      return false;
+    }
+    showValid(nameInput, nameError);
+    return true;
+  }
+
+  function validateEmail() {
+    const value = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!value) {
+      showError(emailInput, emailError, 'Email is required.');
+      return false;
+    }
+    if(!emailRegex.test(value)) {
+      showError(emailInput, emailError, 'Please enter a valid email address.');
+      return false;
+    }
+    showValid(emailInput, emailError);
+    return true;
+  }
+
+  function validatePhone() {
+    const value = phoneInput.value.trim();
+    const phoneRegex =  /^\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{4}$/;
+    if(!value) {
+      showError(phoneInput, phoneError, 'Phone number is required.');
+      return false;
+    }
+    if(!phoneRegex.test(value)) {
+      showError(phoneInput, phoneError, 'Please enter a valid 10-digit phone number.');
+      return false;
+    }
+    showValid(phoneInput, phoneError);
+    return true;
+  }
+
+  function validateLicense() {
+    const value = licenseInput.value.trim();
+    if(!value) {
+      showError(licenseInput, licenseError, 'License information is required.');
+      return false;
+    }
+    if(value.length < 5) {
+      showError(licenseInput, licenseError, 'License information must be at least 5 characters long.');
+      return false;
+    }
+    showValid(licenseInput, licenseError);
+    return true;
+  }
+
+  function validatePayment() {
+    const value = paymentInput.value.trim().replace(/\s/g, '');
+    if(!paymentInput.value.trim()) {
+      showError(paymentInput, paymentError, 'Payment information is required.');
+      return false;
+    }
+    if(!/^\d{16}$/.test(value)) {
+      showError(paymentInput, paymentError, 'Please enter a valid 16-digit card number.');
+      return false;
+    }
+    showValid(paymentInput, paymentError);
+    return true;
+  }
+
+  // ── real-time listeners ────────────────────────────────────
+
+  //name: check on blur only
+  nameInput.addEventListener('blur', validateName);
+
+  //email: check format while typing and on blur
+  emailInput.addEventListener('input', validateEmail);
+  emailInput.addEventListener('blur', validateEmail);
+
+  //phone: check on blur only
+  phoneInput.addEventListener('blur', validatePhone);
+
+  //license: check on blur only
+  licenseInput.addEventListener('blur', validateLicense);
+
+  //payment: check format while typing and on blur
+  paymentInput.addEventListener('input', validatePayment);
+  paymentInput.addEventListener('blur', validatePayment);
+
+  // ── form submission handler ────────────────────────────────────
+  submitButton.dataset.loadingText = 'Processing...';
+
+  bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // validate all fields and show errors if invalid
+    const allValid = 
+    validateName() && 
+    validateEmail() && 
+    validatePhone() && 
+    validateLicense() && 
+    validatePayment();
+
+    if (!allValid) return;
+
+      setButtonLoadingState(submitButton, true);
+
+      window.setTimeout(() => { 
+        setButtonLoadingState(submitButton, false);
+        /*if (typeof bookingForm.request === "function") {
+        bookingForm.request();
+    } else {
+        bookingForm.submit(); 
+    }*/
+  // Hide the form once submission is "complete"
+    bookingForm.style.display = 'none';
+
+    const successContainer = document.createElement('div');
+    successContainer.style.cssText = 'text-align: center; padding: 40px;';
+
+    // Add the success message
+    const msg = document.createElement('p');
+    msg.textContent = 'Booking submitted successfully!';
+    msg.style.cssText = 'color: #27ae60; font-weight: 600; font-size: 1.2rem;';
+
+    // Create the "Back to Home" button
+    const homeBtn = document.createElement('button');
+    homeBtn.textContent = 'Return to Home';
+    homeBtn.className = 'btn-confirm'; 
+    homeBtn.style.marginTop = '20px';
+    
+    // Link it back to home
+    homeBtn.onclick = () => { window.location.href = 'index.html'; };
+
+    // Append everything to the section
+    successContainer.appendChild(msg);
+    successContainer.appendChild(homeBtn);
+    bookingForm.parentElement.appendChild(successContainer);
+
+}, CONTENT_LOAD_DELAY);
+      });
+    }
 
 //Grab elements by the Id
 const sortToggle = document.getElementById("sortToggle");
@@ -705,7 +865,7 @@ function setupCitySearch() {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       toast.classList.remove('city-toast--visible');
-    }, 3000);
+    }, CONTENT_LOAD_DELAY);
   }
  
   function renderSuggestions(matches) {
