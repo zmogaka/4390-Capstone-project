@@ -80,12 +80,13 @@ button {
 .resultTitle {
   color: var(--color-text);
   font-family: Inter;
-  font-size: 30px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   white-space: nowrap;   /* keeps it on one line */
   min-width: 0;
+
+    font-size: 1.8rem;
+  font-weight: 700;
 }
 
 /*Title of the search results*/
@@ -187,10 +188,10 @@ button {
   padding: 20px;
 }
 
-.filters {
+/*.filters {
   background: rgba(217, 106, 54, 0.21);
   padding: 15px;
-}
+}*/
 
 /*Styling the buttons that will become menus*/
 .orangebtn {
@@ -214,16 +215,18 @@ button {
 /*Styling the filter buttons*/
 .whitebtn {
   display: block;
-  margin: 5px;
+  /*margin: 5px;*/
   padding: 10px 15px;
-  color: #929292;
-  font-weight: 700;
-  font-size: 10px;
+color: #ffffff;  /*font-weight: 700;*/
+  /*font-size: 10px;*/
   text-align: center;
-  background: white;
+  background: rgba(217, 106, 54, 0.21);
   width: 100%;
   height: 56px;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  font-size: 18;
+  font-weight: 700;
+  margin: 0;
 }
 
 .whitebtn:hover {
@@ -231,7 +234,9 @@ button {
   border-color: var(--color-accent);
   color: #ffffff;
 }
-
+.whitebtn::placeholder {
+  color:#ffffff;
+}
 .m {
   margin-top: 250px;
   text-align: center;
@@ -240,21 +245,21 @@ button {
   font-weight: 700;
 }
 
-.filter{
+.filters{
   background: rgba(217, 106, 54, 0.21);
   padding: 15px;
   text-align: center;
+  
 }
-/*Styling the filters title*/
-.h3 {
-  border-bottom: 2px solid black;
-}
+
 #makeFilter{
-  color:#0d0d0d;
+ background-color: #D96A36;
+color: #ffffff;
   font-size: 15px;
 }
 #modelFilter{
-  color:#0d0d0d;
+background-color: #D96A36;
+color: #ffffff;
   font-size: 15px;
 }
 .filters h3 {
@@ -266,7 +271,7 @@ button {
   border-bottom: 2px solid black;
 }
 .filters .filter-label {
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 6px;
 }
 
@@ -322,6 +327,12 @@ button {
   gap: 15px;
 }
 
+@media (min-width: 769px) {
+  .filters {
+    align-self: start;
+  }
+}
+
 /*Making the browser switch to mobile */
 @media (max-width: 768px) {
 
@@ -343,6 +354,7 @@ button {
     display: flex;
     gap: 20px;
     flex-direction: column;
+    align-items: stretch;
   }
 
   .resultHeader {
@@ -366,6 +378,7 @@ button {
     flex: 1;
     border: none;
     background-color: #D96A36;
+    
   }
 
 
