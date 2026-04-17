@@ -626,7 +626,12 @@ const mobileModelInput = document.getElementById('mobileModelFilter');
   const makeQuery = (makeInput?.value || mobileMakeInput?.value || '').toLowerCase();
   const modelQuery = (modelInput?.value || mobileModelInput?.value || '').toLowerCase();
 
-  document.querySelectorAll('.card').forEach(card => {
+  const cards = document.querySelectorAll('.container .card');
+  const emptyMessage = document.getElementById('results-empty');
+
+  let visibleCount = 0;
+
+  cards.forEach(card => {
     const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
 
     const match =
@@ -634,7 +639,13 @@ const mobileModelInput = document.getElementById('mobileModelFilter');
       title.includes(modelQuery);
 
     card.style.display = match ? '' : 'none';
+
+    if (match) visibleCount++;
   });
+
+  if (emptyMessage) {
+    emptyMessage.hidden = visibleCount !== 0;
+  }
 }
 
 // desktop inputs
