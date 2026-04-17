@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DriveNow Booking</title>
+  <title>DriveNow Booking</title>
   <script>
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -13,7 +14,8 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/booking.css" />
 </head>
-<body class = "booking-page">
+
+<body class="booking-page">
   <div class="page-loader" id="page-loader" role="status" aria-live="polite">
     <div class="page-loader-panel">
       <div class="ring-spinner" aria-hidden="true"></div>
@@ -21,10 +23,11 @@
       <p>This will only take a moment</p>
     </div>
   </div>
-<header>
+  <header>
     <!-- shared nav -->
     <nav class="navbar" aria-label="Main navigation">
-      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
+        aria-controls="nav-menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -36,106 +39,126 @@
       <!-- Dark-mode toggle -->
       <div class="nav-right">
         <button class="dark-mode-toggle" type="button" aria-label="Toggle light and dark mode">
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
         </button>
       </div>
 
       <ul class="nav-menu" id="nav-menu">
         <li><a href="Index.html">Home</a></li>
         <li><a href="searchResults.html">Results</a></li>
-        <li><a href="car-details.html" >Car Details</a></li>
+        <li><a href="car-details.html">Car Details</a></li>
         <li><a href="booking.html" aria-current="page">Booking</a></li>
       </ul>
     </nav>
-</header>
+  </header>
 
   <main class="content">
     <!-- main page layout -->
     <section class="booking-layout" aria-label="booking details">
-    
-    <div class = "booking-right">
-    <!--car-image-box -->
-    <div class = "car-image-box">
-        <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png" alt="Future car shown from the front at an angle" class="car-image" 
-            alt="car shown from the front at an angle"
-            class = "car-image"
-            id="booking-car-image" />
-    </div>
-    <!-- reservation info card-->
-    <article class="details-card">
-        <h2>Reservation Summary</h2>
 
-        <hr class ="divider">
-
-        <div class = "reservation-row">
-            <span class = "label">Car:</span>
-            <span class = "value" id="booking-car-name">Ford Explorer</span>
+      <div class="booking-right">
+        <!--car-image-box -->
+        <div class="car-image-box">
+          <img src="images/331bb8dc2a8fc379808626909359086a470045e2.png"
+            alt="Future car shown from the front at an angle" class="car-image"
+            alt="car shown from the front at an angle" class="car-image" id="booking-car-image" />
         </div>
+        <!-- reservation info card-->
+        <article class="details-card">
+          <h2>Reservation Summary</h2>
 
-        <div class = "reservation-dates">
-            <div class = "date-col">
-            <span class = "label">Pick-up Date:</span>
-            <span class = "value">June 15, 2024, 10:00 AM</span>
+          <hr class="divider">
+
+          <div class="reservation-row">
+            <span class="label">Car:</span>
+            <span class="value" id="booking-car-name">Ford Explorer</span>
+          </div>
+
+          <div class="reservation-dates">
+            <div class="date-col">
+              <span class="label">Pick-up Date:</span>
+              <span class="value">June 15, 2024, 10:00 AM</span>
             </div>
-            <div class = "date-col">
-                <span class = "label">Drop-off Date:</span>
-                <span class = "value">June 20, 2024, 4:00 PM</span>
+            <div class="date-col">
+              <span class="label">Drop-off Date:</span>
+              <span class="value">June 20, 2024, 4:00 PM</span>
             </div>
-        </div>
+          </div>
 
-        <hr class ="divider">
+          <hr class="divider">
 
-        <div class="reservation-row">
-            <span class = "label">Insurance:</span>
-            <span class = "value" id="booking-insurance">$11/day</span>
-        </div>
+          <div class="reservation-row">
+            <span class="label">Insurance:</span>
+            <span class="value" id="booking-insurance">$11/day</span>
+          </div>
 
-        <div class = "reservation-row total-row">
-            <span class = "label">Total Price:</span>
+          <div class="reservation-row total-row">
+            <span class="label">Total Price:</span>
             <span class="total-value" id="booking-total">$535.00</span>
-        </div>
+          </div>
         </article>
-    </div>
+      </div>
 
-    <div class="booking-left">
-    <h1 class="page-title"> Complete Your Booking</h1>
-    <hr class="title-divider">
+      <div class="booking-left">
+        <h1 class="page-title"> Complete Your Booking</h1>
+        <hr class="title-divider">
 
-    <!-- input fields -->
-    <form class ="booking-form">
-        <div class ="form-row">
-        <div class ="form-group">
-            <label for="name">Name*</label>
-            <input type="text" id="name" name="name" required />
-        </div>
-        </div>
-
-            <div class ="form-row">
-        <div class ="form-group">
-            <label for="email">Email*</label>
-            <input type="email" id="email" name="email" required />
-        </div>
-
-        <div class ="form-group">
-            <label for="phone">Phone Number*</label>
-            <input type="tel" id="phone" name="phone" required />
-        </div>
+        <!-- input fields with validation and error handling -->
+        <form class="booking-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name*</label>
+              <input type="text" id="name" name="name"/>
+              <span class="field-error" id="name-error" aria-live="polite" hidden></span>
             </div>
-            <div class ="form-row">
-        <div class ="form-group">
-            <label for="license">Driver's License Info*</label>
-            <input type="text" id="license" name="license" required />
-        </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email*</label>
+              <input type="email" id="email" name="email"/>
+              <span class="field-error" id="email-error" aria-live="polite" hidden></span>
             </div>
-        <div class ="form-group">
+
+            <div class="form-group">
+              <label for="phone">Phone Number*</label>
+              <input type="tel" id="phone" name="phone"/>
+              <span class="field-error" id="phone-error" aria-live="polite" hidden></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="license">Driver's License Info*</label>
+              <input type="text" id="license" name="license"/>
+              <span class="field-error" id="license-error" aria-live="polite" hidden></span>
+            </div>
+          </div>
+          
+          <div class="form-group">
             <label for="payment">Payment Info*</label>
-            <input type="text" id="payment" name="payment" required />
-        </div>
-        <!-- confirm button -->
-        <button type="submit" class = "btn-confirm" data-loading-text="Loading...">Confirm Booking</button>
-    </form>  
-    </div>
+            <input type="text" id="payment" name="payment"/>
+            <span class="field-error" id="payment-error" aria-live="polite" hidden></span>
+          </div>
+          <!-- confirm button -->
+          <button type="submit" class="btn-confirm">Confirm Booking</button>
+        </form>
+      </div>
     </section>
   </main>
 
@@ -146,5 +169,5 @@
 
   <script src="js/main.js"></script>
 </body>
-</html>
 
+</html>
