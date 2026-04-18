@@ -281,10 +281,8 @@ function setupHomePageLoading() {
   const featuredSection = document.querySelector('.featured-section');
   const searchInput = document.getElementById('location-search');
   const cards = Array.from(document.querySelectorAll('#featured-cards .car-card'));
-  const emptyState = document.getElementById('results-empty');
-  let searchTimerId;
 
-  if (!featuredSection || !searchInput || cards.length === 0 || !emptyState) {
+  if (!featuredSection || !searchInput || cards.length === 0) {
     return;
   }
 
@@ -292,32 +290,14 @@ function setupHomePageLoading() {
     hideLoading(featuredSection, 'is-initial-loading');
   }, PAGE_LOAD_DELAY);
 
-  const runSearchLoading = () => {
+  searchInput.addEventListener('input', () => {
     const searchTerm = searchInput.value.trim().toLowerCase();
 
-    showLoading(featuredSection, 'is-results-loading');
-
-    window.setTimeout(() => {
-      let visibleCount = 0;
-
-      cards.forEach((card) => {
-        const cardSearchText = card.dataset.search || '';
-        const shouldShow = !searchTerm || cardSearchText.includes(searchTerm);
-        card.hidden = !shouldShow;
-
-        if (shouldShow) {
-          visibleCount += 1;
-        }
-      });
-
-      emptyState.hidden = visibleCount !== 0;
-      hideLoading(featuredSection, 'is-results-loading');
-    }, CONTENT_LOAD_DELAY);
-  };
-
-  searchInput.addEventListener('input', () => {
-    window.clearTimeout(searchTimerId);
-    searchTimerId = window.setTimeout(runSearchLoading, 250);
+    cards.forEach((card) => {
+      const cardSearchText = card.dataset.search || '';
+      const shouldShow = !searchTerm || cardSearchText.includes(searchTerm);
+      card.hidden = !shouldShow;
+    });
   });
 }
 
@@ -946,7 +926,7 @@ function setupCitySearch() {
       return;
     }
  
-    if (query.length < 2) {
+    if (query.length < 1) {
       dropdown.hidden = true;
       return;
     }
