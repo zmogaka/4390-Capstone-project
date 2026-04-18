@@ -326,9 +326,10 @@ function setupSearchResultsLoading() {
     return;
   }
 
+  // only show the inline loader for real results actions, not the filter dropdowns
   const resultsSection = document.querySelector('.results');
   const resultsLoader = document.getElementById('search-results-loading');
-  const triggerButtons = document.querySelectorAll('.orangebtn, .whitebtn');
+  const triggerButtons = document.querySelectorAll('.mobileFilter, .mobileSort, .srtbtn');
 
   if (!resultsSection || !resultsLoader || triggerButtons.length === 0) {
     return;
@@ -623,6 +624,7 @@ const mobileModelInput = document.getElementById('mobileModelFilter');
 
 
  function filterCars() {
+  // desktop and mobile filters share the same card-matching logic
   const makeQuery = (makeInput?.value || mobileMakeInput?.value || '').toLowerCase();
   const modelQuery = (modelInput?.value || mobileModelInput?.value || '').toLowerCase();
 
@@ -649,12 +651,14 @@ const mobileModelInput = document.getElementById('mobileModelFilter');
 }
 
 // desktop inputs
-makeInput?.addEventListener('input', filterCars);
-modelInput?.addEventListener('input', filterCars);
+// selects filter once an option is chosen
+makeInput?.addEventListener('change', filterCars);
+modelInput?.addEventListener('change', filterCars);
 
 // mobile inputs
-mobileMakeInput?.addEventListener('input', filterCars);
-mobileModelInput?.addEventListener('input', filterCars);
+// mobile dropdowns mirror the desktop filtering behavior
+mobileMakeInput?.addEventListener('change', filterCars);
+mobileModelInput?.addEventListener('change', filterCars);
 
 function sortCards(type) {
   //Container with all the cards
