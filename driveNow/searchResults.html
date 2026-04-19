@@ -60,20 +60,8 @@
       <!--Buttons for the desktop version-->
       <div class="desktopBtns">
         <p class="filter-label">Make & Model</p>
-      <!-- dropdown filters make the filter controls feel clickable without text entry -->
-      <select id="makeFilter" class="whitebtn" aria-label="Filter by Make">
-        <option value="">All Makes</option>
-        <option value="toyota">Toyota</option>
-        <option value="tesla">Tesla</option>
-        <option value="ford">Ford</option>
-      </select>
-      <select id="modelFilter" class="whitebtn" aria-label="Filter by Model">
-        <option value="">All Models</option>
-        <option value="supra">Supra</option>
-        <option value="camry">Camry</option>
-        <option value="model 3">Model 3</option>
-        <option value="explorer">Explorer</option>
-      </select>
+      <input type="text" id = "makeFilter" class="whitebtn" placeholder="Filter by Make">
+      <input type="text" id ="modelFilter" class="whitebtn" placeholder="Filter by Model">
       </div>
       <!--Buttons for the mobile version-->
       <div class="mobileBtns">
@@ -82,20 +70,8 @@
       </div>
       <div id="mobileFilterMenu" class="mobileFilterMenu">
         <p class="filter-label">Make & Model</p>
-        <!-- mobile uses the same filter values as desktop for consistent results -->
-        <select id="mobileMakeFilter" class="whitebtn" aria-label="Filter by Make">
-          <option value="">All Makes</option>
-          <option value="toyota">Toyota</option>
-          <option value="tesla">Tesla</option>
-          <option value="ford">Ford</option>
-        </select>
-        <select id="mobileModelFilter" class="whitebtn" aria-label="Filter by Model">
-          <option value="">All Models</option>
-          <option value="supra">Supra</option>
-          <option value="camry">Camry</option>
-          <option value="model 3">Model 3</option>
-          <option value="explorer">Explorer</option>
-        </select>
+        <input type="text" id="mobileMakeFilter" class="whitebtn" placeholder="Filter by Make">
+        <input type="text" id="mobileModelFilter" class="whitebtn" placeholder="Filter by Model">
       </div>
     </aside>
 
