@@ -30,7 +30,28 @@ body[data-theme="dark"] {
   background-color: var(--color-bg);
   color: var(--color-text);
 }
+[data-theme="dark"] #makeFilter::placeholder,
+[data-theme="dark"] #modelFilter::placeholder,
+[data-theme="dark"] #mobileMakeFilter::placeholder,
+[data-theme="dark"] #mobileModelFilter::placeholder {
+  color: #ffffff;
+  opacity: 0.8;
+}
 
+[data-theme="dark"] #makeFilter,
+[data-theme="dark"] #modelFilter,
+[data-theme="dark"] #mobileMakeFilter,
+[data-theme="dark"] #mobileModelFilter {
+  color: #ffffff;
+}
+
+input,
+select,
+textarea {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
 /*Removes default browser spacing, and makes sizing consistent*/
 * {
   margin: 0;
@@ -215,7 +236,7 @@ button {
   display: block;
   /*margin: 5px;*/
   padding: 10px 15px;
-  color: #ffffff;  /*font-weight: 700;*/
+  color: #black;  /*font-weight: 700;*/
   /*font-size: 10px;*/
   text-align: center;
   background: rgba(217, 106, 54, 0.21);
