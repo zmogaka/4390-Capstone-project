@@ -349,6 +349,10 @@ color: #ffffff;
     width: 100%;
   }
 
+.mobileBtns button {
+  flex: 1;             
+  width: 100%;
+}
   /*Stack layout vertically*/
   .main {
     display: flex;
@@ -366,7 +370,26 @@ color: #ffffff;
   }
 
 
+.sort-wrapper {
+  position: relative;
+  display: inline-block;
+  flex: 1;
+}
 
+.sort-dropdown {
+  display: none; /* hidden by default */
+  position: absolute;
+  top: 100%;   /* 👈 directly under button */
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+.sort-dropdown.show {
+  display: block;
+}
 
 
   /*Styling the mobile buttons*/
@@ -418,13 +441,18 @@ color: #ffffff;
   padding: 10px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .sort-option:hover {
-  background-color: var(--color-accent-hover);
-  color: white;
+ background-color: var(--color-accent-hover);
+  color: #fff;
 }
 
+.sort-option.active {
+  background-color: var(--color-accent-hover);
+  color: #fff;
+}
 /* hidden filter dropdown for mobile view */
 .mobileFilterMenu {
   display: none;
