@@ -63,6 +63,20 @@ body.car-details-page[data-theme="dark"] {
   object-fit: cover;
 }
 
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding: 0;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
 .car-title-block {
   padding: 4px 2px 0;
   max-width: 100%;
