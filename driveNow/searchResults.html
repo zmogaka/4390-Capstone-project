@@ -57,6 +57,7 @@
     <!--Spot for filers -->
     <aside class="filters">
       <h3>Filters</h3>
+
       <!--Buttons for the desktop version-->
       <div class="desktopBtns">
         <p class="filter-label">Make & Model</p>
@@ -66,13 +67,23 @@
       <!--Buttons for the mobile version-->
       <div class="mobileBtns">
         <button class="mobileFilter" id= "mobileFilterBtn">Filters</button>
-        <button class="mobileSort" id = "mobileSortBtn">Sort by Price (Low → High)</button>
+        <div class="sort-wrapper">
+        <button class="mobileSort" id = "mobileSortBtn">Sort by ▼</button>
+
+        
+        <div id="sortDropdown" class="sort-dropdown mobile-sort">
+    <div class="sort-option" data-sort="price">Price: Low to High</div>
+    <div class="sort-option" data-sort="make">Make: A → Z</div>
+  </div>
+        </div>
       </div>
       <div id="mobileFilterMenu" class="mobileFilterMenu">
         <p class="filter-label">Make & Model</p>
         <input type="text" id="mobileMakeFilter" class="whitebtn" placeholder="Filter by Make">
         <input type="text" id="mobileModelFilter" class="whitebtn" placeholder="Filter by Model">
       </div>
+
+
     </aside>
 
 
@@ -84,7 +95,7 @@
        <div class="sort-container">
   <button class="srtbtn" id="sortToggle">Sort by ▼</button>
 
-  <div class="sort-dropdown" id="sortDropdown">
+  <div class="sort-dropdown" id="mobileSortDropdown">
     <div class="sort-option" data-sort="price">Price (Low → High)</div>
     <div class="sort-option" data-sort="make">Make (A → Z)</div>
   </div>
