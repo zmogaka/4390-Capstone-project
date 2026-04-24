@@ -128,7 +128,6 @@ body.car-details-page[data-theme="dark"] {
 
 .price-box {
   max-width: 100%;
-  background-color: var(--color-surface-soft);
   border: 1px solid var(--color-border);
   padding: 12px;
   margin-bottom: 16px;
@@ -236,11 +235,11 @@ body.car-details-page[data-theme="dark"] {
     background-color: var(--color-surface);
     border: 1px solid #333333;
   }
-
+/* dark mode adjustments for desktop */
   html[data-theme="dark"] body.car-details-page .details-card,
   body.car-details-page[data-theme="dark"] .details-card {
-    /* lighter gray panel in dark mode like the Figma */
-    background-color: #5b5b5b;
+    background-color: #1f1f1f;
+    border-color: #ffffff;
   }
 
   .details-card h2 {
@@ -266,11 +265,11 @@ body.car-details-page[data-theme="dark"] {
     background-color: #ffffff;
     border: 1px solid #666666;
   }
-
+/* dark mode adjustments for desktop price box */
   html[data-theme="dark"] body.car-details-page .price-box,
   body.car-details-page[data-theme="dark"] .price-box {
-    /* slightly lighter box inside the dark card */
-    background-color: #8a8a8a;
+    background-color: #2a2a2a;
+    border:1px solid var(--color-border)
   }
 
   .price-box h3 {
@@ -321,9 +320,8 @@ body.car-details-page[data-theme="dark"] {
     width: min(100%, 150px);
     min-height: 28px;
     padding: 4px 12px;
-    background-color: #efefef;
+    background-color: var(--color-surface-soft);
     border-color: #8d8d8d;
-    color: #7a7a7a;
     font-weight: 400;
     font-size: 0.9rem;
   }
