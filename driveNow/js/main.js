@@ -95,8 +95,6 @@ if (darkModeToggle) {
     applyTheme(savedTheme);
   }
 
-  updateThemeButton();
-
   // switches between light and dark mode
   darkModeToggle.addEventListener('click', () => {
     const currentTheme = getCurrentTheme();
@@ -104,7 +102,6 @@ if (darkModeToggle) {
 
     applyTheme(nextTheme);
     localStorage.setItem('theme', nextTheme);
-    updateThemeButton();
   });
 }
 
@@ -118,11 +115,6 @@ setupBookingFormLoading();
 setupCitySearch();
 setupSearchResultsHeader();
  
-function updateThemeButton() {
-  // keeps the button text matched with the active theme
-  // const isDarkMode = getCurrentTheme() === 'dark';
-  // darkModeToggle.textContent = isDarkMode ? 'Dark Mode' : 'Light Mode';
-}
 
 function getCurrentTheme() {
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
