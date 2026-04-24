@@ -309,7 +309,7 @@ function setupSearchResultsLoading() {
   // only show the inline loader for real results actions, not the filter dropdowns
   const resultsSection = document.querySelector('.results');
   const resultsLoader = document.getElementById('search-results-loading');
-  const triggerButtons = document.querySelectorAll('.mobileFilter, .mobileSort, .srtbtn');
+  const triggerButtons = document.querySelectorAll('.mobileFilter, .srtbtn');
 
   if (!resultsSection || !resultsLoader || triggerButtons.length === 0) {
     return;
@@ -686,23 +686,21 @@ function sortCards(type) {
 document.querySelectorAll(".sort-option").forEach(option => {
   option.addEventListener("click", () => {
 
-    // // Sort cards based on clicked option's data-sort value
+    // remove active from all
+    document.querySelectorAll(".sort-option").forEach(o => {
+      o.classList.remove("active");
+    });
+
+    // set active on clicked one
+    option.classList.add("active");
+
     sortCards(option.dataset.sort);
 
-    //// Close the sort dropdown after selection
     sortDropdown.classList.remove("active");
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const mobileSortBtn = document.getElementById('mobileSortBtn');
 
-  if (mobileSortBtn) {
-    mobileSortBtn.addEventListener('click', () => {
-      sortCards("price");
-    });
-  }
-});
 
 
   
@@ -727,9 +725,15 @@ if (mobileFilterBtn && mobileFilterMenu) {
   });
 }
 
+if (mobileSortBtn && sortDropdown) {
+  mobileSortBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevents instant close
+    sortDropdown.classList.toggle("active");
+  });
+}
 // Mobile "Sort by Price"
 //Checks if the sort button is on the screen
-if (mobileSortBtn) {
+/*if (mobileSortBtn) {
   //Listener to trigger sorting on mobile
   mobileSortBtn.addEventListener('click', () => {
     //Stops loading before updating UI
@@ -756,7 +760,7 @@ if (mobileSortBtn) {
     //Add sorted cards back into the container
     sortedCards.forEach(card => container.appendChild(card));
   });
-}
+}*/
 
 // --- Extend stopLoading to work with mobile controls ---
 
