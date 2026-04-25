@@ -83,6 +83,17 @@ button {
   font: inherit;
 }
 
+/* Keep the footer pinned to the bottom when results are loading or short. */
+body.search-results-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body.search-results-page .main {
+  flex: 1;
+}
+
 
 /*Mobile buttons are hidden until needed*/
 .mobileBtns {
@@ -174,6 +185,12 @@ button {
 .card-body .price {
   font-size: 1.25rem;
   color: var(--color-text);
+  margin: 0;
+}
+
+.card-body .year {
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
   margin: 0;
 }
 /* View details button on card with hover effect */
@@ -308,7 +325,7 @@ color: #ffffff;
 
 .results-loading-inline {
   display: none;
-  min-height: 180px;
+  min-height: 360px;
   place-items: center;
   align-content: center;
   gap: 12px;

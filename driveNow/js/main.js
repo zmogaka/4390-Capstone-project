@@ -298,10 +298,10 @@ function setupSearchResultsLoading() {
     return;
   }
 
-  // only show the inline loader for real results actions, not the filter dropdowns
+  // only show the inline loader for real results actions, not the filter or sort dropdowns
   const resultsSection = document.querySelector('.results');
   const resultsLoader = document.getElementById('search-results-loading');
-  const triggerButtons = document.querySelectorAll('.mobileFilter, .srtbtn');
+  const triggerButtons = document.querySelectorAll('[data-results-loading-trigger]');
 
   if (!resultsSection || !resultsLoader || triggerButtons.length === 0) {
     return;
@@ -567,13 +567,16 @@ function setupBookingFormLoading() {
 
 //Grab elements by the Id
 const sortToggle = document.getElementById("sortToggle");
-const sortDropdown = document.getElementById("sortDropdown");
+const sortDropdown = document.getElementById("mobileSortDropdown");
+const mobileSortDropdown = document.getElementById("sortDropdown");
 const container = document.querySelector(".container");
 
 // Toggle dropdown
-if (sortToggle) {
-  sortToggle.addEventListener("click", () => {
+if (sortToggle && sortDropdown) {
+  sortToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
     sortDropdown.classList.toggle("active");
+    mobileSortDropdown?.classList.remove("active");
   });
 }
 
@@ -581,6 +584,10 @@ if (sortToggle) {
 document.addEventListener("click", (e) => {
   if (sortDropdown && !e.target.closest(".sort-container")) {
     sortDropdown.classList.remove("active");
+  }
+
+  if (mobileSortDropdown && !e.target.closest(".sort-wrapper")) {
+    mobileSortDropdown.classList.remove("active");
   }
 });
 
@@ -636,6 +643,10 @@ function sortCards(type) {
   //Container with all the cards
   const container = document.querySelector(".container");
 
+  if (!container) {
+    return;
+  }
+
   //Convert the list of cards into a array
   const cards = Array.from(container.querySelectorAll(".card"));
 
@@ -667,11 +678,41 @@ function sortCards(type) {
       return nameA.localeCompare(nameB);
     });
   }
+
+  //Sort by year from newest to oldest
+  if (type === "year") {
+    sortedCards.sort((a, b) => {
+      const yearA = parseInt(a.dataset.year || "0", 10);
+      const yearB = parseInt(b.dataset.year || "0", 10);
+
+      return yearB - yearA;
+    });
+  }
 //Clear cards from the container
   container.innerHTML = "";
 
   //Add sorted cards back into the container in new order
   sortedCards.forEach(card => container.appendChild(card));
+}
+
+function showSortLoadingThenSort(type) {
+  const resultsSection = document.querySelector('.results');
+  const resultsLoader = document.getElementById('search-results-loading');
+
+  if (!resultsSection || !resultsLoader) {
+    sortCards(type);
+    return;
+  }
+
+  // show the same centered loading animation before the sorted cards return
+  resultsSection.classList.add('is-loading');
+  resultsLoader.hidden = false;
+
+  window.setTimeout(() => {
+    sortCards(type);
+    resultsSection.classList.remove('is-loading');
+    resultsLoader.hidden = true;
+  }, CONTENT_LOAD_DELAY);
 }
 
 //Add click listeners to all sort dropdown options
@@ -686,9 +727,10 @@ document.querySelectorAll(".sort-option").forEach(option => {
     // set active on clicked one
     option.classList.add("active");
 
-    sortCards(option.dataset.sort);
+    sortDropdown?.classList.remove("active");
+    mobileSortDropdown?.classList.remove("active");
 
-    sortDropdown.classList.remove("active");
+    showSortLoadingThenSort(option.dataset.sort);
   });
 });
 
@@ -717,10 +759,11 @@ if (mobileFilterBtn && mobileFilterMenu) {
   });
 }
 
-if (mobileSortBtn && sortDropdown) {
+if (mobileSortBtn && mobileSortDropdown) {
   mobileSortBtn.addEventListener('click', (e) => {
     e.stopPropagation(); // prevents instant close
-    sortDropdown.classList.toggle("active");
+    mobileSortDropdown.classList.toggle("active");
+    sortDropdown?.classList.remove("active");
   });
 }
 // Mobile "Sort by Price"
