@@ -115,7 +115,7 @@ setupBookingFormLoading();
 setupCitySearch();
 setupSearchResultsHeader();
  
-
+/* dark mode helper functions */
 function getCurrentTheme() {
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
 }
