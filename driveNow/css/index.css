@@ -2,324 +2,324 @@
 
 /* ── CSS Variables ── */
 body.home-page {
-    --color-header: #404142;
-    --color-accent: #D96A36;
-    --color-accent-hover: #bf5929;
-    --color-text: #111111;
-    --color-text-soft: #555555;
-    --color-bg: #ffffff;
-    --color-surface: #ffffff;
-    --color-border: #cccccc;
-    --color-nav-text: #ffffff;
-    --color-search-border: #111111;
-    --nav-toggle-min-height: 34px;
-    --nav-toggle-padding: 6px 10px;
-    --nav-toggle-font-size: 0.7rem;
-    --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
-    --nav-toggle-background: rgba(255, 255, 255, 0.12);
-  
-    background-color: var(--color-bg);
-    color: var(--color-text);
-  }
-  
-  /* ── Dark mode ── */
-  html[data-theme="dark"] body.home-page,
-  body.home-page[data-theme="dark"] {
-    --color-header: #0d0d0d;
-    --color-text: #f5f5f5;
-    --color-text-soft: #d8d8d8;
-    --color-bg: #1b1b1b;
-    --color-surface: #242424;
-    --color-border: #444444;
-    --color-search-border: #f5f5f5;
-  }
-  
-  
-  /* ── MAIN CONTENT ── */
-  .home-page .content {
-    width: min(100%, 1280px);
-    margin: 0 auto;
-    padding: 32px 16px 48px;
-  }
-  
-  /* ── SEARCH BAR ── */
-  .search-wrap {
-    margin: 0 auto 40px;
-    max-width: 740px;
-  }
-  /* Search box with focus effect */
-  .search-box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 2px solid var(--color-search-border);
-    border-radius: 4px;
-    padding: 18px 20px;
-    background-color: var(--color-surface);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
+  --color-header: #404142;
+  --color-accent: #BC531A;
+  --color-accent-hover: #bf5929;
+  --color-text: #111111;
+  --color-text-soft: #555555;
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #cccccc;
+  --color-nav-text: #ffffff;
+  --color-search-border: #111111;
+  --nav-toggle-min-height: 34px;
+  --nav-toggle-padding: 6px 10px;
+  --nav-toggle-font-size: 0.7rem;
+  --nav-toggle-border: 1px solid rgba(255, 255, 255, 0.6);
+  --nav-toggle-background: rgba(255, 255, 255, 0.12);
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ── Dark mode ── */
+html[data-theme="dark"] body.home-page,
+body.home-page[data-theme="dark"] {
+  --color-header: #0d0d0d;
+  --color-text: #f5f5f5;
+  --color-text-soft: #d8d8d8;
+  --color-bg: #1b1b1b;
+  --color-surface: #242424;
+  --color-border: #444444;
+  --color-search-border: #f5f5f5;
+}
+
+
+/* ── MAIN CONTENT ── */
+.home-page .content {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+}
+
+/* ── SEARCH BAR ── */
+.search-wrap {
+  margin: 0 auto 40px;
+  max-width: 740px;
+}
+/* Search box with focus effect */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid var(--color-search-border);
+  border-radius: 4px;
+  padding: 18px 20px;
+  background-color: var(--color-surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
 /* Focus state for search box with subtle shadow */
-  .search-box:focus-within {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(217, 106, 54, 0.15);
+.search-box:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(217, 106, 54, 0.15);
+}
+
+
+.search-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--color-text-soft);
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  color: var(--color-text-soft);
+  background: transparent;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.search-box input::placeholder {
+  color: var(--color-text-soft);
+}
+
+/* ── FEATURED DEALS SECTION ── */
+.featured-section h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--color-text);
+}
+
+/* Card grid — single column on mobile */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+#initial-loading,
+#results-loading {
+  display: none;
+}
+
+.featured-section.is-initial-loading #initial-loading {
+  display: grid;
+}
+
+.featured-section.is-results-loading #results-loading {
+  display: grid;
+}
+
+.featured-section.is-initial-loading #featured-cards,
+.featured-section.is-results-loading #featured-cards,
+.featured-section.is-initial-loading #results-empty,
+.featured-section.is-results-loading #results-empty {
+  display: none;
+}
+
+.results-empty {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--color-text-soft);
+  font-size: 1rem;
+}
+
+/* Individual car card with hover effect */
+.car-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: box-shadow 0.2s ease;
+}
+
+.car-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.car-card.is-loading {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.car-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.car-card-body {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.car-card-body h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.car-card-body .price {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin: 0;
+}
+/* View details button on card with hover effect */
+.car-card-body .view-btn {
+  display: block;
+  margin-top: auto;
+  padding: 12px 16px;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.car-card-body .view-btn:hover {
+  background-color: var(--color-accent-hover);
+}
+
+
+/* ════════════════════════════════════════
+   DESKTOP  (≥ 768px)
+════════════════════════════════════════ */
+@media (min-width: 768px) {
+
+  /* search bar wider on desktop */
+  .search-wrap {
+    max-width: 860px;
+    margin-bottom: 48px;
   }
-  
-  
-  .search-icon {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    color: var(--color-text-soft);
+
+  .search-box {
+    padding: 22px 28px;
   }
-  
-  .search-box input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 1.1rem;
-    color: var(--color-text-soft);
-    background: transparent;
-    font-family: inherit;
-    min-width: 0;
-  }
-  
-  .search-box input::placeholder {
-    color: var(--color-text-soft);
-  }
-  
-  /* ── FEATURED DEALS SECTION ── */
-  .featured-section h2 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 24px;
-    color: var(--color-text);
-  }
-  
-  /* Card grid — single column on mobile */
+
+  /* 4-column card grid on desktop */
   .cards-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
   }
 
-  #initial-loading,
-  #results-loading {
-    display: none;
+  .featured-section h2 {
+    font-size: 2rem;
+    margin-bottom: 32px;
   }
 
-  .featured-section.is-initial-loading #initial-loading {
-    display: grid;
-  }
-
-  .featured-section.is-results-loading #results-loading {
-    display: grid;
-  }
-
-  .featured-section.is-initial-loading #featured-cards,
-  .featured-section.is-results-loading #featured-cards,
-  .featured-section.is-initial-loading #results-empty,
-  .featured-section.is-results-loading #results-empty {
-    display: none;
-  }
-
-  .results-empty {
-    margin-top: 24px;
-    text-align: center;
-    color: var(--color-text-soft);
-    font-size: 1rem;
-  }
-  
-  /* Individual car card with hover effect */
-  .car-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-surface);
-    text-decoration: none;
-    color: var(--color-text);
-    transition: box-shadow 0.2s ease;
-  }
-  
-  .car-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
-
-  .car-card.is-loading {
-    pointer-events: none;
-    opacity: 0.85;
-  }
-  
-  .car-card img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .car-card-body {
-    padding: 12px 14px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-  }
-  
-  .car-card-body h3 {
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 0;
-  }
-  
-  .car-card-body .price {
-    font-size: 1rem;
-    color: var(--color-text);
-    margin: 0;
-  }
-  /* View details button on card with hover effect */
-  .car-card-body .view-btn {
-    display: block;
-    margin-top: auto;
-    padding: 12px 16px;
-    background-color: var(--color-accent);
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 1rem;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-  }
-  
-  .car-card-body .view-btn:hover {
-    background-color: var(--color-accent-hover);
-  }
-  
-  
-  /* ════════════════════════════════════════
-     DESKTOP  (≥ 768px)
-  ════════════════════════════════════════ */
-  @media (min-width: 768px) {
-  
-    /* search bar wider on desktop */
-    .search-wrap {
-      max-width: 860px;
-      margin-bottom: 48px;
-    }
-  
-    .search-box {
-      padding: 22px 28px;
-    }
-  
-    /* 4-column card grid on desktop */
-    .cards-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-  
-    .featured-section h2 {
-      font-size: 2rem;
-      margin-bottom: 32px;
-    }
-
-  }
+}
 
 /* ── CITY AUTOCOMPLETE DROPDOWN ── */
 .autocomplete-wrap {
-  position: relative;
-  flex: 1;
-  min-width: 0;
+position: relative;
+flex: 1;
+min-width: 0;
 }
- 
+
 .autocomplete-wrap input {
-  width: 100%;
+width: 100%;
 }
- 
+
 .city-dropdown {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: -52px; /* align with the left edge of the search-box including icon+gap */
-  right: -20px;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  list-style: none;
-  margin: 0;
-  padding: 4px 0;
-  z-index: 200;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  max-height: 240px;
-  overflow-y: auto;
+position: absolute;
+top: calc(100% + 4px);
+left: -52px; /* align with the left edge of the search-box including icon+gap */
+right: -20px;
+background-color: var(--color-surface);
+border: 1px solid var(--color-border);
+border-radius: 6px;
+list-style: none;
+margin: 0;
+padding: 4px 0;
+z-index: 200;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+max-height: 240px;
+overflow-y: auto;
 }
- 
+
 .city-dropdown[hidden] {
-  display: none;
+display: none;
 }
- 
+
 .city-dropdown li {
-  padding: 10px 16px;
-  font-size: 1rem;
-  color: var(--color-text);
-  cursor: pointer;
-  transition: background-color 0.15s ease;
+padding: 10px 16px;
+font-size: 1rem;
+color: var(--color-text);
+cursor: pointer;
+transition: background-color 0.15s ease;
 }
- 
+
 .city-dropdown li:hover,
 .city-dropdown li.active {
-  background-color: var(--color-accent);
-  color: #ffffff;
+background-color: var(--color-accent);
+color: #ffffff;
 }
- 
+
 html[data-theme="dark"] .city-dropdown,
 body[data-theme="dark"] .city-dropdown {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
 }
 
 /* ── CITY SEARCH VALIDATION ── */
- 
+
 /* Toast message box — fixed to bottom of screen */
 .city-toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background-color: #c0392b;
-  color: #ffffff;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  z-index: 9999;
-  white-space: nowrap;
+position: fixed;
+bottom: 32px;
+left: 50%;
+transform: translateX(-50%) translateY(20px);
+background-color: #c0392b;
+color: #ffffff;
+padding: 12px 24px;
+border-radius: 8px;
+font-size: 0.95rem;
+font-weight: 600;
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.25s ease, transform 0.25s ease;
+z-index: 9999;
+white-space: nowrap;
 }
- 
+
 .city-toast--visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-  pointer-events: auto;
+opacity: 1;
+transform: translateX(-50%) translateY(0);
+pointer-events: auto;
 }
- 
+
 /* Red border on invalid input */
 .search-box:has(.input-error) {
-  border-color: #c0392b;
-  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+border-color: #c0392b;
+box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
 }
- 
+
 /* Shake animation on invalid submit attempt */
 @keyframes inputShake {
-  0%   { transform: translateX(0); }
-  20%  { transform: translateX(-6px); }
-  40%  { transform: translateX(6px); }
-  60%  { transform: translateX(-4px); }
-  80%  { transform: translateX(4px); }
-  100% { transform: translateX(0); }
+0%   { transform: translateX(0); }
+20%  { transform: translateX(-6px); }
+40%  { transform: translateX(6px); }
+60%  { transform: translateX(-4px); }
+80%  { transform: translateX(4px); }
+100% { transform: translateX(0); }
 }
- 
+
 .input-shake {
-  animation: inputShake 0.35s ease;
+animation: inputShake 0.35s ease;
 }

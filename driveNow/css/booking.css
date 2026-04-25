@@ -2,7 +2,7 @@
 body.booking-page {
   --font-main: Arial, sans-serif;
   --color-header: #404142;
-  --color-accent: #D96A36;
+  --color-accent: #BC531A;
   --color-accent-hover: #bf5929;
   --color-text: #000000;
   --color-text-soft: #4d4d4d;
@@ -129,15 +129,20 @@ body.booking-page[data-theme="dark"] {
 }
 
 .total-row{
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-accent);
     border-radius: 6px;
     padding: 8px 10px;
     margin-top: 6px;
 }
+/* Override label/value text to white so they pass 4.5:1 on the accent background */
+.total-row .label,
+.total-row .value,
+.total-value{
+    color: #ffffff;
+}
 .total-value{
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--color-accent);
 }
 
 .booking-form {
