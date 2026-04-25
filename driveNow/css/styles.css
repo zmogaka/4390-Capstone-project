@@ -233,6 +233,9 @@ body[data-theme="dark"] .results-loading-card {
 
 .logo {
   flex: var(--nav-logo-flex, 0 1 auto);
+  /* Keep only the logo image area clickable */
+  justify-self: start;
+  width: fit-content;
   text-align: var(--nav-logo-align, left);
   font-size: var(--nav-logo-size, 1rem);
   font-weight: var(--nav-logo-weight, 700);
