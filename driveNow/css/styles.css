@@ -132,7 +132,7 @@ body[data-theme="dark"] .results-loading-card {
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, #d96a36 0deg, #ef9e75 135deg, #f1e8e4 240deg, #d96a36 360deg);
+  background: conic-gradient(from 0deg, #bc531a 0deg, #ef9e75 135deg, #f1e8e4 240deg, #bc531a 360deg);
   -webkit-mask: radial-gradient(circle, transparent 62%, #000 64%);
   mask: radial-gradient(circle, transparent 62%, #000 64%);
   animation: spinRing 1s linear infinite;
