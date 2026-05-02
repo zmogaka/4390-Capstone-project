@@ -110,13 +110,11 @@ body.search-results-page .main {
 
 /*Label for the search results area*/
 .resultTitle {
-  color: var(--color-text);
-  font-family: Inter;
-  font-style: normal;
-  line-height: normal;
+  color: var(--color-text-soft);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
   min-width: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
 }
 
 /*Title of the search results*/
@@ -400,6 +398,13 @@ color: #ffffff;
   }
 
   .resultHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .resultHeader .sort-container{
     display: none;
   }
 
@@ -449,14 +454,19 @@ color: #ffffff;
   }
 
   .resultTitle {
-    font-size: 1.875rem;
-  white-space: normal;
+    order: -1;
+    font-size: 0.95rem;
+    padding: 0 4px;
+    white-space: normal;
+    align-items: center;
+    text-align: center;
+    width: 100%;
   }
 
 }
 
 .sort-container {
-  position: relative;
+  position: none;
 }
 
 .sort-dropdown {
