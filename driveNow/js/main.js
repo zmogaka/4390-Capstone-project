@@ -1020,16 +1020,24 @@ function setupCitySearch() {
  
 function setupSearchResultsHeader() {
   const titleEl = document.querySelector('.resultTitle');
-  if (!titleEl) return;
- 
+  const mobileTitleEl = document.querySelector('.resultTitleMobile');
+
+  if (!titleEl && !mobileTitleEl) return;
+
   const location = sessionStorage.getItem('searchLocation');
   const cards = document.querySelectorAll('.container .card');
   const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
   const count = visibleCards.length;
- 
-  if (location) {
-    titleEl.textContent = `Showing ${count} car${count !== 1 ? 's' : ''} near ${location}`;
-  } else {
-    titleEl.textContent = `Showing ${count} car${count !== 1 ? 's' : ''}`;
+
+  const text = location
+    ? `Showing ${count} car${count !== 1 ? 's' : ''} near ${location}`
+    : `Showing ${count} car${count !== 1 ? 's' : ''}`;
+
+  if (titleEl) {
+    titleEl.textContent = text;
+  }
+
+  if (mobileTitleEl) {
+    mobileTitleEl.textContent = text;
   }
 }
