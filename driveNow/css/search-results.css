@@ -110,13 +110,11 @@ body.search-results-page .main {
 
 /*Label for the search results area*/
 .resultTitle {
-  color: var(--color-text);
-  font-family: Inter;
-  font-style: normal;
-  line-height: normal;
+  color: var(--color-text-soft);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
   min-width: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
 }
 
 /*Title of the search results*/
@@ -381,14 +379,6 @@ color: #ffffff;
     display: none;
   }
   
- .resultTitleMobile {
-    display: block;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
   
   /*Show mobile buttons*/
   .mobileBtns {
@@ -410,7 +400,14 @@ color: #ffffff;
     align-items: stretch;
   }
 
-  .resultTitle {
+  .resultHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .resultHeader .sort-container{
     display: none;
   }
 
@@ -459,15 +456,20 @@ color: #ffffff;
     grid-template-columns: 1fr;
   }
 
-  .resultTitle {
-    font-size: 1.875rem;
-  white-space: normal;
+  h1.resultTitle {
+    font-size: 1rem ;
+    font-weight: 400;
+    text-align: center;
+    color: var(--color-text-soft);
+    white-space: normal;
+    padding: 4px 0;
+    width: 100%;
   }
 
 }
 
 .sort-container {
-  position: relative;
+  position: none;
 }
 
 .sort-dropdown {
