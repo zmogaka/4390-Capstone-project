@@ -111,7 +111,7 @@ body.search-results-page .main {
 /*Label for the search results area*/
 .resultTitle {
   color: var(--color-text-soft);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
   min-width: 0;
@@ -379,14 +379,6 @@ color: #ffffff;
     display: none;
   }
   
- .resultTitleMobile {
-    display: block;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
   
   /*Show mobile buttons*/
   .mobileBtns {
@@ -464,13 +456,13 @@ color: #ffffff;
     grid-template-columns: 1fr;
   }
 
-  .resultTitle {
-    order: -1;
-    font-size: 0.95rem;
-    padding: 0 4px;
-    white-space: normal;
-    align-items: center;
+  h1.resultTitle {
+    font-size: 0.95rem ;
+    font-weight: 400;
     text-align: center;
+    color: var(--color-text-soft);
+    white-space: normal;
+    padding: 4px 0;
     width: 100%;
   }
 
