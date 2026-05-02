@@ -182,14 +182,24 @@ function renderBookingPage() {
   const fallbackCarId = 'ford-explorer';
   const selectedCar = CAR_DATA[requestedCarId] || CAR_DATA[fallbackCarId];
 
+  const basePerDay = parseInt(selectedCar.baseRate.replace(/\D/g, ''));
+  const insurancePerDay = parseInt(selectedCar.insuranceRate.replace(/\D/g, ''));
+
+  const pickUp = new Date('2024-06-15');
+  const dropOff = new Date('2024-06-20');
+  const days = Math.round((dropOff - pickUp) / (1000 * 60 * 60 * 24));
+
+  const totalPrice = (basePerDay + insurancePerDay) * days;
+
   const carName = document.getElementById('booking-car-name');
   const insurance = document.getElementById('booking-insurance');
   const total = document.getElementById('booking-total');
   const carImage = document.getElementById('booking-car-image');
+  const daysEl = document.getElementById('booking-days');
 
   if (carName) carName.textContent = selectedCar.name;
   if (insurance) insurance.textContent = selectedCar.insuranceRate;
-  if (total) total.textContent = selectedCar.totalRate;
+  if (total)     total.textContent = `$${totalPrice}.00`;
   if (carImage) {
     carImage.src = selectedCar.image;
     carImage.alt = selectedCar.imageAlt;
