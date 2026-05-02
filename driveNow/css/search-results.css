@@ -373,12 +373,23 @@ color: #ffffff;
 
 /*Making the browser switch to mobile */
 @media (max-width: 768px) {
-
+    .srtbtn{
+    display: none;
+   }
   /*Hiding destktop buttons for mobile*/
   .desktopBtns {
     display: none;
   }
-
+  
+ .resultTitleMobile {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  
   /*Show mobile buttons*/
   .mobileBtns {
     display: flex;
@@ -399,7 +410,7 @@ color: #ffffff;
     align-items: stretch;
   }
 
-  .resultHeader {
+  .resultTitle {
     display: none;
   }
 
