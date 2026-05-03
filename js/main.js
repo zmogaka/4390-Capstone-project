@@ -68,6 +68,54 @@ const CAR_DATA = {
     baseRate: '$44/day',
     insuranceRate: '$11/day',
     totalRate: '$55/day'
+  },
+  'chevrolet-corvette': {
+    name: 'Chevrolet Corvette',
+    label: 'American supercar',
+    subtitle: 'A mid-engine legend built for speed, style, and unforgettable open-road drives.',
+    image: 'images/corvette.jpg',
+    imageAlt: 'Chevrolet Corvette shown from the front at speed',
+    specs: [
+      '2 seats',
+      'Automatic transmission',
+      'Mid-engine V8 with 490 hp',
+      'Performance traction management & Bose audio'
+    ],
+    baseRate: '$78/day',
+    insuranceRate: '$17/day',
+    totalRate: '$95/day'
+  },
+  'ford-mustang': {
+    name: 'Ford Mustang',
+    label: 'Classic muscle car',
+    subtitle: 'An iconic pony car with serious power and an attitude to match.',
+    image: 'images/mustang.jpg',
+    imageAlt: 'Ford Mustang shown from the front at an angle',
+    specs: [
+      '4 seats',
+      'Automatic transmission',
+      'EcoBoost turbocharged engine',
+      'SYNC 4 infotainment & Apple CarPlay'
+    ],
+    baseRate: '$53/day',
+    insuranceRate: '$12/day',
+    totalRate: '$65/day'
+  },
+  'honda-civic': {
+    name: 'Honda Civic',
+    label: 'Compact hatchback',
+    subtitle: 'A sporty and fuel-efficient compact that handles everything from commutes to canyon runs.',
+    image: 'images/civic.jpg',
+    imageAlt: 'Honda Civic Type R shown from the front',
+    specs: [
+      '5 seats',
+      'Manual or automatic transmission',
+      'Turbocharged 1.5L engine',
+      'Honda Sensing safety suite & CarPlay'
+    ],
+    baseRate: '$34/day',
+    insuranceRate: '$9/day',
+    totalRate: '$43/day'
   }
 };
 
@@ -529,10 +577,10 @@ function setupBookingFormLoading() {
 
     // validate all fields and show errors if invalid
     const allValid = 
-    validateName() & 
-    validateEmail() & 
-    validatePhone() & 
-    validateLicense() & 
+    validateName() && 
+    validateEmail() && 
+    validatePhone() && 
+    validateLicense() && 
     validatePayment();
 
     if (!allValid) return;
