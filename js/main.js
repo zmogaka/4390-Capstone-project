@@ -529,10 +529,10 @@ function setupBookingFormLoading() {
 
     // validate all fields and show errors if invalid
     const allValid = 
-    validateName() && 
-    validateEmail() && 
-    validatePhone() && 
-    validateLicense() && 
+    validateName() & 
+    validateEmail() & 
+    validatePhone() & 
+    validateLicense() & 
     validatePayment();
 
     if (!allValid) return;
